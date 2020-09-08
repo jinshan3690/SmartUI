@@ -13,14 +13,16 @@ SmartImage ImageView编写
 SmartEdittext 基于LinearLayout编写
 
 #引入
+```javascript
 dependencies {
-    implementation 'com.github.jinshan3690:SmartUI:1.0.0'
+	implementation 'com.github.jinshan3690:SmartUI:1.0.0'
 }
+```
 
 
 #截图
-![screenshot1](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_1.jpg "screenshot1")
+![screenshot1](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_1.jpg =50%x "screenshot1")
 
-![screenshot2](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_2.jpg "screenshot2")
+![screenshot2](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_2.jpg =50%x "screenshot2")
 
 ### End
