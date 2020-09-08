@@ -1,0 +1,334 @@
+<resources>
+
+    <!--  SmartAttr  -->
+    <attr name="sl_background" format="reference" />
+    <attr name="sl_color" format="reference|color" />
+    <attr name="sl_endColor" format="reference|color" />
+    <attr name="sl_orientation" format="enum">
+        <enum name="TOP_BOTTOM" value="0" />
+        <enum name="TR_BL" value="1" />
+        <enum name="RIGHT_LEFT" value="2" />
+        <enum name="BR_TL" value="3" />
+        <enum name="BOTTOM_TOP" value="4" />
+        <enum name="BL_TR" value="5" />
+        <enum name="LEFT_RIGHT" value="6" />
+        <enum name="TL_BR" value="7" />
+    </attr>
+    <attr name="sl_rippleColor" format="reference|color" />
+    <attr name="sl_shadowColor" format="reference|color" />
+    <attr name="sl_disableColor" format="reference|color" />
+    <attr name="sl_maskDrawable" format="reference" />
+    <attr name="sl_stateListAnim" format="reference" />
+    <attr name="sl_defaultStateListAnim" format="reference|boolean" />
+    <attr name="sl_stroke" format="reference|dimension" />
+    <attr name="sl_strokeColor" format="reference|color" />
+    <attr name="sl_strokeOverlay" format="reference|boolean" />
+    <attr name="sl_selectedStrokeColor" format="reference|color" />
+    <attr name="sl_selectedColor" format="reference|color" />
+    <attr name="sl_selectedEndColor" format="reference|color" />
+    <attr name="sl_radius" format="reference|dimension" />
+    <attr name="sl_radiusLeftTop" format="reference|dimension" />
+    <attr name="sl_radiusRightTop" format="reference|dimension" />
+    <attr name="sl_radiusLeftBottom" format="reference|dimension" />
+    <attr name="sl_radiusRightBottom" format="reference|dimension" />
+    <attr name="sl_elevationNormal" format="reference|dimension" />
+    <attr name="sl_translationZNormal" format="reference|dimension" />
+    <attr name="sl_elevationPressed" format="reference|dimension" />
+    <attr name="sl_translationZPressed" format="reference|dimension" />
+    <attr name="sl_shape" format="enum">
+        <enum name="RECTANGLE" value="0" />
+        <enum name="OVAL" value="1" />
+        <enum name="LINE" value="2" />
+        <enum name="RING" value="3" />
+    </attr>
+    <!--    TextView    -->
+    <attr name="sl_compat" format="boolean|reference" />
+    <attr name="sl_compat_ellipsize" format="boolean|reference" />
+    <attr name="sl_compat_align" format="enum">
+        <enum name="ALIGN_LEFT" value="0" />
+        <enum name="ALIGN_CENTER" value="1" />
+        <enum name="ALIGN_RIGHT" value="2" />
+    </attr>
+    <attr name="sl_textStyle" format="enum">
+        <enum name="none" value="0" />
+        <enum name="bold" value="1" />
+    </attr>
+
+    <attr name="sl_textEndColors" format="reference|string" />
+    <attr name="sl_textEndStep" format="reference|string" />
+    <attr name="sl_textSelectedEndColors" format="reference|string" />
+    <attr name="sl_textSelectedEndStep" format="reference|string" />
+    <attr name="sl_textSelectedColor" format="reference|color" />
+    <attr name="sl_textDisableColor" format="reference|color" />
+    <attr name="sl_compoundDrawableLeftColor" format="reference|color" />
+    <attr name="sl_compoundDrawableRightColor" format="reference|color" />
+    <attr name="sl_compoundDrawableTopColor" format="reference|color" />
+    <attr name="sl_compoundDrawableBottomColor" format="reference|color" />
+    <attr name="sl_compoundDrawableLeftWidth" format="reference|dimension" />
+    <attr name="sl_compoundDrawableLeftHeight" format="reference|dimension" />
+    <attr name="sl_compoundDrawableRightWidth" format="reference|dimension" />
+    <attr name="sl_compoundDrawableRightHeight" format="reference|dimension" />
+    <attr name="sl_compoundDrawableTopWidth" format="reference|dimension" />
+    <attr name="sl_compoundDrawableTopHeight" format="reference|dimension" />
+    <attr name="sl_compoundDrawableBottomWidth" format="reference|dimension" />
+    <attr name="sl_compoundDrawableBottomHeight" format="reference|dimension" />
+    <!--  EditText  -->
+    <attr name="sl_prefixIcon" format="reference" />
+    <attr name="sl_prefixIconWidth" format="reference|dimension" />
+    <attr name="sl_prefixIconHeight" format="reference|dimension" />
+    <attr name="sl_prefixIconLeftPadding" format="reference|dimension" />
+    <attr name="sl_prefixIconRightPadding" format="reference|dimension" />
+    <attr name="sl_suffixIcon" format="reference" />
+    <attr name="sl_suffixIconWidth" format="reference|dimension" />
+    <attr name="sl_suffixIconHeight" format="reference|dimension" />
+    <attr name="sl_suffixIconLeftPadding" format="reference|dimension" />
+    <attr name="sl_suffixIconRightPadding" format="reference|dimension" />
+    <attr name="sl_cancelIcon" format="reference" />
+    <attr name="sl_cancelIconWidth" format="reference|dimension" />
+    <attr name="sl_cancelIconHeight" format="reference|dimension" />
+    <attr name="sl_cancelIconLeftPadding" format="reference|dimension" />
+    <attr name="sl_cancelIconRightPadding" format="reference|dimension" />
+
+    <attr name="sl_length" format="reference|integer" />
+    <attr name="sl_text" format="reference|string" />
+    <attr name="sl_textColor" format="reference|color" />
+    <attr name="sl_textSize" format="reference|dimension" />
+    <attr name="sl_hint" format="reference|string" />
+    <attr name="sl_hintColor" format="reference|color" />
+    <attr name="sl_editEnabled" format="reference|boolean" />
+    <attr name="sl_textPaddingLeft" format="reference|dimension" />
+    <attr name="sl_textPaddingTop" format="reference|dimension" />
+    <attr name="sl_textPaddingRight" format="reference|dimension" />
+    <attr name="sl_textPaddingBottom" format="reference|dimension" />
+    <attr name="sl_inputType" format="enum">
+        <enum name="text" value="0" />
+        <enum name="password" value="1" />
+        <enum name="visiblePassword" value="2" />
+    </attr>
+    <attr name="sl_multiLine" format="reference|boolean" />
+    <attr name="sl_digits" format="reference|string" />
+    <attr name="sl_imeOptions" format="enum">
+        <enum name="actionDone" value="1" />
+        <enum name="actionNext" value="2" />
+        <enum name="actionSend" value="3" />
+        <enum name="actionSearch" value="4" />
+        <enum name="actionGo" value="5" />
+    </attr>
+    <attr name="sl_textGravity" format="integer">
+        <!-- Push object to the top of its container, not changing its size. -->
+        <flag name="top" value="0x30" />
+        <!-- Push object to the bottom of its container, not changing its size. -->
+        <flag name="bottom" value="0x50" />
+        <!-- Push object to the left of its container, not changing its size. -->
+        <flag name="left" value="0x03" />
+        <!-- Push object to the right of its container, not changing its size. -->
+        <flag name="right" value="0x05" />
+        <!-- Place object in the vertical center of its container, not changing its size. -->
+        <flag name="center_vertical" value="0x10" />
+        <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill_vertical" value="0x70" />
+        <!-- Place object in the horizontal center of its container, not changing its size. -->
+        <flag name="center_horizontal" value="0x01" />
+        <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+        <flag name="fill_horizontal" value="0x07" />
+        <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+        <flag name="center" value="0x11" />
+        <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill" value="0x77" />
+        <!-- Additional option that can be set to have the top and/or bottom edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the vertical gravity: a top gravity will clip the bottom
+             edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+        <flag name="clip_vertical" value="0x80" />
+        <!-- Additional option that can be set to have the left and/or right edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the horizontal gravity: a left gravity will clip the right
+             edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+        <flag name="clip_horizontal" value="0x08" />
+        <!-- Push object to the beginning of its container, not changing its size. -->
+        <flag name="start" value="0x00800003" />
+        <!-- Push object to the end of its container, not changing its size. -->
+        <flag name="end" value="0x00800005" />
+    </attr>
+
+    <declare-styleable name="SmartLayout">
+        <attr name="sl_background" />
+        <attr name="sl_color" />
+        <attr name="sl_endColor" />
+        <attr name="sl_orientation" />
+        <attr name="sl_rippleColor" />
+        <attr name="sl_shadowColor" />
+        <attr name="sl_disableColor" />
+        <attr name="sl_maskDrawable" />
+        <attr name="sl_stateListAnim" />
+        <attr name="sl_defaultStateListAnim" />
+        <attr name="sl_stroke" />
+        <attr name="sl_strokeColor" />
+        <attr name="sl_strokeOverlay" />
+        <attr name="sl_selectedStrokeColor" />
+        <attr name="sl_selectedColor" />
+        <attr name="sl_selectedEndColor" />
+        <attr name="sl_radius" />
+        <attr name="sl_radiusLeftTop" />
+        <attr name="sl_radiusRightTop" />
+        <attr name="sl_radiusLeftBottom" />
+        <attr name="sl_radiusRightBottom" />
+        <attr name="sl_elevationNormal" />
+        <attr name="sl_translationZNormal" />
+        <attr name="sl_elevationPressed" />
+        <attr name="sl_translationZPressed" />
+        <attr name="sl_shape" />
+    </declare-styleable>
+
+    <declare-styleable name="SmartImageView">
+        <attr name="sl_color" />
+        <attr name="sl_endColor" />
+        <attr name="sl_orientation" />
+        <attr name="sl_rippleColor" />
+        <attr name="sl_shadowColor" />
+        <attr name="sl_disableColor" />
+        <attr name="sl_maskDrawable" />
+        <attr name="sl_stateListAnim" />
+        <attr name="sl_defaultStateListAnim" />
+        <attr name="sl_stroke" />
+        <attr name="sl_strokeColor" />
+        <attr name="sl_strokeOverlay" />
+        <attr name="sl_selectedStrokeColor" />
+        <attr name="sl_selectedColor" />
+        <attr name="sl_selectedEndColor" />
+        <attr name="sl_radius" />
+        <attr name="sl_radiusLeftTop" />
+        <attr name="sl_radiusRightTop" />
+        <attr name="sl_radiusLeftBottom" />
+        <attr name="sl_radiusRightBottom" />
+        <attr name="sl_elevationNormal" />
+        <attr name="sl_translationZNormal" />
+        <attr name="sl_elevationPressed" />
+        <attr name="sl_translationZPressed" />
+        <attr name="sl_shape" />
+    </declare-styleable>
+
+    <declare-styleable name="SmartTextView">
+        <attr name="sl_background" />
+        <attr name="sl_color" />
+        <attr name="sl_endColor" />
+        <attr name="sl_orientation" />
+        <attr name="sl_rippleColor" />
+        <attr name="sl_shadowColor" />
+        <attr name="sl_disableColor" />
+        <attr name="sl_maskDrawable" />
+        <attr name="sl_stateListAnim" />
+        <attr name="sl_defaultStateListAnim" />
+        <attr name="sl_stroke" />
+        <attr name="sl_strokeColor" />
+        <attr name="sl_strokeOverlay" />
+        <attr name="sl_selectedStrokeColor" />
+        <attr name="sl_selectedColor" />
+        <attr name="sl_selectedEndColor" />
+        <attr name="sl_radius" />
+        <attr name="sl_radiusLeftTop" />
+        <attr name="sl_radiusRightTop" />
+        <attr name="sl_radiusLeftBottom" />
+        <attr name="sl_radiusRightBottom" />
+        <attr name="sl_elevationNormal" />
+        <attr name="sl_translationZNormal" />
+        <attr name="sl_elevationPressed" />
+        <attr name="sl_translationZPressed" />
+        <attr name="sl_shape" />
+
+        <attr name="sl_compat" />
+        <attr name="sl_compat_ellipsize" />
+        <attr name="sl_compat_align" />
+        <attr name="sl_textStyle" />
+        <attr name="sl_textSelectedColor" />
+        <attr name="sl_textDisableColor" />
+        <attr name="sl_textEndColors" />
+        <attr name="sl_textSelectedEndColors" />
+        <attr name="sl_textEndStep" />
+        <attr name="sl_textSelectedEndStep" />
+
+        <attr name="sl_compoundDrawableLeftColor" />
+        <attr name="sl_compoundDrawableRightColor" />
+        <attr name="sl_compoundDrawableTopColor" />
+        <attr name="sl_compoundDrawableBottomColor" />
+        <attr name="sl_compoundDrawableLeftWidth" />
+        <attr name="sl_compoundDrawableLeftHeight" />
+        <attr name="sl_compoundDrawableRightWidth" />
+        <attr name="sl_compoundDrawableRightHeight" />
+        <attr name="sl_compoundDrawableTopWidth" />
+        <attr name="sl_compoundDrawableTopHeight" />
+        <attr name="sl_compoundDrawableBottomWidth" />
+        <attr name="sl_compoundDrawableBottomHeight" />
+    </declare-styleable>
+
+    <declare-styleable name="SmartEditText">
+        <attr name="sl_background" />
+        <attr name="sl_color" />
+        <attr name="sl_endColor" />
+        <attr name="sl_orientation" />
+        <attr name="sl_rippleColor" />
+        <attr name="sl_shadowColor" />
+        <attr name="sl_disableColor" />
+        <attr name="sl_maskDrawable" />
+        <attr name="sl_stateListAnim" />
+        <attr name="sl_defaultStateListAnim" />
+        <attr name="sl_stroke" />
+        <attr name="sl_strokeColor" />
+        <attr name="sl_strokeOverlay" />
+        <attr name="sl_selectedStrokeColor" />
+        <attr name="sl_selectedColor" />
+        <attr name="sl_selectedEndColor" />
+        <attr name="sl_radius" />
+        <attr name="sl_radiusLeftTop" />
+        <attr name="sl_radiusRightTop" />
+        <attr name="sl_radiusLeftBottom" />
+        <attr name="sl_radiusRightBottom" />
+        <attr name="sl_elevationNormal" />
+        <attr name="sl_translationZNormal" />
+        <attr name="sl_elevationPressed" />
+        <attr name="sl_translationZPressed" />
+        <attr name="sl_shape" />
+
+        <attr name="sl_textStyle" />
+        <attr name="sl_textSelectedColor" />
+        <attr name="sl_textDisableColor" />
+        <attr name="sl_textEndColors" />
+        <attr name="sl_textSelectedEndColors" />
+        <attr name="sl_textEndStep" />
+        <attr name="sl_textSelectedEndStep" />
+
+        <attr name="sl_text" />
+        <attr name="sl_textColor" />
+        <attr name="sl_textSize" />
+        <attr name="sl_length" />
+        <attr name="sl_editEnabled" />
+        <attr name="sl_hint" />
+        <attr name="sl_hintColor" />
+        <attr name="sl_multiLine" />
+        <attr name="sl_inputType" />
+        <attr name="sl_digits" />
+        <attr name="sl_textGravity" />
+        <attr name="sl_imeOptions" />
+        <attr name="sl_textPaddingLeft" />
+        <attr name="sl_textPaddingTop" />
+        <attr name="sl_textPaddingRight" />
+        <attr name="sl_textPaddingBottom" />
+
+        <attr name="sl_prefixIcon" />
+        <attr name="sl_prefixIconWidth" />
+        <attr name="sl_prefixIconHeight" />
+        <attr name="sl_prefixIconLeftPadding" />
+        <attr name="sl_prefixIconRightPadding" />
+        <attr name="sl_suffixIcon" />
+        <attr name="sl_suffixIconWidth" />
+        <attr name="sl_suffixIconHeight" />
+        <attr name="sl_suffixIconLeftPadding" />
+        <attr name="sl_suffixIconRightPadding" />
+        <attr name="sl_cancelIcon" />
+        <attr name="sl_cancelIconWidth" />
+        <attr name="sl_cancelIconHeight" />
+        <attr name="sl_cancelIconLeftPadding" />
+        <attr name="sl_cancelIconRightPadding" />
+    </declare-styleable>
+
+</resources>

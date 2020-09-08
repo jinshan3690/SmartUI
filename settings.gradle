@@ -1,0 +1,3 @@
+include ':SmartUI'
+include ':app'
+rootProject.name = "SmartUIDemo"
