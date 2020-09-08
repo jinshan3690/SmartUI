@@ -21,8 +21,8 @@ dependencies {
 
 
 #截图
-![screenshot1](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_1.jpg =50%x)
+![screenshot1](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_1.jpg =500x)
 
-![screenshot2](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_2.jpg =50%x)
+![screenshot2](https://github.com/jinshan3690/SmartUI/blob/master/screenshot/Screenshot_2.jpg =500x)
 
 ### End
