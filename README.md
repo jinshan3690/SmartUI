@@ -12,5 +12,5 @@ SmartEdittext 基于LinearLayout编写
 
 引入
 dependencies {
-	        implementation 'com.github.jinshan3690:SmartUI:1.0.0'
-          }
+    implementation 'com.github.jinshan3690:SmartUI:1.0.0'
+}
