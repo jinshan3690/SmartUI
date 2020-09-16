@@ -19,7 +19,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SmartLayout"
@@ -34,7 +34,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl1"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -45,16 +45,16 @@
                 app:sl_radiusRightTop="10dp"
                 app:sl_rippleColor="#EC407A">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="无背景有ripple" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl2"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -65,15 +65,15 @@
                 app:sl_color="#ef5350"
                 app:sl_radius="10dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="有背景" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl3"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -85,15 +85,15 @@
                 app:sl_radiusRightTop="10dp"
                 app:sl_selectedColor="#7E57C2">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="可选中" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl4"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -103,13 +103,13 @@
                 app:sl_disableColor="#cccccc"
                 app:sl_radius="10dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="禁用" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
         </LinearLayout>
 
@@ -119,7 +119,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl5"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -129,16 +129,16 @@
                 app:sl_radius="10dp"
                 app:sl_rippleColor="@android:color/transparent">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="有背景无ripple" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl6"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -152,15 +152,15 @@
                 app:sl_stroke="2dp"
                 app:sl_strokeColor="#26C6DA">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="border" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl7"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -173,16 +173,16 @@
                 app:sl_stroke="2dp"
                 app:sl_strokeColor="#26A69A">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="可选中border" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl8"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -194,13 +194,13 @@
                 app:sl_radiusLeftBottom="10dp"
                 app:sl_radiusRightTop="10dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="渐变" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
         </LinearLayout>
 
@@ -209,7 +209,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl9"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -224,16 +224,16 @@
                 app:sl_radiusRightTop="10dp"
                 app:sl_rippleColor="@android:color/transparent">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="按压" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl20"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -248,15 +248,15 @@
                 app:sl_radius="10dp"
                 app:sl_translationZNormal="5dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="阴影" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl21"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -274,16 +274,16 @@
                 app:sl_translationZNormal="5dp"
                 app:sl_translationZPressed="10dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="阴影按压" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl22"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -298,14 +298,14 @@
                 app:sl_shadowColor="#f44336"
                 app:sl_translationZNormal="5dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="阴影颜色8.0以上" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
         </LinearLayout>
 
@@ -315,7 +315,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/s23"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -323,16 +323,16 @@
                 android:onClick="onClick"
                 app:sl_background="@mipmap/ic_launcher">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="background" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:id="@+id/s24"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -344,13 +344,13 @@
                 app:sl_maskDrawable="@mipmap/head"
                 app:sl_rippleColor="#039BE5">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="mask" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
 
         </LinearLayout>
@@ -361,7 +361,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SmartText"
@@ -376,7 +376,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -387,7 +387,7 @@
                 app:sl_color="#f5f5f5"
                 app:sl_rippleColor="#EC407A" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st2"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -400,7 +400,7 @@
                 app:sl_color="#ef5350"
                 app:sl_radius="10dp" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st3"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -413,7 +413,7 @@
                 app:sl_selectedColor="#7E57C2"
                 app:sl_textSelectedColor="#ffffff" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st4"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -434,7 +434,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -446,7 +446,7 @@
                 app:sl_radius="10dp"
                 app:sl_rippleColor="@android:color/transparent" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -460,7 +460,7 @@
                 app:sl_stroke="2dp"
                 app:sl_strokeColor="#26C6DA" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st7"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -479,7 +479,7 @@
                 app:sl_textSelectedEndColors="#7E57C2,#FFA726"
                 app:sl_textSelectedEndStep="0,1" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st8"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -499,7 +499,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st9"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -514,7 +514,7 @@
                 app:sl_radiusRightTop="10dp"
                 app:sl_rippleColor="@android:color/transparent" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st20"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -529,7 +529,7 @@
                 app:sl_radius="10dp"
                 app:sl_translationZNormal="5dp" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st21"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -547,7 +547,7 @@
                 app:sl_translationZNormal="5dp"
                 app:sl_translationZPressed="10dp" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st22"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -570,7 +570,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st23"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -580,7 +580,7 @@
                 android:text="background"
                 app:sl_background="@mipmap/ic_launcher" />
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st24"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -604,7 +604,7 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st25"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -615,14 +615,14 @@
                 app:sl_radius="30dp"
                 app:sl_textStyle="bold" />
 
-            <com.hpcang.smart.ui.widget.SmartLayout
+            <com.smart.ui.widget.SmartLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 app:sl_color="#ffffff"
                 app:sl_radius="30dp">
 
-                <com.hpcang.smart.ui.widget.SmartTextView
+                <com.smart.ui.widget.SmartTextView
                     android:id="@+id/st26"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -634,7 +634,7 @@
                     app:sl_compat_align="ALIGN_CENTER"
                     app:sl_compat_ellipsize="true" />
 
-            </com.hpcang.smart.ui.widget.SmartLayout>
+            </com.smart.ui.widget.SmartLayout>
 
 
         </LinearLayout>
@@ -646,7 +646,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:id="@+id/st27"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -671,7 +671,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SmartImage"
@@ -687,7 +687,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartImageView
+            <com.smart.ui.widget.SmartImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/head"
@@ -697,7 +697,7 @@
                 app:sl_strokeColor="#FFC107"
                 app:sl_radius="40dp"/>
 
-            <com.hpcang.smart.ui.widget.SmartImageView
+            <com.smart.ui.widget.SmartImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/ic_launcher"
@@ -717,7 +717,7 @@
             android:orientation="horizontal"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartTextView
+            <com.smart.ui.widget.SmartTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SmartEditText"
@@ -732,7 +732,7 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <com.hpcang.smart.ui.widget.SmartEditText
+            <com.smart.ui.widget.SmartEditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sl_textGravity="center_vertical"
@@ -754,7 +754,7 @@
                 app:sl_textColor="#039BE5"
                 app:sl_textStyle="bold" />
 
-            <com.hpcang.smart.ui.widget.SmartEditText
+            <com.smart.ui.widget.SmartEditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
@@ -770,7 +770,7 @@
                 app:sl_textColor="#039BE5"
                 app:sl_textStyle="bold" />
 
-            <com.hpcang.smart.ui.widget.SmartEditText
+            <com.smart.ui.widget.SmartEditText
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
