@@ -24,16 +24,13 @@ object TextViewBindingAdapter {
         return view.editText?.text?.toString()
     }
 
-    private var textChanged: TextWatcher? = null
-
     @JvmStatic
     @BindingAdapter(value = ["textAttrChanged"], requireAll = false)
     fun setTextAttrChange(view: SmartEditText, listener: InverseBindingListener?) {
         listener?.let {
-            if (textChanged == null)
-                textChanged = view.editText?.doOnTextChanged { _, _, _, _ ->
-                    listener.onChange()
-                }
+            view.editText?.doOnTextChanged { _, _, _, _ ->
+                listener.onChange()
+            }
         }
     }
 
