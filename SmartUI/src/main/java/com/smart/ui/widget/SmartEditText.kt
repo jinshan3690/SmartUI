@@ -23,6 +23,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.*
 import com.smart.ui.R
+import com.smart.ui.extensions.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(
@@ -36,6 +37,7 @@ class SmartEditText @JvmOverloads constructor(
     var suffixIcon: LinearLayout? = null
     var cancelIcon: LinearLayout? = null
     var textChangedListener: TextChangedListener? = null
+    var focusChangeListener: FocusChangeListener? = null
     var specharsListener: SpecharsListener? = null
     var searchListener: SearchListener? = null
     var length = -1
@@ -185,6 +187,7 @@ class SmartEditText @JvmOverloads constructor(
         editText =
             SmartEdit(context, textLeftPadding, textRightPadding, textTopPadding, textBottomPadding)
 
+        editText?.onFocusChangeListener = this
         editText?.addTextChangedListener(this)
         editText?.setOnEditorActionListener(this)
         editText?.post { editText?.setSelection(editText?.length() ?: 0) }
@@ -195,7 +198,7 @@ class SmartEditText @JvmOverloads constructor(
                 cancelIconDrawable, cancelIconWidth, cancelIconHeight,
                 cancelIconLeftPadding, cancelIconRightPadding
             )
-            cancelIcon?.setOnClickListener { editText?.text = null }
+            cancelIcon?.setOnClickListener { setText(null) }
             addView(cancelIcon)
         }
 
@@ -209,11 +212,9 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) { // 焦点变化时
-        if (hasFocus && editText?.text?.length ?: 0 > 0 && editText?.isEnabled == true) {
-            cancelIcon?.visibility = View.VISIBLE
-        } else {
-            cancelIcon?.visibility = View.GONE
-        }
+        focusChangeListener?.onFocusChange(v, hasFocus)
+
+        hideCancelIcon()
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -229,11 +230,7 @@ class SmartEditText @JvmOverloads constructor(
             editText?.setText(s?.subSequence(0, length))
             editText?.setSelection(length)
         }
-        if (s?.length ?: 0 > 0 && editText?.isEnabled == true) {
-            cancelIcon?.visibility = View.VISIBLE
-        } else {
-            cancelIcon?.visibility = View.GONE
-        }
+        hideCancelIcon()
 
         textChangedListener?.onTextChanged(s, start, before, count)
     }
@@ -381,12 +378,9 @@ class SmartEditText @JvmOverloads constructor(
     fun setEditEnabled(enabled: Boolean) {
         suffixIcon?.isEnabled = enabled
         cancelIcon?.isEnabled = enabled
-        if (enabled)
-            cancelIcon?.visibility = View.VISIBLE
-        else
-            cancelIcon?.visibility = View.GONE
         prefixIcon?.isEnabled = enabled
         editText?.isEnabled = enabled
+        hideCancelIcon()
     }
 
     fun setDigits(digits: String?) {
@@ -414,12 +408,21 @@ class SmartEditText @JvmOverloads constructor(
         return linearLayout
     }
 
-    fun setText(text: CharSequence?) {
-        editText?.setText(text)
+    fun hideCancelIcon(){
+        if (getText()?.length ?: 0 > 0 && editText?.isEnabled == true && editText?.isFocused == true) {
+            cancelIcon?.visibility = View.VISIBLE
+        } else {
+            cancelIcon?.visibility = View.GONE
+        }
     }
 
-    fun getText(): Editable? {
-        return editText?.text
+    fun setText(text: CharSequence?) {
+        TextViewBindingAdapter.setText(this, text?.toString())
+        editText?.setSelection(text?.length?:0)
+    }
+
+    fun getText(): String? {
+        return TextViewBindingAdapter.getText(this)
     }
 
     @SuppressLint("ViewConstructor")
@@ -444,6 +447,10 @@ class SmartEditText @JvmOverloads constructor(
 
     interface SpecharsListener {
         fun warn(type: String)
+    }
+
+    interface FocusChangeListener {
+        fun onFocusChange(v: View, hasFocus: Boolean)
     }
 
     abstract class TextChangedListener {
