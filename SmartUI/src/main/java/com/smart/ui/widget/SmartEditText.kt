@@ -411,6 +411,14 @@ class SmartEditText @JvmOverloads constructor(
         return linearLayout
     }
 
+    fun setText(text: String?) {
+        editText?.setText(text)
+    }
+
+    fun getText(): String? {
+        return editText?.text?.toString()
+    }
+
     @SuppressLint("ViewConstructor")
     class SmartEdit(
         context: Context, textLeftPadding: Int = 0, textRightPadding: Int = 0,
