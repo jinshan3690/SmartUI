@@ -8,12 +8,12 @@ import androidx.databinding.InverseBindingListener
 import com.smart.ui.widget.SmartEditText
 
 
-@BindingAdapter(value = ["text"], requireAll = false)
+@BindingAdapter(value = ["sl_text"], requireAll = false)
 fun setText(view: SmartEditText, text: CharSequence?) {
     view.setText(text)
 }
 
-@InverseBindingAdapter(attribute = "text", event = "textAttrChanged")
+@InverseBindingAdapter(attribute = "sl_text", event = "textAttrChanged")
 fun getText(view: SmartEditText): Editable? {
     return view.getText()
 }
