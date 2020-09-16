@@ -19,6 +19,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
+import androidx.databinding.*
 import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
@@ -411,12 +414,12 @@ class SmartEditText @JvmOverloads constructor(
         return linearLayout
     }
 
-    fun setText(text: String?) {
+    fun setText(text: CharSequence?) {
         editText?.setText(text)
     }
 
-    fun getText(): String? {
-        return editText?.text?.toString()
+    fun getText(): Editable? {
+        return editText?.text
     }
 
     @SuppressLint("ViewConstructor")
