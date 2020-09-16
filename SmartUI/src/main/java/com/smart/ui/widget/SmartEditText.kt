@@ -19,6 +19,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(

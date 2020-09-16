@@ -1,5 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.smart.ui.widget">
-
-    /
+    package="com.smart.ui">
 </manifest>

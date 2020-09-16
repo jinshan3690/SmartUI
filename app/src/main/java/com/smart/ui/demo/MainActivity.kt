@@ -1,4 +1,4 @@
-package com.smart.smart.ui.demo
+package com.smart.ui.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

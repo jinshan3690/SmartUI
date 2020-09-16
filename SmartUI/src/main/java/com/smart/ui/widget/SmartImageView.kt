@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
 

@@ -17,7 +17,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import com.smart.ui.widget.R
+import com.smart.ui.R
 import kotlin.math.max
 import kotlin.math.min
 
