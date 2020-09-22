@@ -300,10 +300,10 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         val stroke = if (strokeOverlay) stroke else 0
         layer.set(0f, 0f, w.toFloat(), h.toFloat())
         val areas = RectF()
-        areas.left = paddingLeft.toFloat() + stroke
-        areas.top = paddingTop.toFloat() + stroke
-        areas.right = w - paddingRight.toFloat() - stroke
-        areas.bottom = h - paddingBottom.toFloat() - stroke
+        areas.left = stroke.toFloat()
+        areas.top = stroke.toFloat()
+        areas.right = w - stroke.toFloat()
+        areas.bottom = h - stroke.toFloat()
         clipPath.reset()
         clipPath.addRoundRect(areas, cornerRadiusArray, Path.Direction.CW)
     }
