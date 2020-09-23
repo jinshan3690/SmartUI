@@ -3,6 +3,7 @@ package com.smart.ui.widget
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
@@ -151,8 +152,8 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
             // 文本含有换行符时，分割单独处理
             val items = text.split("\\n".toRegex()).toTypedArray()
             val innerWidth = measuredWidth -
-                    (if (helper.strokeOverlay) paddingLeft else paddingLeft + helper.stroke) -
-                    (if (helper.strokeOverlay) paddingRight else paddingRight + helper.stroke)
+                    (if (helper.strokeOverlay) paddingLeft else paddingLeft + if (helper.strokeOverlay) 0 else helper.stroke) -
+                    (if (helper.strokeOverlay) paddingRight else paddingRight + if (helper.strokeOverlay) 0 else helper.stroke)
             for (item in items) {
                 calc(paint, item, innerWidth)
             }
@@ -181,11 +182,11 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
 
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
 
-        if (compat && heightMode != MeasureSpec.EXACTLY)
-            setMeasuredDimension(
-                widthMeasureSpec,
-                ((compatTextLineSpaceExtra + compatTextHeight) * (compatLines.size)).toInt()
-            )
+//        if (compat && heightMode != MeasureSpec.EXACTLY)
+//            setMeasuredDimension(
+//                widthMeasureSpec,
+//                ((compatTextLineSpaceExtra + compatTextHeight) * (compatLines.size)).toInt() + paddingTop + paddingBottom
+//            )
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -220,8 +221,8 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
             firstHeight += (compatTextHeight - firstHeight) / 2
         }
         val paddingTop = paddingTop
-        val paddingLeft = paddingLeft
-        val paddingRight = paddingRight
+        val paddingLeft = paddingLeft + if (helper.strokeOverlay) 0 else helper.stroke
+        val paddingRight = paddingRight + if (helper.strokeOverlay) 0 else helper.stroke
         width = width - paddingLeft - paddingRight
         for (i in compatLines.indices) {
             val drawY = i * compatTextHeight + firstHeight
@@ -241,13 +242,17 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
                     drawSpacingX += gap
                 }
             }
-            for (j in line.indices) {
-                val drawX = paint.measureText(line.substring(0, j)) + interval * j
-                canvas.drawText(
-                    line.substring(j, j + 1), drawX + drawSpacingX, drawY +
-                            paddingTop + compatTextLineSpaceExtra * i, paint
-                )
-            }
+            canvas.drawText(
+                line,  drawSpacingX, drawY +
+                        paddingTop + compatTextLineSpaceExtra * i, paint
+            )
+//            for (j in line.indices) {
+//                val drawX = paint.measureText(line.substring(0, j)) + interval * j
+//                canvas.drawText(
+//                    line.substring(j, j + 1), drawX + drawSpacingX, drawY +
+//                            paddingTop + compatTextLineSpaceExtra * i, paint
+//                )
+//            }
         }
     }
 
@@ -324,7 +329,7 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         var startPosition = 0 // 起始位置
         var endPosition = 1 // 结束位置
-        var sb = java.lang.StringBuilder()
+        val sb = java.lang.StringBuilder()
         if (paint.measureText(text) < width) {
             sb.append(text)
             addCompatLines(sb.toString())

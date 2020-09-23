@@ -64,18 +64,20 @@
             <com.smart.ui.widget.SmartLayout
                 android:id="@+id/sl2"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
                 android:onClick="onClick"
                 app:sl_color="#ef5350"
                 app:sl_radius="10dp">
 
                 <com.smart.ui.widget.SmartTextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textSize="12sp"
                     android:text="有背景" />
 
             </com.smart.ui.widget.SmartLayout>
