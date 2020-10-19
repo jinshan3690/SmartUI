@@ -40,6 +40,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var shadowColor: Int = 0
     private var maskDrawable: Drawable? = null
     private var disableColor: Int = 0
+    private var disableStrokeColor: Int = 0
     private var selectedStrokeColor: Int = 0
     private var selectedColor: Int = 0
     private var selectedEndColor: Int = 0
@@ -77,7 +78,10 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 else -> GradientDrawable.Orientation.TL_BR
             }
             disableColor = typedArray.getColor(
-                R.styleable.SmartLayout_sl_disableColor, 999
+                R.styleable.SmartLayout_sl_disableColor, -999
+            )
+            disableStrokeColor = typedArray.getColor(
+                R.styleable.SmartLayout_sl_disableStrokeColor, -999
             )
             rippleColor = typedArray.getColor(
                 R.styleable.SmartLayout_sl_rippleColor, getColorWithAlpha(0.08f, Color.BLACK)
@@ -185,13 +189,18 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             color = *intArrayOf(color, endColor)
         )
 
-        if (disableColor != 999) {
-            val disableDrawable = createDrawable(
-                color = *intArrayOf(disableColor)
-            )
-
-            stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), disableDrawable)
+        if (disableColor == -999) {
+            disableColor = color
         }
+        if (disableStrokeColor == -999) {
+            disableStrokeColor = strokeColor
+        }
+        val disableDrawable = createDrawable(
+            strokeColor = disableStrokeColor, color = *intArrayOf(disableColor)
+        )
+
+        stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), disableDrawable)
+
         if (selectedColor != -999 || selectedStrokeColor != -999) {
             if (selectedColor == -999)
                 selectedColor = Color.TRANSPARENT

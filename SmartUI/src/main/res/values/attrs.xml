@@ -17,6 +17,7 @@
     <attr name="sl_rippleColor" format="reference|color" />
     <attr name="sl_shadowColor" format="reference|color" />
     <attr name="sl_disableColor" format="reference|color" />
+    <attr name="sl_disableStrokeColor" format="reference|color" />
     <attr name="sl_maskDrawable" format="reference" />
     <attr name="sl_stateListAnim" format="reference" />
     <attr name="sl_defaultStateListAnim" format="reference|boolean" />
@@ -159,6 +160,7 @@
         <attr name="sl_rippleColor" />
         <attr name="sl_shadowColor" />
         <attr name="sl_disableColor" />
+        <attr name="sl_disableStrokeColor" />
         <attr name="sl_maskDrawable" />
         <attr name="sl_stateListAnim" />
         <attr name="sl_defaultStateListAnim" />
@@ -187,6 +189,7 @@
         <attr name="sl_rippleColor" />
         <attr name="sl_shadowColor" />
         <attr name="sl_disableColor" />
+        <attr name="sl_disableStrokeColor" />
         <attr name="sl_maskDrawable" />
         <attr name="sl_stateListAnim" />
         <attr name="sl_defaultStateListAnim" />
@@ -216,6 +219,7 @@
         <attr name="sl_rippleColor" />
         <attr name="sl_shadowColor" />
         <attr name="sl_disableColor" />
+        <attr name="sl_disableStrokeColor" />
         <attr name="sl_maskDrawable" />
         <attr name="sl_stateListAnim" />
         <attr name="sl_defaultStateListAnim" />
@@ -269,6 +273,7 @@
         <attr name="sl_rippleColor" />
         <attr name="sl_shadowColor" />
         <attr name="sl_disableColor" />
+        <attr name="sl_disableStrokeColor" />
         <attr name="sl_maskDrawable" />
         <attr name="sl_stateListAnim" />
         <attr name="sl_defaultStateListAnim" />

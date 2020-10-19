@@ -110,6 +110,9 @@
                 android:onClick="onClick"
                 app:sl_color="#5C6BC0"
                 app:sl_disableColor="#cccccc"
+                app:sl_stroke="1dp"
+                app:sl_strokeColor="#000000"
+                app:sl_disableStrokeColor="#ff00ff"
                 app:sl_radius="10dp">
 
                 <com.smart.ui.widget.SmartTextView
