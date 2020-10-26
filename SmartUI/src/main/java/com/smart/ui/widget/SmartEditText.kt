@@ -19,11 +19,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
-import androidx.databinding.*
 import com.smart.ui.R
-import com.smart.ui.extensions.TextViewBindingAdapter
+import com.smart.ui.binding.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(

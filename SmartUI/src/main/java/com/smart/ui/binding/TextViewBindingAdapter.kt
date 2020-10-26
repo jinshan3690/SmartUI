@@ -1,8 +1,5 @@
-package com.smart.ui.extensions
+package com.smart.ui.binding
 
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -22,6 +19,19 @@ object TextViewBindingAdapter {
     @InverseBindingAdapter(attribute = "sl_text", event = "textAttrChanged")
     fun getText(view: SmartEditText): String? {
         return view.editText?.text?.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["sl_hint"], requireAll = false)
+    fun setHint(view: SmartEditText, text: String?) {
+        if (view.getText() != text)
+            view.editText?.hint = text
+    }
+
+    @JvmStatic
+    @InverseBindingAdapter(attribute = "sl_hint", event = "textAttrChanged")
+    fun getHint(view: SmartEditText): String? {
+        return view.editText?.hint?.toString()
     }
 
     @JvmStatic
