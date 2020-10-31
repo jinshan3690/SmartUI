@@ -748,6 +748,7 @@
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartEditText
+                android:id="@+id/smartEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sl_textGravity="center_vertical"
@@ -764,6 +765,8 @@
                 app:sl_imeOptions="actionGo"
                 app:sl_hint="这是一个多功能EditText"
                 app:sl_hintColor="#9575CD"
+                app:sl_editEnabled="false"
+                android:onClick="onClick"
                 app:sl_text="@={name}"
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
