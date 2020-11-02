@@ -3,7 +3,9 @@ package com.smart.ui.widget
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
@@ -56,6 +58,61 @@ class SmartImageView @JvmOverloads constructor(
                 onClick(v)
             }
         }
+    }
+
+    fun setBackground(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
+        selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
+        stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
+    ) {
+        if (color != null) {
+            helper.color = ContextCompat.getColor(context, color)
+        }
+        if (endColor != null) {
+            helper.endColor = ContextCompat.getColor(context, endColor)
+        }
+        if (disableColor != null) {
+            helper.disableColor = ContextCompat.getColor(context, disableColor)
+        }
+        if (disableStrokeColor != null) {
+            helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
+        }
+        if (selectedColor != null) {
+            helper.selectedColor = ContextCompat.getColor(context, selectedColor)
+        }
+        if (selectedEndColor != null) {
+            helper.selectedEndColor = ContextCompat.getColor(context, selectedEndColor)
+        }
+        if (selectedStrokeColor != null) {
+            helper.selectedStrokeColor = ContextCompat.getColor(context, selectedStrokeColor)
+        }
+        if (rippleColor != null) {
+            helper.rippleColor = ContextCompat.getColor(context, rippleColor)
+        }
+        if (maskDrawable != null) {
+            helper.maskDrawable = maskDrawable
+        }
+        if (stroke != null) {
+            helper.stroke = stroke
+        }
+        if (shape != null) {
+            helper.shape = shape
+        }
+        if (orientation != null) {
+            helper.orientation = orientation
+        }
+        helper.initBackground()
+    }
+
+    fun setRadius(radius: Float) {
+        helper.initRadius(radius, radius, radius, radius)
+        //onSizeChanged
+        if(helper.strokeOverlay || helper.isCorner) {
+            helper.onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
+            strokeDrawable?.setBounds(0, 0, width, height)
+        }
+        helper.initBackground()
     }
 
 }

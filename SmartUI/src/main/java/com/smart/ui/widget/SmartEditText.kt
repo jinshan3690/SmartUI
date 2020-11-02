@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.text.*
 import android.text.method.DigitsKeyListener
 import android.text.method.TextKeyListener
@@ -19,6 +20,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import androidx.core.content.ContextCompat
 import com.smart.ui.R
 import com.smart.ui.binding.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
@@ -471,6 +473,89 @@ class SmartEditText @JvmOverloads constructor(
 
         abstract fun afterTextChanged(s: Editable?)
 
+    }
+
+    fun setBackground(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
+        selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
+        stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
+    ) {
+        if (color != null) {
+            helper.color = ContextCompat.getColor(context, color)
+        }
+        if (endColor != null) {
+            helper.endColor = ContextCompat.getColor(context, endColor)
+        }
+        if (disableColor != null) {
+            helper.disableColor = ContextCompat.getColor(context, disableColor)
+        }
+        if (disableStrokeColor != null) {
+            helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
+        }
+        if (selectedColor != null) {
+            helper.selectedColor = ContextCompat.getColor(context, selectedColor)
+        }
+        if (selectedEndColor != null) {
+            helper.selectedEndColor = ContextCompat.getColor(context, selectedEndColor)
+        }
+        if (selectedStrokeColor != null) {
+            helper.selectedStrokeColor = ContextCompat.getColor(context, selectedStrokeColor)
+        }
+        if (rippleColor != null) {
+            helper.rippleColor = ContextCompat.getColor(context, rippleColor)
+        }
+        if (maskDrawable != null) {
+            helper.maskDrawable = maskDrawable
+        }
+        if (stroke != null) {
+            helper.stroke = stroke
+        }
+        if (shape != null) {
+            helper.shape = shape
+        }
+        if (orientation != null) {
+            helper.orientation = orientation
+        }
+        helper.initBackground()
+    }
+
+    fun setTextColor(
+        textColor: Int? = null, textSelectedColor: Int? = null, textDisableColor: Int? = null
+    ) {
+        if (textColor != null) {
+            setTextColor(ContextCompat.getColor(context, textColor))
+        }
+        if (textSelectedColor != null) {
+            helper.textSelectedColor = ContextCompat.getColor(context, textSelectedColor)
+        }
+        if (textDisableColor != null) {
+            helper.textDisableColor = ContextCompat.getColor(context, textDisableColor)
+        }
+        editText?.let { helper.initTextView(it) }
+    }
+
+    fun setTextGradient(
+        textEndColor: List<String> = listOf(), textEndStep :List<Float> = listOf(),
+        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep:List<Float> = listOf()
+    ) {
+        helper.textEndColor = textEndColor.joinToString(",")
+        helper.textEndStep = textEndStep.joinToString(",")
+        helper.textSelectedEndColor = textSelectedEndColor.joinToString(",")
+        helper.textSelectedEndStep = textSelectedEndStep.joinToString(",")
+
+        editText?.let { helper.changeTextColor(it, isSelected) }
+    }
+
+    fun setRadius(radius: Float) {
+        helper.initRadius(radius, radius, radius, radius)
+        //onSizeChanged
+        if (helper.strokeOverlay || helper.isCorner) {
+            helper.onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
+        }
+        editText?.let { helper.changeTextColor(it, isSelected) }
+
+        helper.initBackground()
     }
 
 }

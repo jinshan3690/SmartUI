@@ -34,17 +34,17 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var strokeColor: Int = 0
     var strokeOverlay: Boolean = false
     var color: Int = 0
-    private var endColor: Int = 0
-    private var orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
-    private var rippleColor: Int = 0
+    var endColor: Int = 0
+    var orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
+    var rippleColor: Int = 0
     private var shadowColor: Int = 0
-    private var maskDrawable: Drawable? = null
-    private var disableColor: Int = 0
-    private var disableStrokeColor: Int = 0
-    private var selectedStrokeColor: Int = 0
-    private var selectedColor: Int = 0
-    private var selectedEndColor: Int = 0
-    private var shape: Int = GradientDrawable.RECTANGLE
+    var maskDrawable: Drawable? = null
+    var disableColor: Int = 0
+    var disableStrokeColor: Int = 0
+    var selectedStrokeColor: Int = 0
+    var selectedColor: Int = 0
+    var selectedEndColor: Int = 0
+    var shape: Int = GradientDrawable.RECTANGLE
     private var defaultStateListAnim: Boolean = false
     private var stateListAnim: StateListAnimator? = null
     private var defaultDuration: Long = 200
@@ -54,12 +54,12 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var translationZPressed: Float = 0f
 
     //TextView
-    private var textDisableColor: Int = 0
-    private var textSelectedColor: Int = 0
-    private var textEndColor: String? = null
-    private var textSelectedEndColor: String? = null
-    private var textEndStep: String? = null
-    private var textSelectedEndStep: String? = null
+    var textDisableColor: Int = 0
+    var textSelectedColor: Int = 0
+    var textEndColor: String? = null
+    var textSelectedEndColor: String? = null
+    var textEndStep: String? = null
+    var textSelectedEndStep: String? = null
 
     init {
         val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.SmartLayout)
@@ -146,25 +146,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
 
             typedArray.recycle()
 
-            cornerRadiusArray.run {
-                set(0, radiusLeftTop)
-                set(1, radiusLeftTop)
-
-                set(2, radiusRightTop)
-                set(3, radiusRightTop)
-
-                set(4, radiusRightBottom)
-                set(5, radiusRightBottom)
-
-                set(6, radiusLeftBottom)
-                set(7, radiusLeftBottom)
-            }
-
-            cornerRadiusArray.forEach {
-                if (it != 0f) {
-                    isCorner = true
-                }
-            }
+            initRadius(radiusLeftTop, radiusRightTop, radiusRightBottom, radiusLeftBottom)
 
             if (stroke != 0 && !strokeOverlay)
                 view?.setPadding(
@@ -183,7 +165,35 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
     }
 
-    private fun initBackground() {
+    fun initRadius(
+        radiusLeftTop: Float,
+        radiusRightTop: Float,
+        radiusRightBottom: Float,
+        radiusLeftBottom: Float
+    ) {
+        cornerRadiusArray.run {
+            set(0, radiusLeftTop)
+            set(1, radiusLeftTop)
+
+            set(2, radiusRightTop)
+            set(3, radiusRightTop)
+
+            set(4, radiusRightBottom)
+            set(5, radiusRightBottom)
+
+            set(6, radiusLeftBottom)
+            set(7, radiusLeftBottom)
+        }
+
+        isCorner = false
+        cornerRadiusArray.forEach {
+            if (it != 0f) {
+                isCorner = true
+            }
+        }
+    }
+
+    fun initBackground() {
         val stateListDrawable = StateListDrawable()
         val backgroundDrawable = createDrawable(
             color = *intArrayOf(color, endColor)
@@ -447,7 +457,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
 
     //string转int[]
     private fun stringToColors(str: String): IntArray {
-        val list = str.split(",", "，", " ").toTypedArray()
+        val list = str.split(",", "，", " ", "|").toTypedArray()
         val result = IntArray(list.size)
         for (i in list.indices) {
             result[i] = Color.parseColor(list[i])
@@ -457,7 +467,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
 
     //string转float[]
     private fun stringToStep(str: String): FloatArray {
-        val list = str.split(",", "，", " ").toTypedArray()
+        val list = str.split(",", "，", " ", "|").toTypedArray()
         val result = FloatArray(list.size)
         for (i in list.indices) {
             result[i] = list[i].toFloat()
@@ -465,7 +475,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         return result
     }
 
-    companion object{
+    companion object {
         /**
          * dp转px
          */

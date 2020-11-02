@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.sl1 -> {
-                Toast.makeText(this, viewDataBinding?.name, Toast.LENGTH_SHORT).show()
+            R.id.st1 -> {
+               viewDataBinding?.st1?.setBackground(R.color.colorPrimary)
             }
-            R.id.sl2 -> {
-
+            R.id.st2 -> {
+                viewDataBinding?.st2?.setTextColor(textColor = R.color.colorWhite)
             }
-            R.id.sl3 -> {
-
+            R.id.st3 -> {
+                
             }
             R.id.sl4, R.id.st4 -> {
                 view.isEnabled = false

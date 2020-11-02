@@ -2,11 +2,14 @@ package com.smart.ui.widget
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
@@ -133,7 +136,7 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 裁剪子View
      */
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         if (helper.strokeOverlay || helper.isCorner) {
             helper.onSizeChanged(w, h, paddingLeft, paddingTop, paddingRight, paddingBottom)
@@ -243,7 +246,7 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
                 }
             }
             canvas.drawText(
-                line,  drawSpacingX, drawY +
+                line, drawSpacingX, drawY +
                         paddingTop + compatTextLineSpaceExtra * i, paint
             )
 //            for (j in line.indices) {
@@ -380,6 +383,89 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
         textView.measure(widthMeasureSpec, heightMeasureSpec)
         originalLineCount = textView.lineCount
         originalHeight = textView.measuredHeight
+    }
+
+    fun setBackground(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
+        selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
+        stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
+    ) {
+        if (color != null) {
+            helper.color = ContextCompat.getColor(context, color)
+        }
+        if (endColor != null) {
+            helper.endColor = ContextCompat.getColor(context, endColor)
+        }
+        if (disableColor != null) {
+            helper.disableColor = ContextCompat.getColor(context, disableColor)
+        }
+        if (disableStrokeColor != null) {
+            helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
+        }
+        if (selectedColor != null) {
+            helper.selectedColor = ContextCompat.getColor(context, selectedColor)
+        }
+        if (selectedEndColor != null) {
+            helper.selectedEndColor = ContextCompat.getColor(context, selectedEndColor)
+        }
+        if (selectedStrokeColor != null) {
+            helper.selectedStrokeColor = ContextCompat.getColor(context, selectedStrokeColor)
+        }
+        if (rippleColor != null) {
+            helper.rippleColor = ContextCompat.getColor(context, rippleColor)
+        }
+        if (maskDrawable != null) {
+            helper.maskDrawable = maskDrawable
+        }
+        if (stroke != null) {
+            helper.stroke = stroke
+        }
+        if (shape != null) {
+            helper.shape = shape
+        }
+        if (orientation != null) {
+            helper.orientation = orientation
+        }
+        helper.initBackground()
+    }
+
+    fun setTextColor(
+        textColor: Int? = null, textSelectedColor: Int? = null, textDisableColor: Int? = null
+    ) {
+        if (textColor != null) {
+            setTextColor(ContextCompat.getColor(context, textColor))
+        }
+        if (textSelectedColor != null) {
+            helper.textSelectedColor = ContextCompat.getColor(context, textSelectedColor)
+        }
+        if (textDisableColor != null) {
+            helper.textDisableColor = ContextCompat.getColor(context, textDisableColor)
+        }
+        helper.initTextView(this)
+    }
+
+    fun setTextGradient(
+        textEndColor: List<String> = listOf(), textEndStep :List<Float> = listOf(),
+        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep:List<Float> = listOf()
+    ) {
+        helper.textEndColor = textEndColor.joinToString(",")
+        helper.textEndStep = textEndStep.joinToString(",")
+        helper.textSelectedEndColor = textSelectedEndColor.joinToString(",")
+        helper.textSelectedEndStep = textSelectedEndStep.joinToString(",")
+
+        helper.changeTextColor(this, isSelected)
+    }
+
+    fun setRadius(radius: Float) {
+        helper.initRadius(radius, radius, radius, radius)
+        //onSizeChanged
+        if (helper.strokeOverlay || helper.isCorner) {
+            helper.onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
+        }
+        helper.changeTextColor(this, isSelected)
+
+        helper.initBackground()
     }
 
 }
