@@ -1,6 +1,7 @@
 package com.smart.ui.widget
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,11 +13,10 @@ import android.text.method.DigitsKeyListener
 import android.text.method.TextKeyListener
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
@@ -39,6 +39,7 @@ class SmartEditText @JvmOverloads constructor(
     var focusChangeListener: FocusChangeListener? = null
     var specharsListener: SpecharsListener? = null
     var searchListener: SearchListener? = null
+    var doneListener: DoneListener? = null
     var length = -1
 
     private var prefixIconDrawable: Drawable? = null
@@ -237,8 +238,11 @@ class SmartEditText @JvmOverloads constructor(
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchListener?.search(v.text.toString())
-            //            InputMethodManager mInputMethodManager = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-//            mInputMethodManager.hideSoftInputFromWindow(((Activity)getContext()).getCurrentFocus().getWindowToken(), 0);
+            val mInputMethodManager =
+                context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            mInputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+        } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+            doneListener?.done(v.text.toString())
         }
         return false
     }
@@ -379,16 +383,25 @@ class SmartEditText @JvmOverloads constructor(
         suffixIcon?.isEnabled = enabled
         cancelIcon?.isEnabled = enabled
         prefixIcon?.isEnabled = enabled
+        editText?.setTextIsSelectable(enabled)
         editText?.isFocusable = enabled
         editText?.isFocusableInTouchMode = enabled
-        if(enabled){
+        if (enabled) {
             editText?.setOnTouchListener(null)
-        }else{
+        } else {
             editText?.setOnTouchListener { _, motionEvent ->
-                return@setOnTouchListener this@SmartEditText.onTouchEvent(motionEvent)
+                return@setOnTouchListener disabledTouch(editText?.parent as ViewGroup, motionEvent)
             }
         }
         hideCancelIcon()
+    }
+
+    private fun disabledTouch(view: ViewGroup?, motionEvent: MotionEvent): Boolean {
+        val result = view?.onTouchEvent(motionEvent) ?: false
+        if (!result) {
+            return disabledTouch(view?.parent as ViewGroup, motionEvent)
+        }
+        return result
     }
 
     fun setDigits(digits: String?) {
@@ -416,7 +429,7 @@ class SmartEditText @JvmOverloads constructor(
         return linearLayout
     }
 
-    fun hideCancelIcon(){
+    fun hideCancelIcon() {
         if (getText()?.length ?: 0 > 0 && editText?.isEnabled == true && editText?.isFocused == true) {
             cancelIcon?.visibility = View.VISIBLE
         } else {
@@ -426,7 +439,7 @@ class SmartEditText @JvmOverloads constructor(
 
     fun setText(text: CharSequence?) {
         TextViewBindingAdapter.setText(this, text?.toString())
-        editText?.setSelection(text?.length?:0)
+        editText?.setSelection(text?.length ?: 0)
     }
 
     fun getText(): String? {
@@ -453,6 +466,10 @@ class SmartEditText @JvmOverloads constructor(
         fun search(text: String?)
     }
 
+    interface DoneListener {
+        fun done(text: String?)
+    }
+
     interface SpecharsListener {
         fun warn(type: String)
     }
@@ -463,15 +480,17 @@ class SmartEditText @JvmOverloads constructor(
 
     abstract class TextChangedListener {
 
-        abstract fun beforeTextChanged(
+        open fun beforeTextChanged(
             s: CharSequence?, start: Int, count: Int, after: Int
-        )
+        ) {
+        }
 
-        abstract fun onTextChanged(
+        open fun onTextChanged(
             s: CharSequence?, start: Int, before: Int, count: Int
-        )
+        ) {
+        }
 
-        abstract fun afterTextChanged(s: Editable?)
+        open fun afterTextChanged(s: Editable?) {}
 
     }
 
@@ -536,8 +555,8 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     fun setTextGradient(
-        textEndColor: List<String> = listOf(), textEndStep :List<Float> = listOf(),
-        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep:List<Float> = listOf()
+        textEndColor: List<String> = listOf(), textEndStep: List<Float> = listOf(),
+        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep: List<Float> = listOf()
     ) {
         helper.textEndColor = textEndColor.joinToString(",")
         helper.textEndStep = textEndStep.joinToString(",")
@@ -551,7 +570,14 @@ class SmartEditText @JvmOverloads constructor(
         helper.initRadius(radius, radius, radius, radius)
         //onSizeChanged
         if (helper.strokeOverlay || helper.isCorner) {
-            helper.onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
+            helper.onSizeChanged(
+                width,
+                height,
+                paddingLeft,
+                paddingTop,
+                paddingRight,
+                paddingBottom
+            )
         }
         editText?.let { helper.changeTextColor(it, isSelected) }
 

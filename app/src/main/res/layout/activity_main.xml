@@ -742,15 +742,17 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/smartEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:onClick="onClick"
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartEditText
-                android:id="@+id/smartEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                app:sl_enabled="false"
                 app:sl_textGravity="center_vertical"
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
@@ -766,7 +768,6 @@
                 app:sl_hint="这是一个多功能EditText"
                 app:sl_hintColor="#9575CD"
                 app:sl_editEnabled="false"
-                android:onClick="onClick"
                 app:sl_text="@={name}"
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
@@ -776,11 +777,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
+                app:sl_enabled="false"
                 app:sl_textGravity="center_vertical"
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
                 app:sl_multiLine="true"
+                app:sl_imeOptions="actionDone"
                 app:sl_hint="@{hint}"
                 app:sl_hintColor="#9575CD"
                 app:sl_text="多行"
@@ -797,6 +800,7 @@
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
                 app:sl_inputType="visiblePassword"
+                app:sl_imeOptions="actionSearch"
                 app:sl_hint="这是一个多功能EditText"
                 app:sl_hintColor="#9575CD"
                 app:sl_length="6"
@@ -804,6 +808,7 @@
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
                 app:sl_textStyle="bold" />
+
 
         </LinearLayout>
 

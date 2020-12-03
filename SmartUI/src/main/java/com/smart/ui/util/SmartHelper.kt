@@ -25,6 +25,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
 
     private var clipPaint = Paint()
     private var clipPath = Path()
+    var enabled: Boolean = true
     var isCorner: Boolean = false
     private var cornerRadiusArray = FloatArray(8)
     var layer = RectF()
@@ -64,6 +65,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     init {
         val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.SmartLayout)
         typedArray?.run {
+            enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled,true)
+            view?.isEnabled = enabled
             background = typedArray.getDrawable(R.styleable.SmartLayout_sl_background)
             color = typedArray.getColor(R.styleable.SmartLayout_sl_color, Color.TRANSPARENT)
             endColor = typedArray.getColor(R.styleable.SmartLayout_sl_endColor, -999)
@@ -166,9 +169,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     }
 
     fun initRadius(
-        radiusLeftTop: Float,
-        radiusRightTop: Float,
-        radiusRightBottom: Float,
+        radiusLeftTop: Float, radiusRightTop: Float, radiusRightBottom: Float,
         radiusLeftBottom: Float
     ) {
         cornerRadiusArray.run {

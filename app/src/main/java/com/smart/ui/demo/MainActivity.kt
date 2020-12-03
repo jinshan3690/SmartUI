@@ -31,10 +31,13 @@ class MainActivity : AppCompatActivity() {
                 viewDataBinding?.st2?.setTextColor(textColor = R.color.colorWhite)
             }
             R.id.st3 -> {
-                
+
             }
             R.id.sl4, R.id.st4 -> {
                 view.isEnabled = false
+            }
+            R.id.smartEditText->{
+                Toast.makeText(this,"点击回调",Toast.LENGTH_SHORT).show()
             }
         }
     }
