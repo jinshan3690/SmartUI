@@ -383,7 +383,6 @@ class SmartEditText @JvmOverloads constructor(
         suffixIcon?.isEnabled = enabled
         cancelIcon?.isEnabled = enabled
         prefixIcon?.isEnabled = enabled
-        editText?.setTextIsSelectable(enabled)
         editText?.isFocusable = enabled
         editText?.isFocusableInTouchMode = enabled
         if (enabled) {
