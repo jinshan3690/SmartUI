@@ -35,6 +35,19 @@
                 android:textSize="16sp"
                 app:sl_textStyle="bold" />
 
+            <com.smart.ui.widget.SmartTextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="有背景有背景有背景有背景有背景有背景有背景有背景"
+                app:sl_color="#ef5350"
+                app:sl_radius="100dp" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -183,7 +183,7 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
             firstCalc = false
         }
 
-        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+//        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
 
 //        if (compat && heightMode != MeasureSpec.EXACTLY)
 //            setMeasuredDimension(
