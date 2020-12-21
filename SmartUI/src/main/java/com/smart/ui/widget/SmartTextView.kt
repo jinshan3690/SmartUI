@@ -386,8 +386,8 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setBackground(
-        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
-        disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,strokeColor: Int? = null,
+         disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
         selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
         stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
     ) {
@@ -399,6 +399,9 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         if (disableColor != null) {
             helper.disableColor = ContextCompat.getColor(context, disableColor)
+        }
+        if (strokeColor != null) {
+            helper.strokeColor = ContextCompat.getColor(context, strokeColor)
         }
         if (disableStrokeColor != null) {
             helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)

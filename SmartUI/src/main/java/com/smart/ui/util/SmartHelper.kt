@@ -32,7 +32,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     var background: Drawable? = null
 
     var stroke: Int = 0
-    private var strokeColor: Int = 0
+    var strokeColor: Int = 0
     var strokeOverlay: Boolean = false
     var color: Int = 0
     var endColor: Int = 0

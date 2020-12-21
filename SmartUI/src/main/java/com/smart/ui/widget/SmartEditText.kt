@@ -494,7 +494,7 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     fun setBackground(
-        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,strokeColor: Int? = null,
         disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
         selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
         stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
@@ -507,6 +507,9 @@ class SmartEditText @JvmOverloads constructor(
         }
         if (disableColor != null) {
             helper.disableColor = ContextCompat.getColor(context, disableColor)
+        }
+        if (strokeColor != null) {
+            helper.strokeColor = ContextCompat.getColor(context, strokeColor)
         }
         if (disableStrokeColor != null) {
             helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
@@ -570,12 +573,7 @@ class SmartEditText @JvmOverloads constructor(
         //onSizeChanged
         if (helper.strokeOverlay || helper.isCorner) {
             helper.onSizeChanged(
-                width,
-                height,
-                paddingLeft,
-                paddingTop,
-                paddingRight,
-                paddingBottom
+                width, height, paddingLeft, paddingTop, paddingRight, paddingBottom
             )
         }
         editText?.let { helper.changeTextColor(it, isSelected) }
