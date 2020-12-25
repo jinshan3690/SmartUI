@@ -10,6 +10,9 @@
         <variable
             name="hint"
             type="String" />
+        <variable
+            name="hint1"
+            type="Boolean" />
     </data>
 
 <ScrollView
@@ -44,9 +47,7 @@
                 android:onClick="onClick"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="有背景有背景有背景有背景有背景有背景有背景有背景"
-                app:sl_color="#ef5350"
-                app:sl_radius="100dp" />
+                app:sl_color="#ef5350"/>
 
         </LinearLayout>
 
@@ -84,7 +85,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:onClick="onClick"
-                app:sl_color="#ef5350"
+                app:sl_color="@{@color/colorPrimary}"
                 app:sl_radius="10dp">
 
                 <com.smart.ui.widget.SmartTextView
@@ -105,6 +106,7 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 app:sl_color="#AB47BC"
+                app:sl_radius="@{36.5f}"
                 app:sl_radiusLeftBottom="10dp"
                 app:sl_radiusRightTop="10dp"
                 app:sl_selectedColor="#7E57C2">
@@ -762,6 +764,7 @@
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartEditText
+                android:id="@+id/set"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sl_enabled="false"
@@ -794,10 +797,9 @@
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
-                app:sl_multiLine="true"
-                app:sl_imeOptions="actionDone"
                 app:sl_hint="@{hint}"
                 app:sl_hintColor="#9575CD"
+                app:sl_inputType="textMultiLine"
                 app:sl_text="多行"
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
@@ -811,7 +813,7 @@
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
-                app:sl_inputType="visiblePassword"
+                app:sl_inputType="number"
                 app:sl_imeOptions="actionSearch"
                 app:sl_hint="这是一个多功能EditText"
                 app:sl_hintColor="#9575CD"

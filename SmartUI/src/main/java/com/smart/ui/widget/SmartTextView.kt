@@ -433,6 +433,55 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
         helper.initBackground()
     }
 
+    fun setBackgroundRes(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
+        orientation: GradientDrawable.Orientation? = null
+    ) {
+        if (color != null) {
+            helper.color = color
+        }
+        if (endColor != null) {
+            helper.endColor = endColor
+        }
+        if (disableColor != null) {
+            helper.disableColor =  disableColor
+        }
+        if (strokeColor != null) {
+            helper.strokeColor = strokeColor
+        }
+        if (disableStrokeColor != null) {
+            helper.disableStrokeColor = disableStrokeColor
+        }
+        if (selectedColor != null) {
+            helper.selectedColor = selectedColor
+        }
+        if (selectedEndColor != null) {
+            helper.selectedEndColor = selectedEndColor
+        }
+        if (selectedStrokeColor != null) {
+            helper.selectedStrokeColor = selectedStrokeColor
+        }
+        if (rippleColor != null) {
+            helper.rippleColor = rippleColor
+        }
+        if (maskDrawable != null) {
+            helper.maskDrawable = maskDrawable
+        }
+        if (stroke != null) {
+            helper.stroke = stroke
+        }
+        if (shape != null) {
+            helper.shape = shape
+        }
+        if (orientation != null) {
+            helper.orientation = orientation
+        }
+        helper.initBackground()
+    }
+
     fun setTextColor(
         textColor: Int? = null, textSelectedColor: Int? = null, textDisableColor: Int? = null
     ) {
@@ -460,8 +509,11 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
         helper.changeTextColor(this, isSelected)
     }
 
-    fun setRadius(radius: Float) {
-        helper.initRadius(radius, radius, radius, radius)
+    fun setRadius(
+        radius: Float, leftTop: Float? = radius, rightTop: Float? = radius,
+        leftBottom: Float? = radius, rightBottom: Float? = radius
+    ) {
+        helper.initRadius(leftTop!!, rightTop!!, rightBottom!!, leftBottom!!)
         //onSizeChanged
         if (helper.strokeOverlay || helper.isCorner) {
             helper.onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)

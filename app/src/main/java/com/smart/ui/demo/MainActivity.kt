@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewDataBinding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        viewDataBinding?.hint1 = true
         viewDataBinding?.apply {
             name = "点击右侧ico清空"
             hint = "这是一个多功能EditText11111"
