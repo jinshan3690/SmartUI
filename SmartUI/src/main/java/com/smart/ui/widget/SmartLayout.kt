@@ -2,6 +2,7 @@ package com.smart.ui.widget
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -14,7 +15,7 @@ class SmartLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
-    private val helper = SmartHelper(context, attrs, this)
+    val helper = SmartHelper(context, attrs, this)
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -63,110 +64,74 @@ class SmartLayout @JvmOverloads constructor(
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
         orientation: GradientDrawable.Orientation? = null
     ) {
-        if (color != null) {
-            helper.color = ContextCompat.getColor(context, color)
-        }
-        if (endColor != null) {
-            helper.endColor = ContextCompat.getColor(context, endColor)
-        }
-        if (disableColor != null) {
-            helper.disableColor = ContextCompat.getColor(context, disableColor)
-        }
-        if (strokeColor != null) {
-            helper.strokeColor = ContextCompat.getColor(context, strokeColor)
-        }
-        if (disableStrokeColor != null) {
-            helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
-        }
-        if (selectedColor != null) {
-            helper.selectedColor = ContextCompat.getColor(context, selectedColor)
-        }
-        if (selectedEndColor != null) {
-            helper.selectedEndColor = ContextCompat.getColor(context, selectedEndColor)
-        }
-        if (selectedStrokeColor != null) {
-            helper.selectedStrokeColor = ContextCompat.getColor(context, selectedStrokeColor)
-        }
-        if (rippleColor != null) {
-            helper.rippleColor = ContextCompat.getColor(context, rippleColor)
-        }
-        if (maskDrawable != null) {
-            helper.maskDrawable = maskDrawable
-        }
-        if (stroke != null) {
-            helper.stroke = stroke
-        }
-        if (shape != null) {
-            helper.shape = shape
-        }
-        if (orientation != null) {
-            helper.orientation = orientation
-        }
-        helper.initBackground()
+        helper.setBackground(
+            color, endColor, disableColor, strokeColor, disableStrokeColor,
+            selectedColor, selectedEndColor, selectedStrokeColor, rippleColor, maskDrawable,
+            stroke, shape, orientation
+        )
     }
 
-    fun setBackgroundRes(
-        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
-        strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
-        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
-        maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
-        orientation: GradientDrawable.Orientation? = null
-    ) {
-        if (color != null) {
-            helper.color = color
-        }
-        if (endColor != null) {
-            helper.endColor = endColor
-        }
-        if (disableColor != null) {
-            helper.disableColor =  disableColor
-        }
-        if (strokeColor != null) {
-            helper.strokeColor = strokeColor
-        }
-        if (disableStrokeColor != null) {
-            helper.disableStrokeColor = disableStrokeColor
-        }
-        if (selectedColor != null) {
-            helper.selectedColor = selectedColor
-        }
-        if (selectedEndColor != null) {
-            helper.selectedEndColor = selectedEndColor
-        }
-        if (selectedStrokeColor != null) {
-            helper.selectedStrokeColor = selectedStrokeColor
-        }
-        if (rippleColor != null) {
-            helper.rippleColor = rippleColor
-        }
-        if (maskDrawable != null) {
-            helper.maskDrawable = maskDrawable
-        }
-        if (stroke != null) {
-            helper.stroke = stroke
-        }
-        if (shape != null) {
-            helper.shape = shape
-        }
-        if (orientation != null) {
-            helper.orientation = orientation
-        }
-        helper.initBackground()
+    fun setColor(color: Int? = null) {
+        helper.setColor(color)
+    }
+
+    fun setEndColor(endColor: Int? = null) {
+        helper.setEndColor(endColor)
+    }
+
+    fun setDisableColor(disableColor: Int? = null) {
+        helper.setDisableColor(disableColor)
+    }
+
+    fun setStrokeColor(strokeColor: Int? = null) {
+        helper.setStrokeColor(strokeColor)
+    }
+
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
+        helper.setDisableStrokeColor(disableStrokeColor)
+    }
+
+    fun setSelectedColor(selectedColor: Int? = null) {
+        helper.setSelectedColor(selectedColor)
+    }
+
+    fun setSelectedEndColor(selectedEndColor: Int? = null) {
+        helper.setSelectedEndColor(selectedEndColor)
+    }
+
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
+        helper.setSelectedStrokeColor(selectedStrokeColor)
+    }
+
+    fun setRippleColor(rippleColor: Int? = null) {
+        helper.setRippleColor(rippleColor)
+    }
+
+    fun setMaskDrawable(maskDrawable: Drawable? = null) {
+        helper.setMaskDrawable(maskDrawable)
+    }
+
+    fun setStroke(stroke: Int? = null) {
+        helper.setStroke(stroke)
+    }
+
+    fun setShape(shape: Int? = null) {
+        helper.setShape(shape)
+    }
+
+    fun setOrientation(orientation: GradientDrawable.Orientation? = null) {
+        helper.setOrientation(orientation)
+    }
+
+    fun setStrokeOverlay(strokeOverlay: Boolean?) {
+        strokeOverlay?.let { helper.changeStrokeOverlay(it) }
     }
 
     fun setRadius(
         radius: Float, leftTop: Float? = radius, rightTop: Float? = radius,
         leftBottom: Float? = radius, rightBottom: Float? = radius
     ) {
-        helper.initRadius(leftTop!!, rightTop!!, rightBottom!!, leftBottom!!)
-        //onSizeChanged
-        if (helper.strokeOverlay || helper.isCorner) {
-            helper.onSizeChanged(
-                width, height, paddingLeft, paddingTop, paddingRight, paddingBottom
-            )
-        }
-
-        helper.initBackground()
+        helper.setRadius(radius, leftTop, rightTop, leftBottom, rightBottom)
     }
 
 }

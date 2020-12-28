@@ -13,6 +13,9 @@
         <variable
             name="hint1"
             type="Boolean" />
+        <variable
+            name="stroke"
+            type="Integer" />
     </data>
 
 <ScrollView
@@ -733,9 +736,9 @@
                 android:layout_marginLeft="15dp"
                 android:onClick="onClick"
                 app:sl_color="#ffffff"
-                app:sl_stroke="15dp"
+                app:sl_stroke="@{stroke}"
                 app:sl_strokeColor="#FFC107"
-                app:sl_strokeOverlay="false"
+                app:sl_strokeOverlay="@{hint1}"
                 app:sl_radius="40dp"/>
 
         </LinearLayout>
@@ -747,8 +750,10 @@
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartTextView
+                android:id="@+id/smartEditText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onClick"
                 android:text="SmartEditText"
                 android:textSize="16sp"
                 app:sl_textStyle="bold" />

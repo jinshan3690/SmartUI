@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         viewDataBinding?.hint1 = true
+        viewDataBinding?.stroke = 0
         viewDataBinding?.apply {
             name = "点击右侧ico清空"
             hint = "这是一个多功能EditText11111"
@@ -38,9 +39,16 @@ class MainActivity : AppCompatActivity() {
                 view.isEnabled = false
             }
             R.id.smartEditText->{
+                viewDataBinding?.hint1 =  !(viewDataBinding?.hint1?:false)
                 Toast.makeText(this,"点击回调",Toast.LENGTH_SHORT).show()
+            }
+            R.id.smartEditText1->{
+                viewDataBinding?.stroke = if(aaa) 50 else 100
+                aaa = !aaa
             }
         }
     }
+
+    var aaa:Boolean = false
 
 }

@@ -17,6 +17,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.smart.ui.R
 import kotlin.math.max
 import kotlin.math.min
@@ -25,27 +26,27 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
 
     private var clipPaint = Paint()
     private var clipPath = Path()
-    var enabled: Boolean = true
+    private var enabled: Boolean = true
     var isCorner: Boolean = false
     private var cornerRadiusArray = FloatArray(8)
     var layer = RectF()
     var background: Drawable? = null
 
     var stroke: Int = 0
-    var strokeColor: Int = 0
+    private var strokeColor: Int = 0
     var strokeOverlay: Boolean = false
-    var color: Int = 0
-    var endColor: Int = 0
-    var orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
-    var rippleColor: Int = 0
+    private var color: Int = 0
+    private var endColor: Int = 0
+    private var orientation: GradientDrawable.Orientation = GradientDrawable.Orientation.LEFT_RIGHT
+    private var rippleColor: Int = 0
     private var shadowColor: Int = 0
-    var maskDrawable: Drawable? = null
-    var disableColor: Int = 0
-    var disableStrokeColor: Int = 0
-    var selectedStrokeColor: Int = 0
-    var selectedColor: Int = 0
-    var selectedEndColor: Int = 0
-    var shape: Int = GradientDrawable.RECTANGLE
+    private var maskDrawable: Drawable? = null
+    private var disableColor: Int = 0
+    private var disableStrokeColor: Int = 0
+    private var selectedStrokeColor: Int = 0
+    private var selectedColor: Int = 0
+    private var selectedEndColor: Int = 0
+    private var shape: Int = GradientDrawable.RECTANGLE
     private var defaultStateListAnim: Boolean = false
     private var stateListAnim: StateListAnimator? = null
     private var defaultDuration: Long = 200
@@ -65,7 +66,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     init {
         val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.SmartLayout)
         typedArray?.run {
-            enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled,true)
+            enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled, true)
             view?.isEnabled = enabled
             background = typedArray.getDrawable(R.styleable.SmartLayout_sl_background)
             color = typedArray.getColor(R.styleable.SmartLayout_sl_color, Color.TRANSPARENT)
@@ -317,7 +318,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun onSizeChanged(
         w: Int, h: Int, paddingLeft: Int, paddingTop: Int, paddingRight: Int, paddingBottom: Int
     ) {
-        val stroke = if (strokeOverlay) stroke else 0
+//        val stroke = if (strokeOverlay) stroke else 0
+        val stroke = stroke
         layer.set(0f, 0f, w.toFloat(), h.toFloat())
         val areas = RectF()
         areas.left = stroke.toFloat()
@@ -474,6 +476,280 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             result[i] = list[i].toFloat()
         }
         return result
+    }
+
+    /**
+     * 设置
+     */
+    fun setBackground(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
+        orientation: GradientDrawable.Orientation? = null
+    ) {
+        if (background == null) {
+            if (color != null) {
+                context?.let { this.color = ContextCompat.getColor(it, color) }
+            } else {
+                this.color = Color.TRANSPARENT
+            }
+            if (endColor != null) {
+                context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
+            } else {
+                this.endColor = -999
+            }
+            if (disableColor != null) {
+                context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
+            } else {
+                this.disableColor = -999
+            }
+            if (strokeColor != null) {
+                context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
+            } else {
+                this.strokeColor = Color.parseColor("#DEDEDE")
+            }
+            if (disableStrokeColor != null) {
+                context?.let {
+                    this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
+                }
+            } else {
+                this.disableStrokeColor = -999
+            }
+            if (selectedColor != null) {
+                context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
+            } else {
+                this.selectedColor = -999
+            }
+            if (selectedEndColor != null) {
+                context?.let {
+                    this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
+                }
+            } else {
+                this.selectedEndColor = -999
+            }
+            if (selectedStrokeColor != null) {
+                context?.let {
+                    this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
+                }
+            } else {
+                this.selectedStrokeColor = -999
+            }
+            if (rippleColor != null) {
+                context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
+            } else {
+                this.rippleColor = Color.BLACK
+            }
+            if (maskDrawable != null) {
+                this.maskDrawable = maskDrawable
+            }
+            if (stroke != null) {
+                this.stroke = stroke
+            }
+            if (shape != null) {
+                this.shape = shape
+            }
+            if (orientation != null) {
+                this.orientation = orientation
+            }
+
+            this.initBackground()
+        }
+    }
+
+    fun setColor(color: Int? = null) {
+        if (background == null) {
+            if (color != null) {
+                this.color = color
+            } else {
+                this.color = Color.TRANSPARENT
+            }
+        }
+    }
+
+    fun setEndColor(endColor: Int? = null) {
+        if (background == null) {
+            if (endColor != null) {
+                this.endColor = endColor
+            } else {
+                this.endColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setDisableColor(disableColor: Int? = null) {
+        if (background == null) {
+            if (disableColor != null) {
+                this.disableColor = disableColor
+            } else {
+                this.disableColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setStrokeColor(strokeColor: Int? = null) {
+        if (background == null) {
+            if (strokeColor != null) {
+                this.strokeColor = strokeColor
+            } else {
+                this.strokeColor = Color.parseColor("#DEDEDE")
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
+        if (background == null) {
+            if (disableStrokeColor != null) {
+                this.disableStrokeColor = disableStrokeColor
+            } else {
+                this.disableStrokeColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setSelectedColor(selectedColor: Int? = null) {
+        if (background == null) {
+            if (selectedColor != null) {
+                this.selectedColor = selectedColor
+            } else {
+                this.selectedColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setSelectedEndColor(selectedEndColor: Int? = null) {
+        if (background == null) {
+            if (selectedEndColor != null) {
+                this.selectedEndColor = selectedEndColor
+            } else {
+                this.selectedEndColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
+        if (background == null) {
+            if (selectedStrokeColor != null) {
+                this.selectedStrokeColor = selectedStrokeColor
+            } else {
+                this.selectedStrokeColor = -999
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setRippleColor(rippleColor: Int? = null) {
+        if (background == null) {
+            if (rippleColor != null) {
+                this.rippleColor = rippleColor
+            } else {
+                this.rippleColor = Color.BLACK
+            }
+            this.initBackground()
+        }
+    }
+
+    fun setMaskDrawable(maskDrawable: Drawable? = null) {
+        if (background == null) {
+            if (maskDrawable != null) {
+                this.maskDrawable = maskDrawable
+                this.initBackground()
+            }
+        }
+    }
+
+    fun setStroke(stroke: Int? = null) {
+        if (background == null) {
+            if (stroke != null) {
+
+                val isChange = stroke != this.stroke
+                if (isChange) {
+                    if (stroke != 0 && strokeOverlay) {
+                        view?.setPadding(
+                            (view?.paddingLeft ?: 0) - this.stroke + stroke, (view?.paddingTop ?: 0) - this.stroke + stroke,
+                            (view?.paddingRight ?: 0) - this.stroke + stroke, (view?.paddingBottom ?: 0) - this.stroke + stroke
+                        )
+                    } else {
+                        view?.setPadding(
+                            (view?.paddingLeft ?: 0), (view?.paddingTop ?: 0),
+                            (view?.paddingRight ?: 0), (view?.paddingBottom ?: 0)
+                        )
+                    }
+                }
+
+                this.stroke = stroke
+                if (isChange)
+                    view?.apply {
+                        onSizeChanged(
+                            width, height, paddingLeft, paddingTop, paddingRight, paddingBottom
+                        )
+                    }
+                this.initBackground()
+            }
+        }
+    }
+
+    fun setShape(shape: Int? = null) {
+        if (background == null) {
+            if (shape != null) {
+                this.shape = shape
+                this.initBackground()
+            }
+        }
+    }
+
+    fun setOrientation(orientation: GradientDrawable.Orientation? = null) {
+        if (background == null) {
+            if (orientation != null) {
+                this.orientation = orientation
+                this.initBackground()
+            }
+        }
+    }
+
+    fun changeStrokeOverlay(strokeOverlay: Boolean) {
+        if (this.strokeOverlay != strokeOverlay) {
+            this.strokeOverlay = strokeOverlay
+            if (stroke != 0 && !strokeOverlay) {
+                view?.setPadding(
+                    (view?.paddingLeft ?: 0) - stroke, (view?.paddingTop ?: 0) - stroke,
+                    (view?.paddingRight ?: 0) - stroke, (view?.paddingBottom ?: 0) - stroke
+                )
+            } else {
+                view?.setPadding(
+                    (view?.paddingLeft ?: 0) + stroke, (view?.paddingTop ?: 0) + stroke,
+                    (view?.paddingRight ?: 0) + stroke, (view?.paddingBottom ?: 0) + stroke
+                )
+            }
+        }
+    }
+
+    fun setRadius(
+        radius: Float, leftTop: Float? = radius, rightTop: Float? = radius,
+        leftBottom: Float? = radius, rightBottom: Float? = radius
+    ) {
+        isCorner = false
+        cornerRadiusArray.forEach {
+            if (it != 0f) {
+                isCorner = true
+            }
+        }
+        initRadius(leftTop!!, rightTop!!, rightBottom!!, leftBottom!!)
+        //onSizeChanged
+        if (strokeOverlay || isCorner) {
+            view?.apply {
+                onSizeChanged(width, height, paddingLeft, paddingTop, paddingRight, paddingBottom)
+            }
+
+        }
+
+        initBackground()
     }
 
     companion object {
