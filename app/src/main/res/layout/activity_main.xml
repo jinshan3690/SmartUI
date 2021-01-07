@@ -10,6 +10,12 @@
         <variable
             name="hint"
             type="String" />
+        <variable
+            name="hint1"
+            type="Boolean" />
+        <variable
+            name="stroke"
+            type="Integer" />
     </data>
 
 <ScrollView
@@ -34,6 +40,18 @@
                 android:text="SmartLayout"
                 android:textSize="16sp"
                 app:sl_textStyle="bold" />
+
+            <com.smart.ui.widget.SmartTextView
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                sl_endColor="@{(hint1?null:(Integer)@color/colorPrimary)}"
+                app:sl_color="#ef5350"/>
 
         </LinearLayout>
 
@@ -71,7 +89,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:onClick="onClick"
-                app:sl_color="#ef5350"
+                app:sl_color="@{@color/colorPrimary}"
                 app:sl_radius="10dp">
 
                 <com.smart.ui.widget.SmartTextView
@@ -92,6 +110,7 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 app:sl_color="#AB47BC"
+                app:sl_radius="@{36.5f}"
                 app:sl_radiusLeftBottom="10dp"
                 app:sl_radiusRightTop="10dp"
                 app:sl_selectedColor="#7E57C2">
@@ -718,9 +737,9 @@
                 android:layout_marginLeft="15dp"
                 android:onClick="onClick"
                 app:sl_color="#ffffff"
-                app:sl_stroke="15dp"
+                app:sl_stroke="@{stroke}"
                 app:sl_strokeColor="#FFC107"
-                app:sl_strokeOverlay="false"
+                app:sl_strokeOverlay="@{hint1}"
                 app:sl_radius="40dp"/>
 
         </LinearLayout>
@@ -732,8 +751,10 @@
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartTextView
+                android:id="@+id/smartEditText1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onClick"
                 android:text="SmartEditText"
                 android:textSize="16sp"
                 app:sl_textStyle="bold" />
@@ -749,6 +770,7 @@
             android:padding="15dp">
 
             <com.smart.ui.widget.SmartEditText
+                android:id="@+id/set"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:sl_enabled="false"
@@ -781,10 +803,9 @@
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
-                app:sl_multiLine="true"
-                app:sl_imeOptions="actionDone"
                 app:sl_hint="@{hint}"
                 app:sl_hintColor="#9575CD"
+                app:sl_inputType="textMultiLine"
                 app:sl_text="多行"
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
@@ -798,7 +819,7 @@
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
-                app:sl_inputType="visiblePassword"
+                app:sl_inputType="number"
                 app:sl_imeOptions="actionSearch"
                 app:sl_hint="这是一个多功能EditText"
                 app:sl_hintColor="#9575CD"

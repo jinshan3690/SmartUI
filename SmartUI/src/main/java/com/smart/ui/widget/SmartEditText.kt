@@ -17,10 +17,13 @@ import android.view.*
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import com.smart.ui.R
 import com.smart.ui.binding.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
@@ -139,19 +142,7 @@ class SmartEditText @JvmOverloads constructor(
                 R.styleable.SmartEditText_sl_textSize, SmartHelper.sp2px(context, 14f).toFloat()
             )
         )
-        val multiLint = typedArray.getBoolean(
-            R.styleable.SmartEditText_sl_multiLine, false
-        )
-        val inputType =
-            if (multiLint) InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            else InputType.TYPE_CLASS_TEXT
-
-        editText?.inputType =
-            when (typedArray.getInt(R.styleable.SmartEditText_sl_inputType, -1)) {
-                1 -> inputType or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                2 -> inputType or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                else -> inputType
-            }
+        editText?.inputType = typedArray.getInt(R.styleable.SmartEditText_sl_inputType, 1)
 
         val digits = typedArray.getString(R.styleable.SmartEditText_sl_digits)
         if (!digits.isNullOrBlank()) {
@@ -159,14 +150,7 @@ class SmartEditText @JvmOverloads constructor(
         }
         setEditEnabled(typedArray.getBoolean(R.styleable.SmartEditText_sl_editEnabled, true))
 
-        editText?.imeOptions =
-            when (typedArray.getInt(R.styleable.SmartEditText_sl_imeOptions, -1)) {
-                2 -> EditorInfo.IME_ACTION_NEXT
-                3 -> EditorInfo.IME_ACTION_SEND
-                4 -> EditorInfo.IME_ACTION_SEARCH
-                5 -> EditorInfo.IME_ACTION_GO
-                else -> EditorInfo.IME_ACTION_DONE
-            }
+        editText?.imeOptions = typedArray.getInt(R.styleable.SmartEditText_sl_imeOptions, 0)
 
         typedArray.recycle()
 
@@ -176,39 +160,18 @@ class SmartEditText @JvmOverloads constructor(
     private fun initView() {
         orientation = HORIZONTAL
 
-        if (prefixIconDrawable != null) {
-            prefixIcon = createIcon(
-                prefixIconDrawable, prefixIconWidth, prefixIconHeight,
-                prefixIconLeftPadding, prefixIconRightPadding
-            )
-            addView(prefixIcon)
-        }
+        addPrefixIcon()
 
         editText =
             SmartEdit(context, textLeftPadding, textRightPadding, textTopPadding, textBottomPadding)
-
         editText?.onFocusChangeListener = this
         editText?.addTextChangedListener(this)
         editText?.setOnEditorActionListener(this)
         editText?.post { editText?.setSelection(editText?.length() ?: 0) }
         addView(editText)
 
-        if (cancelIconDrawable != null) {
-            cancelIcon = createIcon(
-                cancelIconDrawable, cancelIconWidth, cancelIconHeight,
-                cancelIconLeftPadding, cancelIconRightPadding
-            )
-            cancelIcon?.setOnClickListener { setText(null) }
-            addView(cancelIcon)
-        }
-
-        if (suffixIconDrawable != null) {
-            suffixIcon = createIcon(
-                suffixIconDrawable, suffixIconWidth, suffixIconHeight,
-                suffixIconLeftPadding, suffixIconRightPadding
-            )
-            addView(suffixIcon)
-        }
+        addCancelIcon()
+        addSuffixIcon()
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) { // 焦点变化时
@@ -425,9 +388,11 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     fun createIcon(
-        drawable: Drawable?, width: Int, height: Int, paddingLeft: Int, paddingRight: Int
+        @IdRes id: Int?, drawable: Drawable?, width: Int, height: Int,
+        paddingLeft: Int, paddingRight: Int
     ): LinearLayout {
         val linearLayout = LinearLayout(context)
+        id?.let { linearLayout.id = id }
         linearLayout.layoutParams =
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         linearLayout.setPadding(paddingLeft, 0, paddingRight, 0)
@@ -450,12 +415,125 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     fun setText(text: CharSequence?) {
-        TextViewBindingAdapter.setText(this, text?.toString())
+//        TextViewBindingAdapter.setText(this, text?.toString(),editText?.hint?.toString())
+        editText?.setText(text)
         editText?.setSelection(text?.length ?: 0)
     }
 
     fun getText(): String? {
-        return TextViewBindingAdapter.getText(this)
+        return editText?.text?.toString()
+    }
+
+    fun addPrefixIcon(index: Int? = null) {
+        if (prefixIconDrawable != null) {
+            prefixIcon = createIcon(
+                R.id.prefix_icon, prefixIconDrawable, prefixIconWidth, prefixIconHeight,
+                prefixIconLeftPadding, prefixIconRightPadding
+            )
+            if (index == null)
+                addView(prefixIcon)
+            else
+                addView(prefixIcon, index)
+        }
+    }
+
+    fun addCancelIcon(index: Int? = null) {
+        if (cancelIconDrawable != null) {
+            cancelIcon = createIcon(
+                R.id.cancel_icon, cancelIconDrawable, cancelIconWidth, cancelIconHeight,
+                cancelIconLeftPadding, cancelIconRightPadding
+            )
+            cancelIcon?.setOnClickListener { setText(null) }
+            if (index == null)
+                addView(cancelIcon)
+            else
+                addView(cancelIcon, index)
+        }
+    }
+
+    fun addSuffixIcon(index: Int? = null) {
+        if (suffixIconDrawable != null) {
+            suffixIcon = createIcon(
+                R.id.suffix_icon, suffixIconDrawable, suffixIconWidth, suffixIconHeight,
+                suffixIconLeftPadding, suffixIconRightPadding
+            )
+            if (index == null)
+                addView(suffixIcon)
+            else
+                addView(suffixIcon, index)
+        }
+    }
+
+    fun updatePrefixIcon(
+        leftPadding: Int? = null, rightPadding: Int? = null, drawable: Drawable? = null,
+        width: Int? = null, height: Int? = null
+    ) {
+        leftPadding?.let { this.prefixIconLeftPadding = it }
+        rightPadding?.let { this.prefixIconRightPadding = it }
+        this.prefixIconDrawable = drawable
+        width?.let { this.prefixIconWidth = it }
+        height?.let { this.prefixIconHeight = it }
+
+        for (v: View in children) {
+            if (v.id == R.id.prefix_icon) {
+                v.setPadding(prefixIconLeftPadding, 0, prefixIconRightPadding, 0)
+                if ((v as ViewGroup).childCount > 0) {
+                    val image = v.getChildAt(0) as ImageView
+                    image.setImageDrawable(prefixIconDrawable)
+                    image.layoutParams.width = prefixIconWidth
+                    image.layoutParams.height = prefixIconHeight
+                }
+            }
+            break
+        }
+    }
+
+    fun updateCancelIcon(
+        leftPadding: Int? = null, rightPadding: Int? = null, drawable: Drawable? = null,
+        width: Int? = null, height: Int? = null
+    ) {
+        leftPadding?.let { this.cancelIconLeftPadding = it }
+        rightPadding?.let { this.cancelIconRightPadding = it }
+        this.cancelIconDrawable = drawable
+        width?.let { this.cancelIconWidth = it }
+        height?.let { this.cancelIconHeight = it }
+
+        for (v: View in children) {
+            if (v.id == R.id.cancel_icon) {
+                v.setPadding(cancelIconLeftPadding, 0, cancelIconRightPadding, 0)
+                if ((v as ViewGroup).childCount > 0) {
+                    val image = v.getChildAt(0) as ImageView
+                    image.setImageDrawable(cancelIconDrawable)
+                    image.layoutParams.width = cancelIconWidth
+                    image.layoutParams.height = cancelIconHeight
+                }
+            }
+            break
+        }
+    }
+
+    fun updateSuffixIcon(
+        leftPadding: Int? = null, rightPadding: Int? = null, drawable: Drawable? = null,
+        width: Int? = null, height: Int? = null
+    ) {
+        leftPadding?.let { this.suffixIconLeftPadding = it }
+        rightPadding?.let { this.suffixIconRightPadding = it }
+        suffixIconDrawable = drawable
+        width?.let { this.suffixIconWidth = it }
+        height?.let { this.suffixIconHeight = it }
+
+        for (v: View in children) {
+            if (v.id == R.id.suffix_icon) {
+                v.setPadding(suffixIconLeftPadding, 0, suffixIconRightPadding, 0)
+                if ((v as ViewGroup).childCount > 0) {
+                    val image = v.getChildAt(0) as ImageView
+                    image.setImageDrawable(suffixIconDrawable)
+                    image.layoutParams.width = suffixIconWidth
+                    image.layoutParams.height = suffixIconHeight
+                }
+            }
+            break
+        }
     }
 
     @SuppressLint("ViewConstructor")
@@ -506,51 +584,6 @@ class SmartEditText @JvmOverloads constructor(
 
     }
 
-    fun setBackground(
-        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
-        disableStrokeColor: Int? = null, selectedColor: Int? = null, selectedEndColor: Int? = null,
-        selectedStrokeColor: Int? = null, rippleColor: Int? = null, maskDrawable: Drawable? = null,
-        stroke: Int? = null, shape: Int? = null, orientation: GradientDrawable.Orientation? = null
-    ) {
-        if (color != null) {
-            helper.color = ContextCompat.getColor(context, color)
-        }
-        if (endColor != null) {
-            helper.endColor = ContextCompat.getColor(context, endColor)
-        }
-        if (disableColor != null) {
-            helper.disableColor = ContextCompat.getColor(context, disableColor)
-        }
-        if (disableStrokeColor != null) {
-            helper.disableStrokeColor = ContextCompat.getColor(context, disableStrokeColor)
-        }
-        if (selectedColor != null) {
-            helper.selectedColor = ContextCompat.getColor(context, selectedColor)
-        }
-        if (selectedEndColor != null) {
-            helper.selectedEndColor = ContextCompat.getColor(context, selectedEndColor)
-        }
-        if (selectedStrokeColor != null) {
-            helper.selectedStrokeColor = ContextCompat.getColor(context, selectedStrokeColor)
-        }
-        if (rippleColor != null) {
-            helper.rippleColor = ContextCompat.getColor(context, rippleColor)
-        }
-        if (maskDrawable != null) {
-            helper.maskDrawable = maskDrawable
-        }
-        if (stroke != null) {
-            helper.stroke = stroke
-        }
-        if (shape != null) {
-            helper.shape = shape
-        }
-        if (orientation != null) {
-            helper.orientation = orientation
-        }
-        helper.initBackground()
-    }
-
     fun setTextColor(
         textColor: Int? = null, textSelectedColor: Int? = null, textDisableColor: Int? = null
     ) {
@@ -578,22 +611,81 @@ class SmartEditText @JvmOverloads constructor(
         editText?.let { helper.changeTextColor(it, isSelected) }
     }
 
-    fun setRadius(radius: Float) {
-        helper.initRadius(radius, radius, radius, radius)
-        //onSizeChanged
-        if (helper.strokeOverlay || helper.isCorner) {
-            helper.onSizeChanged(
-                width,
-                height,
-                paddingLeft,
-                paddingTop,
-                paddingRight,
-                paddingBottom
-            )
-        }
-        editText?.let { helper.changeTextColor(it, isSelected) }
+    fun setBackground(
+        color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
+        strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
+        orientation: GradientDrawable.Orientation? = null
+    ) {
+        helper.setBackground(
+            color, endColor, disableColor, strokeColor, disableStrokeColor,
+            selectedColor, selectedEndColor, selectedStrokeColor, rippleColor, maskDrawable,
+            stroke, shape, orientation
+        )
+    }
 
-        helper.initBackground()
+    fun setColor(color: Int? = null) {
+        helper.setColor(color)
+    }
+
+    fun setEndColor(endColor: Int? = null) {
+        helper.setEndColor(endColor)
+    }
+
+    fun setDisableColor(disableColor: Int? = null) {
+        helper.setDisableColor(disableColor)
+    }
+
+    fun setStrokeColor(strokeColor: Int? = null) {
+        helper.setStrokeColor(strokeColor)
+    }
+
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
+        helper.setDisableStrokeColor(disableStrokeColor)
+    }
+
+    fun setSelectedColor(selectedColor: Int? = null) {
+        helper.setSelectedColor(selectedColor)
+    }
+
+    fun setSelectedEndColor(selectedEndColor: Int? = null) {
+        helper.setSelectedEndColor(selectedEndColor)
+    }
+
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
+        helper.setSelectedStrokeColor(selectedStrokeColor)
+    }
+
+    fun setRippleColor(rippleColor: Int? = null) {
+        helper.setRippleColor(rippleColor)
+    }
+
+    fun setMaskDrawable(maskDrawable: Drawable? = null) {
+        helper.setMaskDrawable(maskDrawable)
+    }
+
+    fun setStroke(stroke: Int? = null) {
+        helper.setStroke(stroke)
+    }
+
+    fun setShape(shape: Int? = null) {
+        helper.setShape(shape)
+    }
+
+    fun setOrientation(orientation: GradientDrawable.Orientation? = null) {
+        helper.setOrientation(orientation)
+    }
+
+    fun setStrokeOverlay(strokeOverlay: Boolean?) {
+        strokeOverlay?.let { helper.changeStrokeOverlay(it) }
+    }
+
+    fun setRadius(
+        radius: Float, leftTop: Float? = radius, rightTop: Float? = radius,
+        leftBottom: Float? = radius, rightBottom: Float? = radius
+    ) {
+        helper.setRadius(radius, leftTop, rightTop, leftBottom, rightBottom)
     }
 
 }
