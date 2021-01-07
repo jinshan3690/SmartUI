@@ -26,6 +26,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var clipPaint = Paint()
     private var clipPath = Path()
     var enabled: Boolean = true
+    var throttle: Boolean = false
+    var throttleInterval = 1000L
     var isCorner: Boolean = false
     private var cornerRadiusArray = FloatArray(8)
     var layer = RectF()
@@ -54,6 +56,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var translationZNormal: Float = 0f
     private var translationZPressed: Float = 0f
 
+
     //TextView
     var textDisableColor: Int = 0
     var textSelectedColor: Int = 0
@@ -66,6 +69,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.SmartLayout)
         typedArray?.run {
             enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled,true)
+            throttle = typedArray.getBoolean(R.styleable.SmartLayout_sl_throttle,false)
+            throttleInterval = typedArray.getInt(R.styleable.SmartLayout_sl_throttle_interval,1000).toLong()
             view?.isEnabled = enabled
             background = typedArray.getDrawable(R.styleable.SmartLayout_sl_background)
             color = typedArray.getColor(R.styleable.SmartLayout_sl_color, Color.TRANSPARENT)

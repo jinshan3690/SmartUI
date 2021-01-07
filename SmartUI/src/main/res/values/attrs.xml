@@ -1,6 +1,8 @@
 <resources>
 
     <!--  SmartAttr  -->
+    <attr name="sl_throttle" format="reference|boolean" />
+    <attr name="sl_throttle_interval" format="reference|integer" />
     <attr name="sl_enabled" format="reference|boolean" />
     <attr name="sl_background" format="reference" />
     <attr name="sl_color" format="reference|color" />
@@ -154,6 +156,8 @@
     </attr>
 
     <declare-styleable name="SmartLayout">
+        <attr name="sl_throttle" />
+        <attr name="sl_throttle_interval" />
         <attr name="sl_enabled" />
         <attr name="sl_background" />
         <attr name="sl_color" />
@@ -185,6 +189,8 @@
     </declare-styleable>
 
     <declare-styleable name="SmartImageView">
+        <attr name="sl_throttle" />
+        <attr name="sl_throttle_interval" />
         <attr name="sl_enabled" />
         <attr name="sl_color" />
         <attr name="sl_endColor" />
@@ -215,6 +221,8 @@
     </declare-styleable>
 
     <declare-styleable name="SmartTextView">
+        <attr name="sl_throttle" />
+        <attr name="sl_throttle_interval" />
         <attr name="sl_enabled" />
         <attr name="sl_background" />
         <attr name="sl_color" />
@@ -270,6 +278,8 @@
     </declare-styleable>
 
     <declare-styleable name="SmartEditText">
+        <attr name="sl_throttle" />
+        <attr name="sl_throttle_interval" />
         <attr name="sl_enabled" />
         <attr name="sl_background" />
         <attr name="sl_color" />

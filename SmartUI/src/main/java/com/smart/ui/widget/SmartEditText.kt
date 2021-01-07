@@ -29,7 +29,7 @@ class SmartEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs), OnFocusChangeListener, TextWatcher, OnEditorActionListener {
 
-    private val helper = SmartHelper(context, attrs, this)
+    val helper = SmartHelper(context, attrs, this)
 
     var editText: SmartEdit? = null
     var prefixIcon: LinearLayout? = null
@@ -360,10 +360,23 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener { v ->
-            l?.run {
-                isSelected = !isSelected
-                onClick(v)
+        if(!helper.throttle) {
+            super.setOnClickListener { v ->
+                l?.run {
+                    isSelected = !isSelected
+                    onClick(v)
+                }
+            }
+        }else {
+            var prev = 0L
+            super.setOnClickListener { v ->
+                val now = System.currentTimeMillis()
+
+                if (now - prev >= helper.throttleInterval) {
+                    isSelected = !isSelected
+                    l?.onClick(v)
+                    prev = System.currentTimeMillis()
+                }
             }
         }
     }

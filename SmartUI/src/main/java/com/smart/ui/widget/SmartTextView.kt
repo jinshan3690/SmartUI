@@ -17,8 +17,7 @@ import com.smart.ui.util.SmartHelper
 class SmartTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     AppCompatTextView(context, attrs, 0) {
 
-
-    private val helper = SmartHelper(context, attrs, this)
+    val helper = SmartHelper(context, attrs, this)
 
     //TextView
     private val mDrawableWidth: IntArray = intArrayOf(-1, -1, -1, -1)
@@ -285,10 +284,23 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener { v ->
-            l?.run {
-                isSelected = !isSelected
-                onClick(v)
+        if(!helper.throttle) {
+            super.setOnClickListener { v ->
+                l?.run {
+                    isSelected = !isSelected
+                    onClick(v)
+                }
+            }
+        }else {
+            var prev = 0L
+            super.setOnClickListener { v ->
+                val now = System.currentTimeMillis()
+
+                if (now - prev >= helper.throttleInterval) {
+                    isSelected = !isSelected
+                    l?.onClick(v)
+                    prev = System.currentTimeMillis()
+                }
             }
         }
     }
