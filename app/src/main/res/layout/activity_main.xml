@@ -50,6 +50,7 @@
                 android:onClick="onClick"
                 android:gravity="center_vertical"
                 android:singleLine="true"
+                sl_endColor="@{(hint1?null:(Integer)@color/colorPrimary)}"
                 app:sl_color="#ef5350"/>
 
         </LinearLayout>

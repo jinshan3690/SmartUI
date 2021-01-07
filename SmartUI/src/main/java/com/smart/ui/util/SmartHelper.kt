@@ -158,11 +158,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                     (view?.paddingRight ?: 0) + stroke, (view?.paddingBottom ?: 0) + stroke
                 )
 
-            if (background == null) {
-                initBackground()
-            } else {
-                view?.background = background
-            }
+            initBackground()
 
             initStateListAnim()
             initClip()
@@ -234,20 +230,31 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             stateListDrawable.addState(intArrayOf(android.R.attr.state_enabled), backgroundDrawable)
         }
 
-        view?.background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                view?.foreground = RippleDrawable(
-                    ColorStateList.valueOf(rippleColor), null, maskDrawable ?: backgroundDrawable
-                )
-                stateListDrawable
+        if (background == null) {
+            view?.background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    view?.foreground = RippleDrawable(
+                        ColorStateList.valueOf(rippleColor), null,
+                        maskDrawable ?: backgroundDrawable
+                    )
+                    stateListDrawable
+                } else {
+                    val rippleDrawable = RippleDrawable(
+                        ColorStateList.valueOf(rippleColor), stateListDrawable, maskDrawable
+                    )
+                    rippleDrawable
+                }
             } else {
-                val rippleDrawable = RippleDrawable(
-                    ColorStateList.valueOf(rippleColor), stateListDrawable, maskDrawable
-                )
-                rippleDrawable
+                stateListDrawable
             }
         } else {
-            stateListDrawable
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                view?.foreground = RippleDrawable(
+                    ColorStateList.valueOf(rippleColor), null,
+                    maskDrawable ?: backgroundDrawable
+                )
+            }
+            view?.background = background
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             view?.outlineSpotShadowColor = shadowColor
@@ -672,8 +679,10 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 if (isChange) {
                     if (stroke != 0 && strokeOverlay) {
                         view?.setPadding(
-                            (view?.paddingLeft ?: 0) - this.stroke + stroke, (view?.paddingTop ?: 0) - this.stroke + stroke,
-                            (view?.paddingRight ?: 0) - this.stroke + stroke, (view?.paddingBottom ?: 0) - this.stroke + stroke
+                            (view?.paddingLeft ?: 0) - this.stroke + stroke,
+                            (view?.paddingTop ?: 0) - this.stroke + stroke,
+                            (view?.paddingRight ?: 0) - this.stroke + stroke,
+                            (view?.paddingBottom ?: 0) - this.stroke + stroke
                         )
                     } else {
                         view?.setPadding(

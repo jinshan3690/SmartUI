@@ -7,6 +7,7 @@ import android.os.Build
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.view.View
+import androidx.annotation.Nullable
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
