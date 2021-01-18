@@ -29,8 +29,8 @@ import com.smart.ui.binding.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : LinearLayout(context, attrs), OnFocusChangeListener, TextWatcher, OnEditorActionListener {
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : LinearLayout(context, attrs,defStyleAttr), OnFocusChangeListener, TextWatcher, OnEditorActionListener {
 
     val helper = SmartHelper(context, attrs, this)
 

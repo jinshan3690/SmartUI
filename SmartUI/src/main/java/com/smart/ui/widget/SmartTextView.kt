@@ -15,8 +15,9 @@ import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
 
-class SmartTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    AppCompatTextView(context, attrs, 0) {
+class SmartTextView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     val helper = SmartHelper(context, attrs, this)
 
@@ -136,7 +137,7 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 裁剪子View
      */
-        override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         if (helper.strokeOverlay || helper.isCorner) {
             helper.onSizeChanged(w, h, paddingLeft, paddingTop, paddingRight, paddingBottom)
@@ -285,14 +286,14 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        if(helper != null && !helper.throttle) {
+        if (helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
                 l?.run {
                     isSelected = !isSelected
                     onClick(v)
                 }
             }
-        }else {
+        } else {
             var prev = 0L
             super.setOnClickListener { v ->
                 val now = System.currentTimeMillis()
@@ -414,8 +415,8 @@ class SmartTextView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setTextGradient(
-        textEndColor: List<String> = listOf(), textEndStep :List<Float> = listOf(),
-        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep:List<Float> = listOf()
+        textEndColor: List<String> = listOf(), textEndStep: List<Float> = listOf(),
+        textSelectedEndColor: List<String> = listOf(), textSelectedEndStep: List<Float> = listOf()
     ) {
         helper.textEndColor = textEndColor.joinToString(",")
         helper.textEndStep = textEndStep.joinToString(",")
