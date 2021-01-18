@@ -17,20 +17,18 @@ import android.view.*
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.smart.ui.R
-import com.smart.ui.binding.TextViewBindingAdapter
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs,defStyleAttr), OnFocusChangeListener, TextWatcher, OnEditorActionListener {
+) : LinearLayout(context, attrs, defStyleAttr), OnFocusChangeListener, TextWatcher,
+    OnEditorActionListener {
 
     val helper = SmartHelper(context, attrs, this)
 
@@ -322,15 +320,23 @@ class SmartEditText @JvmOverloads constructor(
         }
     }
 
+    fun <T> setAdapter(adapter: T) where T : ListAdapter, T : Filterable {
+        editText?.setAdapter<T>(adapter)
+    }
+
+    fun showDropDown(){
+        editText?.showDropDown()
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
-        if(helper != null && !helper.throttle) {
+        if (helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
                 l?.run {
                     isSelected = !isSelected
                     onClick(v)
                 }
             }
-        }else {
+        } else {
             var prev = 0L
             super.setOnClickListener { v ->
                 val now = System.currentTimeMillis()
@@ -540,7 +546,7 @@ class SmartEditText @JvmOverloads constructor(
     class SmartEdit(
         context: Context, textLeftPadding: Int = 0, textRightPadding: Int = 0,
         textTopPadding: Int = 0, textBottomPadding: Int = 0, attrs: AttributeSet? = null
-    ) : androidx.appcompat.widget.AppCompatEditText(context, attrs) {
+    ) : androidx.appcompat.widget.AppCompatAutoCompleteTextView(context, attrs) {
 
         init {
             val params = LayoutParams(

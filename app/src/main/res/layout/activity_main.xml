@@ -812,6 +812,7 @@
                 app:sl_textStyle="bold" />
 
             <com.smart.ui.widget.SmartEditText
+                android:id="@+id/set3"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"

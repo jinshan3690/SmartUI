@@ -3,6 +3,8 @@ package com.smart.ui.demo
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
             name = "点击右侧ico清空"
             hint = "这是一个多功能EditText11111"
         }
+        viewDataBinding?.set3?.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayOf("2","1")))
+
     }
 
     fun onClick(view: View) {
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             R.id.st2 -> {
                 viewDataBinding?.st2?.setTextColor(textColor = R.color.colorWhite)
             }
-            R.id.st3 -> {
+            R.id.set3 -> {
 
             }
             R.id.sl4, R.id.st4 -> {
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             R.id.smartEditText->{
                 viewDataBinding?.hint1 =  !(viewDataBinding?.hint1?:false)
                 Toast.makeText(this,"点击回调",Toast.LENGTH_SHORT).show()
+                viewDataBinding?.set3?.showDropDown()
             }
             R.id.smartEditText1->{
                 viewDataBinding?.stroke = if(aaa) 50 else 100
