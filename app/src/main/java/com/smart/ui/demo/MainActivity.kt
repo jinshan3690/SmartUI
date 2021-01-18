@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     var viewDataBinding:ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayOf("2","1"))
         viewDataBinding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         viewDataBinding?.hint1 = true
@@ -24,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.apply {
             name = "点击右侧ico清空"
             hint = "这是一个多功能EditText11111"
+            this.adapter = adapter
         }
-        viewDataBinding?.set3?.setAdapter(ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayOf("2","1")))
 
     }
 

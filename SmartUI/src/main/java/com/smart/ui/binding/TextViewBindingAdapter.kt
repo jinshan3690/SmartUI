@@ -7,6 +7,8 @@ import android.os.Build
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.view.View
+import android.widget.Filterable
+import android.widget.ListAdapter
 import androidx.annotation.Nullable
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
@@ -21,6 +23,12 @@ import com.smart.ui.widget.SmartTextView
 import java.util.*
 
 object TextViewBindingAdapter {
+
+    @JvmStatic
+    @BindingAdapter(value = ["adapter"], requireAll = false)
+    fun <T> setAdapter(view: SmartEditText, adapter: T) where T : ListAdapter, T : Filterable {
+        view.setAdapter(adapter)
+    }
 
     @JvmStatic
     @BindingAdapter(

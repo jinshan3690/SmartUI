@@ -16,6 +16,9 @@
         <variable
             name="stroke"
             type="Integer" />
+        <variable
+            name="adapter"
+            type="android.widget.ArrayAdapter&lt;String>" />
     </data>
 
 <ScrollView
@@ -816,6 +819,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
+                adapter="@{adapter}"
                 app:sl_textGravity="center_vertical"
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
