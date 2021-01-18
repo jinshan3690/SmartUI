@@ -69,9 +69,10 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     init {
         val typedArray = context?.obtainStyledAttributes(attrs, R.styleable.SmartLayout)
         typedArray?.run {
-            enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled,true)
-            throttle = typedArray.getBoolean(R.styleable.SmartLayout_sl_throttle,false)
-            throttleInterval = typedArray.getInt(R.styleable.SmartLayout_sl_throttle_interval,1000).toLong()
+            enabled = typedArray.getBoolean(R.styleable.SmartLayout_sl_enabled, true)
+            throttle = typedArray.getBoolean(R.styleable.SmartLayout_sl_throttle, false)
+            throttleInterval =
+                typedArray.getInt(R.styleable.SmartLayout_sl_throttle_interval, 1000).toLong()
             view?.isEnabled = enabled
             background = typedArray.getDrawable(R.styleable.SmartLayout_sl_background)
             color = typedArray.getColor(R.styleable.SmartLayout_sl_color, Color.TRANSPARENT)
@@ -500,230 +501,204 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
         orientation: GradientDrawable.Orientation? = null
     ) {
-        if (background == null) {
-            if (color != null) {
-                context?.let { this.color = ContextCompat.getColor(it, color) }
-            } else {
-                this.color = Color.TRANSPARENT
-            }
-            if (endColor != null) {
-                context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
-            } else {
-                this.endColor = -999
-            }
-            if (disableColor != null) {
-                context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
-            } else {
-                this.disableColor = -999
-            }
-            if (strokeColor != null) {
-                context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
-            } else {
-                this.strokeColor = Color.parseColor("#DEDEDE")
-            }
-            if (disableStrokeColor != null) {
-                context?.let {
-                    this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
-                }
-            } else {
-                this.disableStrokeColor = -999
-            }
-            if (selectedColor != null) {
-                context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
-            } else {
-                this.selectedColor = -999
-            }
-            if (selectedEndColor != null) {
-                context?.let {
-                    this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
-                }
-            } else {
-                this.selectedEndColor = -999
-            }
-            if (selectedStrokeColor != null) {
-                context?.let {
-                    this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
-                }
-            } else {
-                this.selectedStrokeColor = -999
-            }
-            if (rippleColor != null) {
-                context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
-            } else {
-                this.rippleColor = Color.BLACK
-            }
-            if (maskDrawable != null) {
-                this.maskDrawable = maskDrawable
-            }
-            if (stroke != null) {
-                this.stroke = stroke
-            }
-            if (shape != null) {
-                this.shape = shape
-            }
-            if (orientation != null) {
-                this.orientation = orientation
-            }
-
-            this.initBackground()
+        if (color != null) {
+            context?.let { this.color = ContextCompat.getColor(it, color) }
+        } else {
+            this.color = Color.TRANSPARENT
         }
+        if (endColor != null) {
+            context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
+        } else {
+            this.endColor = -999
+        }
+        if (disableColor != null) {
+            context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
+        } else {
+            this.disableColor = -999
+        }
+        if (strokeColor != null) {
+            context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
+        } else {
+            this.strokeColor = Color.parseColor("#DEDEDE")
+        }
+        if (disableStrokeColor != null) {
+            context?.let {
+                this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
+            }
+        } else {
+            this.disableStrokeColor = -999
+        }
+        if (selectedColor != null) {
+            context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
+        } else {
+            this.selectedColor = -999
+        }
+        if (selectedEndColor != null) {
+            context?.let {
+                this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
+            }
+        } else {
+            this.selectedEndColor = -999
+        }
+        if (selectedStrokeColor != null) {
+            context?.let {
+                this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
+            }
+        } else {
+            this.selectedStrokeColor = -999
+        }
+        if (rippleColor != null) {
+            context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
+        } else {
+            this.rippleColor = Color.BLACK
+        }
+        if (maskDrawable != null) {
+            this.maskDrawable = maskDrawable
+        }
+        if (stroke != null) {
+            this.stroke = stroke
+        }
+        if (shape != null) {
+            this.shape = shape
+        }
+        if (orientation != null) {
+            this.orientation = orientation
+        }
+
+        this.initBackground()
     }
 
     fun setColor(color: Int? = null) {
-        if (background == null) {
-            if (color != null) {
-                this.color = color
-            } else {
-                this.color = Color.TRANSPARENT
-            }
+        if (color != null) {
+            this.color = color
+        } else {
+            this.color = Color.TRANSPARENT
         }
+
+        this.initBackground()
     }
 
     fun setEndColor(endColor: Int? = null) {
-        if (background == null) {
-            if (endColor != null) {
-                this.endColor = endColor
-            } else {
-                this.endColor = -999
-            }
-            this.initBackground()
+        if (endColor != null) {
+            this.endColor = endColor
+        } else {
+            this.endColor = -999
         }
+        this.initBackground()
     }
 
     fun setDisableColor(disableColor: Int? = null) {
-        if (background == null) {
-            if (disableColor != null) {
-                this.disableColor = disableColor
-            } else {
-                this.disableColor = -999
-            }
-            this.initBackground()
+        if (disableColor != null) {
+            this.disableColor = disableColor
+        } else {
+            this.disableColor = -999
         }
+        this.initBackground()
     }
 
     fun setStrokeColor(strokeColor: Int? = null) {
-        if (background == null) {
-            if (strokeColor != null) {
-                this.strokeColor = strokeColor
-            } else {
-                this.strokeColor = Color.parseColor("#DEDEDE")
-            }
-            this.initBackground()
+        if (strokeColor != null) {
+            this.strokeColor = strokeColor
+        } else {
+            this.strokeColor = Color.parseColor("#DEDEDE")
         }
+        this.initBackground()
     }
 
     fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
-        if (background == null) {
-            if (disableStrokeColor != null) {
-                this.disableStrokeColor = disableStrokeColor
-            } else {
-                this.disableStrokeColor = -999
-            }
-            this.initBackground()
+        if (disableStrokeColor != null) {
+            this.disableStrokeColor = disableStrokeColor
+        } else {
+            this.disableStrokeColor = -999
         }
+        this.initBackground()
     }
 
     fun setSelectedColor(selectedColor: Int? = null) {
-        if (background == null) {
-            if (selectedColor != null) {
-                this.selectedColor = selectedColor
-            } else {
-                this.selectedColor = -999
-            }
-            this.initBackground()
+        if (selectedColor != null) {
+            this.selectedColor = selectedColor
+        } else {
+            this.selectedColor = -999
         }
+        this.initBackground()
     }
 
     fun setSelectedEndColor(selectedEndColor: Int? = null) {
-        if (background == null) {
-            if (selectedEndColor != null) {
-                this.selectedEndColor = selectedEndColor
-            } else {
-                this.selectedEndColor = -999
-            }
-            this.initBackground()
+        if (selectedEndColor != null) {
+            this.selectedEndColor = selectedEndColor
+        } else {
+            this.selectedEndColor = -999
         }
+        this.initBackground()
     }
 
     fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
-        if (background == null) {
-            if (selectedStrokeColor != null) {
-                this.selectedStrokeColor = selectedStrokeColor
-            } else {
-                this.selectedStrokeColor = -999
-            }
-            this.initBackground()
+        if (selectedStrokeColor != null) {
+            this.selectedStrokeColor = selectedStrokeColor
+        } else {
+            this.selectedStrokeColor = -999
         }
+        this.initBackground()
     }
 
     fun setRippleColor(rippleColor: Int? = null) {
-        if (background == null) {
-            if (rippleColor != null) {
-                this.rippleColor = rippleColor
-            } else {
-                this.rippleColor = Color.BLACK
-            }
-            this.initBackground()
+        if (rippleColor != null) {
+            this.rippleColor = rippleColor
+        } else {
+            this.rippleColor = Color.BLACK
         }
+        this.initBackground()
     }
 
     fun setMaskDrawable(maskDrawable: Drawable? = null) {
-        if (background == null) {
-            if (maskDrawable != null) {
-                this.maskDrawable = maskDrawable
-                this.initBackground()
-            }
+        if (maskDrawable != null) {
+            this.maskDrawable = maskDrawable
+            this.initBackground()
         }
     }
 
     fun setStroke(stroke: Int? = null) {
-        if (background == null) {
-            if (stroke != null) {
+        if (stroke != null) {
 
-                val isChange = stroke != this.stroke
-                if (isChange) {
-                    if (stroke != 0 && strokeOverlay) {
-                        view?.setPadding(
-                            (view?.paddingLeft ?: 0) - this.stroke + stroke,
-                            (view?.paddingTop ?: 0) - this.stroke + stroke,
-                            (view?.paddingRight ?: 0) - this.stroke + stroke,
-                            (view?.paddingBottom ?: 0) - this.stroke + stroke
-                        )
-                    } else {
-                        view?.setPadding(
-                            (view?.paddingLeft ?: 0), (view?.paddingTop ?: 0),
-                            (view?.paddingRight ?: 0), (view?.paddingBottom ?: 0)
-                        )
-                    }
+            val isChange = stroke != this.stroke
+            if (isChange) {
+                if (stroke != 0 && strokeOverlay) {
+                    view?.setPadding(
+                        (view?.paddingLeft ?: 0) - this.stroke + stroke,
+                        (view?.paddingTop ?: 0) - this.stroke + stroke,
+                        (view?.paddingRight ?: 0) - this.stroke + stroke,
+                        (view?.paddingBottom ?: 0) - this.stroke + stroke
+                    )
+                } else {
+                    view?.setPadding(
+                        (view?.paddingLeft ?: 0), (view?.paddingTop ?: 0),
+                        (view?.paddingRight ?: 0), (view?.paddingBottom ?: 0)
+                    )
                 }
-
-                this.stroke = stroke
-                if (isChange)
-                    view?.apply {
-                        onSizeChanged(
-                            width, height, paddingLeft, paddingTop, paddingRight, paddingBottom
-                        )
-                    }
-                this.initBackground()
             }
+
+            this.stroke = stroke
+            if (isChange)
+                view?.apply {
+                    onSizeChanged(
+                        width, height, paddingLeft, paddingTop, paddingRight, paddingBottom
+                    )
+                }
+            this.initBackground()
         }
     }
 
     fun setShape(shape: Int? = null) {
-        if (background == null) {
-            if (shape != null) {
-                this.shape = shape
-                this.initBackground()
-            }
+        if (shape != null) {
+            this.shape = shape
+            this.initBackground()
         }
     }
 
     fun setOrientation(orientation: GradientDrawable.Orientation? = null) {
-        if (background == null) {
-            if (orientation != null) {
-                this.orientation = orientation
-                this.initBackground()
-            }
+        if (orientation != null) {
+            this.orientation = orientation
+            this.initBackground()
         }
     }
 
