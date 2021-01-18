@@ -38,7 +38,7 @@ class SmartLayout @JvmOverloads constructor(
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        if(!helper.throttle) {
+        if(helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
                 l?.run {
                     isSelected = !isSelected
