@@ -27,7 +27,12 @@ class MainActivity : AppCompatActivity() {
             hint = "这是一个多功能EditText11111"
             this.adapter = adapter
         }
-
+        viewDataBinding?.set?.suffixIcon?.setOnClickListener {
+            Toast.makeText(this,"点击回调2222",Toast.LENGTH_SHORT).show()
+        }
+        viewDataBinding?.set?.prefixIcon?.setOnClickListener {
+            Toast.makeText(this,"点击回调333",Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun onClick(view: View) {
@@ -38,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             R.id.st2 -> {
                 viewDataBinding?.st2?.setTextColor(textColor = R.color.colorWhite)
             }
-            R.id.set3 -> {
-
+            R.id.set -> {
+                Toast.makeText(this,"点击回调1111",Toast.LENGTH_SHORT).show()
             }
             R.id.sl4, R.id.st4 -> {
                 view.isEnabled = false

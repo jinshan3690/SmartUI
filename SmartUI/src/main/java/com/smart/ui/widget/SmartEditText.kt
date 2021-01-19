@@ -362,27 +362,12 @@ class SmartEditText @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     fun setEditEnabled(enabled: Boolean) {
-        suffixIcon?.isEnabled = enabled
-        cancelIcon?.isEnabled = enabled
-        prefixIcon?.isEnabled = enabled
         editText?.isFocusable = enabled
         editText?.isFocusableInTouchMode = enabled
         if (enabled) {
             editText?.setOnTouchListener(null)
-            prefixIcon?.setOnTouchListener(null)
-            suffixIcon?.setOnTouchListener(null)
-            cancelIcon?.setOnTouchListener(null)
         } else {
             editText?.setOnTouchListener { _, motionEvent ->
-                return@setOnTouchListener disabledTouch(editText?.parent as ViewGroup, motionEvent)
-            }
-            prefixIcon?.setOnTouchListener { _, motionEvent ->
-                return@setOnTouchListener disabledTouch(editText?.parent as ViewGroup, motionEvent)
-            }
-            suffixIcon?.setOnTouchListener { _, motionEvent ->
-                return@setOnTouchListener disabledTouch(editText?.parent as ViewGroup, motionEvent)
-            }
-            cancelIcon?.setOnTouchListener { _, motionEvent ->
                 return@setOnTouchListener disabledTouch(editText?.parent as ViewGroup, motionEvent)
             }
         }
