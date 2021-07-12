@@ -429,14 +429,15 @@ class SmartTextView @JvmOverloads constructor(
     fun setBackground(
         color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
         strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
-        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, focusedColor: Int? = null,
+        focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
         orientation: GradientDrawable.Orientation? = null
     ) {
         helper.setBackground(
             color, endColor, disableColor, strokeColor, disableStrokeColor,
-            selectedColor, selectedEndColor, selectedStrokeColor, rippleColor, maskDrawable,
-            stroke, shape, orientation
+            selectedColor, selectedEndColor, selectedStrokeColor, focusedColor, focusedEndColor,
+            focusedStrokeColor, rippleColor, maskDrawable, stroke, shape, orientation
         )
     }
 
@@ -470,6 +471,18 @@ class SmartTextView @JvmOverloads constructor(
 
     fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
         helper.setSelectedStrokeColor(selectedStrokeColor)
+    }
+
+    fun setFocusedColor(focusedColor: Int? = null) {
+        helper.setFocusedColor(focusedColor)
+    }
+
+    fun setFocusedEndColor(focusedEndColor: Int? = null) {
+        helper.setFocusedEndColor(focusedEndColor)
+    }
+
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null) {
+        helper.setFocusedStrokeColor(focusedStrokeColor)
     }
 
     fun setRippleColor(rippleColor: Int? = null) {

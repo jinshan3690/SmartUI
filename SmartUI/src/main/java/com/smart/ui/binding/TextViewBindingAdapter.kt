@@ -34,16 +34,17 @@ object TextViewBindingAdapter {
     @BindingAdapter(
         value = [
             "sl_prefixIcon", "sl_prefixIconWidth", "sl_prefixIconHeight",
-            "sl_prefixIconLeftPadding", "sl_prefixIconRightPadding"
+            "sl_prefixIconLeftPadding", "sl_prefixIconRightPadding", "sl_prefixIconRotation"
         ], requireAll = false
     )
     fun setPrefixIcon(
         view: SmartEditText, prefixIcon: Drawable?, prefixIconWidth: Int?, prefixIconHeight: Int?,
-        prefixIconLeftPadding: Int?, prefixIconRightPadding: Int?
+        prefixIconLeftPadding: Int?, prefixIconRightPadding: Int?, prefixIconRotation: Float?
     ) {
         view.updatePrefixIcon(
             leftPadding = prefixIconLeftPadding, rightPadding = prefixIconRightPadding,
-            drawable = prefixIcon, width = prefixIconWidth, height = prefixIconHeight
+            drawable = prefixIcon, width = prefixIconWidth, height = prefixIconHeight,
+            rotation = prefixIconRotation ?: 0f
         )
     }
 
@@ -51,16 +52,17 @@ object TextViewBindingAdapter {
     @BindingAdapter(
         value = [
             "sl_suffixIcon", "sl_suffixIconWidth", "sl_suffixIconHeight",
-            "sl_suffixIconLeftPadding", "sl_suffixIconRightPadding"
+            "sl_suffixIconLeftPadding", "sl_suffixIconRightPadding", "sl_suffixIconRotation"
         ], requireAll = false
     )
     fun setSuffixIcon(
         view: SmartEditText, suffixIcon: Drawable?, suffixIconWidth: Int?, suffixIconHeight: Int?,
-        suffixIconLeftPadding: Int?, suffixIconRightPadding: Int?
+        suffixIconLeftPadding: Int?, suffixIconRightPadding: Int?, suffixIconRotation: Float?
     ) {
         view.updateSuffixIcon(
             leftPadding = suffixIconLeftPadding, rightPadding = suffixIconRightPadding,
-            drawable = suffixIcon, width = suffixIconWidth, height = suffixIconHeight
+            drawable = suffixIcon, width = suffixIconWidth, height = suffixIconHeight,
+            rotation = suffixIconRotation ?: 0f
         )
     }
 
@@ -68,16 +70,17 @@ object TextViewBindingAdapter {
     @BindingAdapter(
         value = [
             "sl_cancelIcon", "sl_cancelIconWidth", "sl_cancelIconHeight",
-            "sl_cancelIconLeftPadding", "sl_cancelIconRightPadding"
+            "sl_cancelIconLeftPadding", "sl_cancelIconRightPadding", "sl_cancelIconRotation"
         ], requireAll = false
     )
     fun setCancelIcon(
         view: SmartEditText, cancelIcon: Drawable?, cancelIconWidth: Int?, cancelIconHeight: Int?,
-        cancelIconLeftPadding: Int?, cancelIconRightPadding: Int?
+        cancelIconLeftPadding: Int?, cancelIconRightPadding: Int?, cancelIconRotation: Float?
     ) {
         view.updateCancelIcon(
             leftPadding = cancelIconLeftPadding, rightPadding = cancelIconRightPadding,
-            drawable = cancelIcon, width = cancelIconWidth, height = cancelIconHeight
+            drawable = cancelIcon, width = cancelIconWidth, height = cancelIconHeight,
+            rotation = cancelIconRotation ?: 0f
         )
     }
 
@@ -420,6 +423,39 @@ object TextViewBindingAdapter {
             is SmartTextView -> view.setSelectedEndColor(selectedEndColor)
             is SmartImageView -> view.setSelectedEndColor(selectedEndColor)
             is SmartEditText -> view.setSelectedEndColor(selectedEndColor)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["sl_focusedStrokeColor"], requireAll = false)
+    fun setFocusedStrokeColor(view: View, focusedStrokeColor: Int?) {
+        when (view) {
+            is SmartLayout -> view.setFocusedStrokeColor(focusedStrokeColor)
+            is SmartTextView -> view.setFocusedStrokeColor(focusedStrokeColor)
+            is SmartImageView -> view.setFocusedStrokeColor(focusedStrokeColor)
+            is SmartEditText -> view.setFocusedStrokeColor(focusedStrokeColor)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["sl_focusedColor"], requireAll = false)
+    fun setFocusedColor(view: View, focusedColor: Int?) {
+        when (view) {
+            is SmartLayout -> view.setFocusedColor(focusedColor)
+            is SmartTextView -> view.setFocusedColor(focusedColor)
+            is SmartImageView -> view.setFocusedColor(focusedColor)
+            is SmartEditText -> view.setFocusedColor(focusedColor)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["sl_focusedEndColor"], requireAll = false)
+    fun setFocusedEndColor(view: View, focusedEndColor: Int?) {
+        when (view) {
+            is SmartLayout -> view.setFocusedEndColor(focusedEndColor)
+            is SmartTextView -> view.setFocusedEndColor(focusedEndColor)
+            is SmartImageView -> view.setFocusedEndColor(focusedEndColor)
+            is SmartEditText -> view.setFocusedEndColor(focusedEndColor)
         }
     }
 

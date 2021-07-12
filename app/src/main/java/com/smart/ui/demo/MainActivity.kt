@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.set?.prefixIcon?.setOnClickListener {
             Toast.makeText(this,"点击回调333",Toast.LENGTH_SHORT).show()
         }
+        viewDataBinding?.sl3?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun onClick(view: View) {

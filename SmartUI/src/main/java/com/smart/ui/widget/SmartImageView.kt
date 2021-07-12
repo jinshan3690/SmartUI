@@ -30,7 +30,7 @@ class SmartImageView @JvmOverloads constructor(
      */
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        if(helper.strokeOverlay || helper.isCorner) {
+        if (helper.strokeOverlay || helper.isCorner) {
             helper.onSizeChanged(w, h, paddingLeft, paddingTop, paddingRight, paddingBottom)
             strokeDrawable?.setBounds(0, 0, w, h)
         }
@@ -38,7 +38,7 @@ class SmartImageView @JvmOverloads constructor(
 
 
     override fun onDraw(canvas: Canvas) {
-        if(helper.strokeOverlay || helper.isCorner) {
+        if (helper.strokeOverlay || helper.isCorner) {
             canvas.saveLayer(helper.layer, null, Canvas.ALL_SAVE_FLAG)
 
             super.onDraw(canvas)
@@ -46,20 +46,20 @@ class SmartImageView @JvmOverloads constructor(
             helper.onClipDraw(canvas)
 
             canvas.restore()
-        }else{
+        } else {
             super.onDraw(canvas)
         }
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        if(helper != null && !helper.throttle) {
+        if (helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
                 l?.run {
                     isSelected = !isSelected
                     onClick(v)
                 }
             }
-        }else {
+        } else {
             var prev = 0L
             super.setOnClickListener { v ->
                 val now = System.currentTimeMillis()
@@ -76,14 +76,15 @@ class SmartImageView @JvmOverloads constructor(
     fun setBackground(
         color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
         strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
-        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, focusedColor: Int? = null,
+        focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
         orientation: GradientDrawable.Orientation? = null
     ) {
         helper.setBackground(
             color, endColor, disableColor, strokeColor, disableStrokeColor,
-            selectedColor, selectedEndColor, selectedStrokeColor, rippleColor, maskDrawable,
-            stroke, shape, orientation
+            selectedColor, selectedEndColor, selectedStrokeColor, focusedColor, focusedEndColor,
+            focusedStrokeColor, rippleColor, maskDrawable, stroke, shape, orientation
         )
     }
 
@@ -119,6 +120,18 @@ class SmartImageView @JvmOverloads constructor(
         helper.setSelectedStrokeColor(selectedStrokeColor)
     }
 
+    fun setFocusedColor(focusedColor: Int? = null) {
+        helper.setFocusedColor(focusedColor)
+    }
+
+    fun setFocusedEndColor(focusedEndColor: Int? = null) {
+        helper.setFocusedEndColor(focusedEndColor)
+    }
+
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null) {
+        helper.setFocusedStrokeColor(focusedStrokeColor)
+    }
+
     fun setRippleColor(rippleColor: Int? = null) {
         helper.setRippleColor(rippleColor)
     }
@@ -147,7 +160,7 @@ class SmartImageView @JvmOverloads constructor(
         radius: Float, leftTop: Float? = radius, rightTop: Float? = radius,
         leftBottom: Float? = radius, rightBottom: Float? = radius
     ) {
-       helper.setRadius(radius, leftTop, rightTop, leftBottom, rightBottom)
+        helper.setRadius(radius, leftTop, rightTop, leftBottom, rightBottom)
     }
 
 }

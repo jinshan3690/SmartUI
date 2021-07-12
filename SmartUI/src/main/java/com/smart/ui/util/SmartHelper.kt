@@ -48,6 +48,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     private var selectedStrokeColor: Int = 0
     private var selectedColor: Int = 0
     private var selectedEndColor: Int = 0
+    private var focusedStrokeColor: Int = 0
+    private var focusedColor: Int = 0
+    private var focusedEndColor: Int = 0
     private var shape: Int = GradientDrawable.RECTANGLE
     private var defaultStateListAnim: Boolean = false
     private var stateListAnim: StateListAnimator? = null
@@ -117,6 +120,15 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             selectedStrokeColor = typedArray.getColor(
                 R.styleable.SmartLayout_sl_selectedStrokeColor, -999
             )
+            focusedColor = typedArray.getColor(
+                R.styleable.SmartLayout_sl_focusedColor, -999
+            )
+            focusedEndColor = typedArray.getColor(
+                R.styleable.SmartLayout_sl_focusedEndColor, -999
+            )
+            focusedStrokeColor = typedArray.getColor(
+                R.styleable.SmartLayout_sl_focusedStrokeColor, -999
+            )
             val radius = typedArray.getDimension(R.styleable.SmartLayout_sl_radius, 0f)
             val radiusLeftTop =
                 typedArray.getDimension(R.styleable.SmartLayout_sl_radiusLeftTop, radius)
@@ -171,7 +183,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
     }
 
-    fun initRadius(
+    private fun initRadius(
         radiusLeftTop: Float, radiusRightTop: Float, radiusRightBottom: Float,
         radiusLeftBottom: Float
     ) {
@@ -197,25 +209,55 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
     }
 
-    fun initBackground() {
+    private fun initBackground() {
+
+        view?.isFocusable = true
+        view?.isFocusableInTouchMode = true
         val stateListDrawable = StateListDrawable()
         val backgroundDrawable = createDrawable(
             color = *intArrayOf(color, endColor)
         )
 
-        if (disableColor == -999) {
-            disableColor = color
-        }
-        if (disableStrokeColor == -999) {
-            disableStrokeColor = strokeColor
-        }
-        val disableDrawable = createDrawable(
-            strokeColor = disableStrokeColor, color = *intArrayOf(disableColor)
-        )
-
-        stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), disableDrawable)
-
-        if (selectedColor != -999 || selectedStrokeColor != -999) {
+        if ((selectedColor != -999 || selectedStrokeColor != -999) && (focusedColor != -999 || focusedStrokeColor != -999)) {
+            val selectedDrawable =
+                createStateDrawable(selectedColor, selectedEndColor, selectedStrokeColor)
+            val focusedDrawable =
+                createStateDrawable(focusedColor, focusedEndColor, focusedStrokeColor)
+            val selectedAndFocusedDrawable =
+                createStateDrawable(selectedColor, selectedEndColor, focusedStrokeColor)
+            //选中 焦点
+            stateListDrawable.addState(
+                intArrayOf(
+                    android.R.attr.state_selected,
+                    android.R.attr.state_focused,
+                    android.R.attr.state_enabled
+                ), selectedAndFocusedDrawable
+            )
+            //选中
+            stateListDrawable.addState(
+                intArrayOf(
+                    android.R.attr.state_selected,
+                    -android.R.attr.state_focused,
+                    android.R.attr.state_enabled
+                ), selectedDrawable
+            )
+            //焦点
+            stateListDrawable.addState(
+                intArrayOf(
+                    android.R.attr.state_focused,
+                    -android.R.attr.state_selected,
+                    android.R.attr.state_enabled
+                ), focusedDrawable
+            )
+            //未选中
+            stateListDrawable.addState(
+                intArrayOf(
+                    -android.R.attr.state_focused,
+                    -android.R.attr.state_selected,
+                    android.R.attr.state_enabled
+                ), backgroundDrawable
+            )
+        } else if (selectedColor != -999 || selectedStrokeColor != -999) {
             if (selectedColor == -999)
                 selectedColor = Color.TRANSPARENT
             if (selectedStrokeColor == -999)
@@ -224,17 +266,36 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 strokeColor = selectedStrokeColor,
                 color = *intArrayOf(selectedColor, selectedEndColor)
             )
+
             stateListDrawable.addState(
-                intArrayOf(android.R.attr.state_enabled, android.R.attr.state_selected),
+                intArrayOf(android.R.attr.state_selected, android.R.attr.state_enabled),
                 selectedDrawable
             )
             stateListDrawable.addState(
-                intArrayOf(android.R.attr.state_enabled, -android.R.attr.state_selected),
+                intArrayOf(-android.R.attr.state_selected, android.R.attr.state_enabled),
                 backgroundDrawable
             )
-        } else {
-            stateListDrawable.addState(intArrayOf(android.R.attr.state_enabled), backgroundDrawable)
+        } else if (focusedColor != -999 || focusedStrokeColor != -999) {
+            if (focusedColor == -999)
+                focusedColor = Color.TRANSPARENT
+            if (focusedStrokeColor == -999)
+                focusedStrokeColor = Color.TRANSPARENT
+            val focusedDrawable = createDrawable(
+                strokeColor = focusedStrokeColor,
+                color = *intArrayOf(focusedColor, focusedEndColor)
+            )
+            stateListDrawable.addState(
+                intArrayOf(android.R.attr.state_focused, android.R.attr.state_enabled),
+                focusedDrawable
+            )
+            stateListDrawable.addState(
+                intArrayOf(-android.R.attr.state_focused, android.R.attr.state_enabled),
+                backgroundDrawable
+            )
         }
+
+        val disableDrawable = createStateDrawable(disableColor, -999, disableStrokeColor)
+        stateListDrawable.addState(intArrayOf(-android.R.attr.state_enabled), disableDrawable)
 
         if (background == null) {
             view?.background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -262,6 +323,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             }
             view?.background = background
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             view?.outlineSpotShadowColor = shadowColor
             //发散
@@ -359,6 +421,16 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             path.op(clipPath, Path.Op.DIFFERENCE)
             canvas.drawPath(path, clipPaint)
         }
+    }
+
+    /**
+     * 获取状态背景
+     */
+    private fun createStateDrawable(color: Int, endColor: Int, stroke: Int): GradientDrawable {
+        return createDrawable(
+            strokeColor = if (stroke == -999) Color.TRANSPARENT else stroke,
+            color = *intArrayOf(if (color == -999) Color.TRANSPARENT else color, endColor)
+        )
     }
 
     /**
@@ -497,7 +569,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setBackground(
         color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
         strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
-        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, rippleColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null,focusedColor: Int? = null,
+        focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
         orientation: GradientDrawable.Orientation? = null
     ) {
@@ -546,6 +619,25 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             }
         } else {
             this.selectedStrokeColor = -999
+        }
+        if (focusedColor != null) {
+            context?.let { this.focusedColor = ContextCompat.getColor(it, focusedColor) }
+        } else {
+            this.focusedColor = -999
+        }
+        if (focusedEndColor != null) {
+            context?.let {
+                this.focusedEndColor = ContextCompat.getColor(it, focusedEndColor)
+            }
+        } else {
+            this.focusedEndColor = -999
+        }
+        if (focusedStrokeColor != null) {
+            context?.let {
+                this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor)
+            }
+        } else {
+            this.focusedStrokeColor = -999
         }
         if (rippleColor != null) {
             context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
@@ -637,6 +729,33 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
             this.selectedStrokeColor = selectedStrokeColor
         } else {
             this.selectedStrokeColor = -999
+        }
+        this.initBackground()
+    }
+
+    fun setFocusedColor(focusedColor: Int? = null) {
+        if (focusedColor != null) {
+            this.focusedColor = focusedColor
+        } else {
+            this.focusedColor = -999
+        }
+        this.initBackground()
+    }
+
+    fun setFocusedEndColor(focusedEndColor: Int? = null) {
+        if (focusedEndColor != null) {
+            this.focusedEndColor = focusedEndColor
+        } else {
+            this.focusedEndColor = -999
+        }
+        this.initBackground()
+    }
+
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null) {
+        if (focusedStrokeColor != null) {
+            this.focusedStrokeColor = focusedStrokeColor
+        } else {
+            this.focusedStrokeColor = -999
         }
         this.initBackground()
     }

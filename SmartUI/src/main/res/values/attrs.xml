@@ -30,6 +30,9 @@
     <attr name="sl_selectedStrokeColor" format="reference|color" />
     <attr name="sl_selectedColor" format="reference|color" />
     <attr name="sl_selectedEndColor" format="reference|color" />
+    <attr name="sl_focusedStrokeColor" format="reference|color" />
+    <attr name="sl_focusedColor" format="reference|color" />
+    <attr name="sl_focusedEndColor" format="reference|color" />
     <attr name="sl_radius" format="reference|dimension" />
     <attr name="sl_radiusLeftTop" format="reference|dimension" />
     <attr name="sl_radiusRightTop" format="reference|dimension" />
@@ -78,16 +81,19 @@
     <attr name="sl_compoundDrawableBottomHeight" format="reference|dimension" />
     <!--  EditText  -->
     <attr name="sl_prefixIcon" format="reference" />
+    <attr name="sl_prefixIconRotation" format="reference|float" />
     <attr name="sl_prefixIconWidth" format="reference|dimension" />
     <attr name="sl_prefixIconHeight" format="reference|dimension" />
     <attr name="sl_prefixIconLeftPadding" format="reference|dimension" />
     <attr name="sl_prefixIconRightPadding" format="reference|dimension" />
     <attr name="sl_suffixIcon" format="reference" />
+    <attr name="sl_suffixIconRotation" format="reference|float" />
     <attr name="sl_suffixIconWidth" format="reference|dimension" />
     <attr name="sl_suffixIconHeight" format="reference|dimension" />
     <attr name="sl_suffixIconLeftPadding" format="reference|dimension" />
     <attr name="sl_suffixIconRightPadding" format="reference|dimension" />
     <attr name="sl_cancelIcon" format="reference" />
+    <attr name="sl_cancelIconRotation" format="reference|float" />
     <attr name="sl_cancelIconWidth" format="reference|dimension" />
     <attr name="sl_cancelIconHeight" format="reference|dimension" />
     <attr name="sl_cancelIconLeftPadding" format="reference|dimension" />
@@ -206,6 +212,9 @@
         <attr name="sl_selectedStrokeColor" />
         <attr name="sl_selectedColor" />
         <attr name="sl_selectedEndColor" />
+        <attr name="sl_focusedStrokeColor" />
+        <attr name="sl_focusedColor" />
+        <attr name="sl_focusedEndColor" />
         <attr name="sl_radius" />
         <attr name="sl_radiusLeftTop" />
         <attr name="sl_radiusRightTop" />
@@ -238,6 +247,9 @@
         <attr name="sl_selectedStrokeColor" />
         <attr name="sl_selectedColor" />
         <attr name="sl_selectedEndColor" />
+        <attr name="sl_focusedStrokeColor" />
+        <attr name="sl_focusedColor" />
+        <attr name="sl_focusedEndColor" />
         <attr name="sl_radius" />
         <attr name="sl_radiusLeftTop" />
         <attr name="sl_radiusRightTop" />
@@ -271,6 +283,9 @@
         <attr name="sl_selectedStrokeColor" />
         <attr name="sl_selectedColor" />
         <attr name="sl_selectedEndColor" />
+        <attr name="sl_focusedStrokeColor" />
+        <attr name="sl_focusedColor" />
+        <attr name="sl_focusedEndColor" />
         <attr name="sl_radius" />
         <attr name="sl_radiusLeftTop" />
         <attr name="sl_radiusRightTop" />
@@ -328,6 +343,9 @@
         <attr name="sl_selectedStrokeColor" />
         <attr name="sl_selectedColor" />
         <attr name="sl_selectedEndColor" />
+        <attr name="sl_focusedStrokeColor" />
+        <attr name="sl_focusedColor" />
+        <attr name="sl_focusedEndColor" />
         <attr name="sl_radius" />
         <attr name="sl_radiusLeftTop" />
         <attr name="sl_radiusRightTop" />
@@ -364,16 +382,19 @@
         <attr name="sl_textPaddingBottom" />
 
         <attr name="sl_prefixIcon" />
+        <attr name="sl_prefixIconRotation" />
         <attr name="sl_prefixIconWidth" />
         <attr name="sl_prefixIconHeight" />
         <attr name="sl_prefixIconLeftPadding" />
         <attr name="sl_prefixIconRightPadding" />
         <attr name="sl_suffixIcon" />
+        <attr name="sl_suffixIconRotation" />
         <attr name="sl_suffixIconWidth" />
         <attr name="sl_suffixIconHeight" />
         <attr name="sl_suffixIconLeftPadding" />
         <attr name="sl_suffixIconRightPadding" />
         <attr name="sl_cancelIcon" />
+        <attr name="sl_cancelIconRotation" />
         <attr name="sl_cancelIconWidth" />
         <attr name="sl_cancelIconHeight" />
         <attr name="sl_cancelIconLeftPadding" />

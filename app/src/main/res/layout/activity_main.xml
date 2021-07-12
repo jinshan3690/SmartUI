@@ -93,7 +93,11 @@
                 android:layout_marginRight="10dp"
                 android:onClick="onClick"
                 app:sl_color="@{@color/colorPrimary}"
-                app:sl_radius="10dp">
+                app:sl_radius="10dp"
+                app:sl_stroke="1dp"
+                app:sl_focusedColor="#7E57C2"
+                app:sl_focusedStrokeColor="#AB47BC"
+                app:sl_focusedEndColor="#EC407A">
 
                 <com.smart.ui.widget.SmartTextView
                     android:layout_width="match_parent"
@@ -136,6 +140,7 @@
                 app:sl_disableColor="#cccccc"
                 app:sl_stroke="1dp"
                 app:sl_strokeColor="#000000"
+                app:sl_selectedColor="#7E57C2"
                 app:sl_disableStrokeColor="#ff00ff"
                 app:sl_radius="10dp">
 
@@ -186,7 +191,12 @@
                 app:sl_radiusLeftBottom="10dp"
                 app:sl_radiusRightTop="10dp"
                 app:sl_stroke="2dp"
-                app:sl_strokeColor="#26C6DA">
+                app:sl_strokeColor="#26C6DA"
+                app:sl_selectedColor="#FF7043"
+                app:sl_selectedStrokeColor="#9CCC65"
+                app:sl_focusedColor="#7E57C2"
+                app:sl_focusedStrokeColor="#AB47BC"
+                app:sl_focusedEndColor="#EC407A">
 
                 <com.smart.ui.widget.SmartTextView
                     android:layout_width="wrap_content"
@@ -781,9 +791,11 @@
                 app:sl_cancelIcon="@mipmap/ic_launcher"
                 app:sl_cancelIconHeight="30dp"
                 app:sl_cancelIconWidth="30dp"
+                app:sl_suffixIconRotation="65"
                 app:sl_suffixIcon="@mipmap/head"
                 app:sl_suffixIconHeight="30dp"
                 app:sl_suffixIconWidth="30dp"
+                app:sl_prefixIconRotation="180"
                 app:sl_prefixIcon="@mipmap/head"
                 app:sl_prefixIconHeight="30dp"
                 app:sl_prefixIconWidth="30dp"
