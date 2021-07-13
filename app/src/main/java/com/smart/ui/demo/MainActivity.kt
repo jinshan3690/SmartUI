@@ -36,6 +36,21 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.sl3?.setOnClickListener {
             Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
         }
+        viewDataBinding?.set?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
+        viewDataBinding?.set2?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
+        viewDataBinding?.set3?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
+        viewDataBinding?.set2?.suffixIcon?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
+        viewDataBinding?.set3?.suffixIcon?.setOnClickListener {
+            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun onClick(view: View) {

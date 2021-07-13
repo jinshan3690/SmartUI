@@ -173,7 +173,13 @@ class SmartEditText @JvmOverloads constructor(
         addPrefixIcon()
 
         editText =
-            SmartEdit(context, textLeftPadding, textRightPadding, textTopPadding, textBottomPadding)
+            SmartEdit(
+                context,
+                textLeftPadding,
+                textRightPadding,
+                textTopPadding,
+                textBottomPadding
+            )
         editText?.onFocusChangeListener = this
         editText?.addTextChangedListener(this)
         editText?.setOnEditorActionListener(this)
@@ -346,20 +352,28 @@ class SmartEditText @JvmOverloads constructor(
     override fun setOnClickListener(l: OnClickListener?) {
         if (helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
-                l?.run {
-                    isSelected = !isSelected
-                    onClick(v)
+                if (editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
+                    editText?.requestFocus()
+                } else {
+                    l?.run {
+                        isSelected = !isSelected
+                        onClick(v)
+                    }
                 }
             }
         } else {
             var prev = 0L
             super.setOnClickListener { v ->
-                val now = System.currentTimeMillis()
+                if (editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
+                    editText?.requestFocus()
+                } else {
+                    val now = System.currentTimeMillis()
 
-                if (now - prev >= helper.throttleInterval) {
-                    isSelected = !isSelected
-                    l?.onClick(v)
-                    prev = System.currentTimeMillis()
+                    if (now - prev >= helper.throttleInterval) {
+                        isSelected = !isSelected
+                        l?.onClick(v)
+                        prev = System.currentTimeMillis()
+                    }
                 }
             }
         }
@@ -372,6 +386,8 @@ class SmartEditText @JvmOverloads constructor(
 
     override fun setEnabled(enabled: Boolean) {
         setEditEnabled(enabled)
+        suffixIcon?.isEnabled = enabled
+        prefixIcon?.isEnabled = enabled
         super.setEnabled(enabled)
     }
 
@@ -415,6 +431,7 @@ class SmartEditText @JvmOverloads constructor(
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         linearLayout.setPadding(paddingLeft, 0, paddingRight, 0)
         linearLayout.gravity = Gravity.CENTER
+        linearLayout.isEnabled = isEnabled
 
         val icon = SmartImageView(context)
         icon.rotation = rotation
@@ -554,18 +571,23 @@ class SmartEditText @JvmOverloads constructor(
 
     @SuppressLint("ViewConstructor")
     class SmartEdit(
-        context: Context, textLeftPadding: Int = 0, textRightPadding: Int = 0,
-        textTopPadding: Int = 0, textBottomPadding: Int = 0, attrs: AttributeSet? = null
+        context: Context,
+        textLeftPadding: Int = 0,
+        textRightPadding: Int = 0,
+        textTopPadding: Int = 0,
+        textBottomPadding: Int = 0,
+        attrs: AttributeSet? = null
     ) : androidx.appcompat.widget.AppCompatAutoCompleteTextView(context, attrs) {
 
         init {
             val params = LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, 1f
-            ) as MarginLayoutParams
+            ) as ViewGroup.MarginLayoutParams
             layoutParams = params
             setPadding(textLeftPadding, textTopPadding, textRightPadding, textBottomPadding)
             background = null
         }
+
     }
 
     interface SearchListener {

@@ -210,15 +210,14 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     }
 
     private fun initBackground() {
-
-        view?.isFocusable = true
-        view?.isFocusableInTouchMode = true
         val stateListDrawable = StateListDrawable()
         val backgroundDrawable = createDrawable(
             color = *intArrayOf(color, endColor)
         )
 
         if ((selectedColor != -999 || selectedStrokeColor != -999) && (focusedColor != -999 || focusedStrokeColor != -999)) {
+            view?.isFocusable = true
+            view?.isFocusableInTouchMode = true
             val selectedDrawable =
                 createStateDrawable(selectedColor, selectedEndColor, selectedStrokeColor)
             val focusedDrawable =
@@ -276,6 +275,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 backgroundDrawable
             )
         } else if (focusedColor != -999 || focusedStrokeColor != -999) {
+            view?.isFocusable = true
+            view?.isFocusableInTouchMode = true
             if (focusedColor == -999)
                 focusedColor = Color.TRANSPARENT
             if (focusedStrokeColor == -999)
