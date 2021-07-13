@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.set?.setOnClickListener {
             Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
         }
-        viewDataBinding?.set2?.setOnClickListener {
-            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
-        }
+//        viewDataBinding?.set2?.setOnClickListener {
+//            Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
+//        }
         viewDataBinding?.set3?.setOnClickListener {
             Toast.makeText(this,"点击回调4444"+it.isSelected,Toast.LENGTH_SHORT).show()
         }

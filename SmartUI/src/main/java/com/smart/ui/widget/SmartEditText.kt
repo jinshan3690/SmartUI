@@ -349,11 +349,18 @@ class SmartEditText @JvmOverloads constructor(
         editText?.showDropDown()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_ENTER && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true){
+            editText?.requestFocus()
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         if (helper != null && !helper.throttle) {
             super.setOnClickListener { v ->
                 if (editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
-                    editText?.requestFocus()
+//                    editText?.requestFocus()
                 } else {
                     l?.run {
                         isSelected = !isSelected
@@ -365,7 +372,7 @@ class SmartEditText @JvmOverloads constructor(
             var prev = 0L
             super.setOnClickListener { v ->
                 if (editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
-                    editText?.requestFocus()
+//                    editText?.requestFocus()
                 } else {
                     val now = System.currentTimeMillis()
 
