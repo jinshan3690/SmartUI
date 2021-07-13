@@ -185,6 +185,8 @@ class SmartEditText @JvmOverloads constructor(
         editText?.setOnEditorActionListener(this)
         editText?.setOnFocusChangeListener { v, hasFocus ->
             isSelected = hasFocus
+            if (hasFocus)
+                editText?.setSelection(editText?.length() ?: 0)
         }
         editText?.post { editText?.setSelection(editText?.length() ?: 0) }
         addView(editText)
@@ -350,7 +352,7 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode == KeyEvent.KEYCODE_ENTER && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true){
+        if (keyCode == KeyEvent.KEYCODE_ENTER && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
             editText?.requestFocus()
         }
         return super.onKeyDown(keyCode, event)
