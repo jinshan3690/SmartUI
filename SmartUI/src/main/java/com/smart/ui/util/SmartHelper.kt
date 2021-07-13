@@ -293,6 +293,8 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 intArrayOf(-android.R.attr.state_focused, android.R.attr.state_enabled),
                 backgroundDrawable
             )
+        }else{
+            stateListDrawable.addState(intArrayOf(android.R.attr.state_enabled), backgroundDrawable)
         }
 
         val disableDrawable = createStateDrawable(disableColor, -999, disableStrokeColor)
