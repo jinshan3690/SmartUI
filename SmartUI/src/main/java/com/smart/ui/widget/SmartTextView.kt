@@ -5,9 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -150,7 +148,7 @@ class SmartTextView @JvmOverloads constructor(
         onMeasureLines()
     }
 
-    private fun onMeasureLines(){
+    private fun onMeasureLines() {
         //首先进行高度调整
         if (compat && firstCalc) {
             val text = text.toString()
@@ -267,9 +265,9 @@ class SmartTextView @JvmOverloads constructor(
     override fun setText(text: CharSequence?, type: BufferType?) {
         if (compat) {
             firstCalc = true
-            onMeasureLines()
         }
         super.setText(text, type)
+        requestLayout()
     }
 
     override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
