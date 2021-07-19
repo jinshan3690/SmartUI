@@ -147,6 +147,10 @@ class SmartTextView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        onMeasureLines()
+    }
+
+    private fun onMeasureLines(){
         //首先进行高度调整
         if (compat && firstCalc) {
             val text = text.toString()
@@ -263,6 +267,7 @@ class SmartTextView @JvmOverloads constructor(
     override fun setText(text: CharSequence?, type: BufferType?) {
         if (compat) {
             firstCalc = true
+            onMeasureLines()
         }
         super.setText(text, type)
     }
