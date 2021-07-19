@@ -352,7 +352,7 @@ class SmartEditText @JvmOverloads constructor(
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_ENTER && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
+        if ((keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
             editText?.requestFocus()
         }
         return super.onKeyDown(keyCode, event)
