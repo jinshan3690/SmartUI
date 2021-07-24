@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.apply {
             name = "点击右侧ico清空"
             hint = "这是一个多功能EditText11111"
+            text = "多行"
             this.adapter = adapter
         }
         viewDataBinding?.set?.suffixIcon?.setOnClickListener {

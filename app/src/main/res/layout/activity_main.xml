@@ -11,6 +11,9 @@
             name="hint"
             type="String" />
         <variable
+            name="text"
+            type="String" />
+        <variable
             name="hint1"
             type="Boolean" />
         <variable
@@ -832,7 +835,7 @@
                 app:sl_hint="@{hint}"
                 app:sl_hintColor="#9575CD"
                 app:sl_inputType="textMultiLine"
-                app:sl_text="多行"
+                app:sl_text="@{text}"
                 app:sl_textSize="16sp"
                 app:sl_textColor="#039BE5"
                 app:sl_textStyle="bold"
