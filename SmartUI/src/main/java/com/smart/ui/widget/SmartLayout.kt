@@ -76,61 +76,61 @@ class SmartLayout @JvmOverloads constructor(
         selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, focusedColor: Int? = null,
         focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
-        orientation: GradientDrawable.Orientation? = null
+        orientation: GradientDrawable.Orientation? = null, isRes: Boolean = true
     ) {
         helper.setBackground(
             color, endColor, disableColor, strokeColor, disableStrokeColor,
             selectedColor, selectedEndColor, selectedStrokeColor, focusedColor, focusedEndColor,
-            focusedStrokeColor, rippleColor, maskDrawable, stroke, shape, orientation
+            focusedStrokeColor, rippleColor, maskDrawable, stroke, shape, orientation, isRes
         )
     }
 
-    fun setColor(color: Int? = null) {
-        helper.setColor(color)
+    fun setColor(color: Int? = null, isRes: Boolean = true) {
+        helper.setColor(color, isRes)
     }
 
-    fun setEndColor(endColor: Int? = null) {
-        helper.setEndColor(endColor)
+    fun setEndColor(endColor: Int? = null, isRes: Boolean = true) {
+        helper.setEndColor(endColor, isRes)
     }
 
-    fun setDisableColor(disableColor: Int? = null) {
-        helper.setDisableColor(disableColor)
+    fun setDisableColor(disableColor: Int? = null, isRes: Boolean = true) {
+        helper.setDisableColor(disableColor, isRes)
     }
 
-    fun setStrokeColor(strokeColor: Int? = null) {
-        helper.setStrokeColor(strokeColor)
+    fun setStrokeColor(strokeColor: Int? = null, isRes: Boolean = true) {
+        helper.setStrokeColor(strokeColor, isRes)
     }
 
-    fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
-        helper.setDisableStrokeColor(disableStrokeColor)
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null, isRes: Boolean = true) {
+        helper.setDisableStrokeColor(disableStrokeColor, isRes)
     }
 
-    fun setSelectedColor(selectedColor: Int? = null) {
-        helper.setSelectedColor(selectedColor)
+    fun setSelectedColor(selectedColor: Int? = null, isRes: Boolean = true) {
+        helper.setSelectedColor(selectedColor, isRes)
     }
 
-    fun setSelectedEndColor(selectedEndColor: Int? = null) {
-        helper.setSelectedEndColor(selectedEndColor)
+    fun setSelectedEndColor(selectedEndColor: Int? = null, isRes: Boolean = true) {
+        helper.setSelectedEndColor(selectedEndColor, isRes)
     }
 
-    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
-        helper.setSelectedStrokeColor(selectedStrokeColor)
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null, isRes: Boolean = true) {
+        helper.setSelectedStrokeColor(selectedStrokeColor, isRes)
     }
 
-    fun setFocusedColor(focusedColor: Int? = null) {
-        helper.setFocusedColor(focusedColor)
+    fun setFocusedColor(focusedColor: Int? = null, isRes: Boolean = true) {
+        helper.setFocusedColor(focusedColor, isRes)
     }
 
-    fun setFocusedEndColor(focusedEndColor: Int? = null) {
-        helper.setFocusedEndColor(focusedEndColor)
+    fun setFocusedEndColor(focusedEndColor: Int? = null, isRes: Boolean = true) {
+        helper.setFocusedEndColor(focusedEndColor, isRes)
     }
 
-    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null) {
-        helper.setFocusedStrokeColor(focusedStrokeColor)
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null, isRes: Boolean = true) {
+        helper.setFocusedStrokeColor(focusedStrokeColor, isRes)
     }
 
-    fun setRippleColor(rippleColor: Int? = null) {
-        helper.setRippleColor(rippleColor)
+    fun setRippleColor(rippleColor: Int? = null, isRes: Boolean = true) {
+        helper.setRippleColor(rippleColor, isRes)
     }
 
     fun setMaskDrawable(maskDrawable: Drawable? = null) {

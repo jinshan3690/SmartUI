@@ -293,7 +293,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 intArrayOf(-android.R.attr.state_focused, android.R.attr.state_enabled),
                 backgroundDrawable
             )
-        }else{
+        } else {
             stateListDrawable.addState(intArrayOf(android.R.attr.state_enabled), backgroundDrawable)
         }
 
@@ -572,78 +572,104 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setBackground(
         color: Int? = null, endColor: Int? = null, disableColor: Int? = null,
         strokeColor: Int? = null, disableStrokeColor: Int? = null, selectedColor: Int? = null,
-        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null,focusedColor: Int? = null,
+        selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, focusedColor: Int? = null,
         focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
-        orientation: GradientDrawable.Orientation? = null
+        orientation: GradientDrawable.Orientation? = null, isRes: Boolean = true
     ) {
         if (color != null) {
-            context?.let { this.color = ContextCompat.getColor(it, color) }
+            if (isRes)
+                context?.let { this.color = ContextCompat.getColor(it, color) }
+            else
+                this.color = color
         } else {
             this.color = Color.TRANSPARENT
         }
         if (endColor != null) {
-            context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
+            if (isRes)
+                context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
+            else
+                this.endColor = endColor
         } else {
             this.endColor = -999
         }
         if (disableColor != null) {
-            context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
+            if (isRes)
+                context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
+            else
+                this.disableColor = disableColor
         } else {
             this.disableColor = -999
         }
         if (strokeColor != null) {
-            context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
+            if (isRes)
+                context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
+            else
+                this.strokeColor = strokeColor
         } else {
             this.strokeColor = Color.parseColor("#DEDEDE")
         }
         if (disableStrokeColor != null) {
-            context?.let {
-                this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
-            }
+            if (isRes)
+                context?.let { this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor) }
+            else
+                this.disableStrokeColor = disableStrokeColor
         } else {
             this.disableStrokeColor = -999
         }
         if (selectedColor != null) {
-            context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
+            if (isRes)
+                context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
+            else
+                this.selectedColor = selectedColor
         } else {
             this.selectedColor = -999
         }
         if (selectedEndColor != null) {
-            context?.let {
-                this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
-            }
+            if (isRes)
+                context?.let { this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor) }
+            else
+                this.selectedEndColor = selectedEndColor
         } else {
             this.selectedEndColor = -999
         }
         if (selectedStrokeColor != null) {
-            context?.let {
-                this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
-            }
+            if (isRes)
+                context?.let { this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor) }
+            else
+                this.selectedStrokeColor = selectedStrokeColor
         } else {
             this.selectedStrokeColor = -999
         }
         if (focusedColor != null) {
-            context?.let { this.focusedColor = ContextCompat.getColor(it, focusedColor) }
+            if (isRes)
+                context?.let { this.focusedColor = ContextCompat.getColor(it, focusedColor) }
+            else
+                this.focusedColor = focusedColor
         } else {
             this.focusedColor = -999
         }
         if (focusedEndColor != null) {
-            context?.let {
-                this.focusedEndColor = ContextCompat.getColor(it, focusedEndColor)
-            }
+            if (isRes)
+                context?.let { this.focusedEndColor = ContextCompat.getColor(it, focusedEndColor) }
+            else
+                this.focusedEndColor = focusedEndColor
         } else {
             this.focusedEndColor = -999
         }
         if (focusedStrokeColor != null) {
-            context?.let {
-                this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor)
-            }
+            if (isRes)
+                context?.let { this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor) }
+            else
+                this.focusedStrokeColor = focusedStrokeColor
         } else {
             this.focusedStrokeColor = -999
         }
         if (rippleColor != null) {
-            context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
+            if (isRes)
+                context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
+            else
+                this.rippleColor = rippleColor
         } else {
             this.rippleColor = Color.BLACK
         }
@@ -663,9 +689,12 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setColor(color: Int? = null) {
+    fun setColor(color: Int? = null, isRes: Boolean = true) {
         if (color != null) {
-            this.color = color
+            if (isRes)
+                context?.let { this.color = ContextCompat.getColor(it, color) }
+            else
+                this.color = color
         } else {
             this.color = Color.TRANSPARENT
         }
@@ -673,99 +702,132 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setEndColor(endColor: Int? = null) {
+    fun setEndColor(endColor: Int? = null, isRes: Boolean = true) {
         if (endColor != null) {
-            this.endColor = endColor
+            if (isRes)
+                context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
+            else
+                this.endColor = endColor
         } else {
             this.endColor = -999
         }
         this.initBackground()
     }
 
-    fun setDisableColor(disableColor: Int? = null) {
+    fun setDisableColor(disableColor: Int? = null, isRes: Boolean = true) {
         if (disableColor != null) {
-            this.disableColor = disableColor
+            if (isRes)
+                context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
+            else
+                this.disableColor = disableColor
         } else {
             this.disableColor = -999
         }
         this.initBackground()
     }
 
-    fun setStrokeColor(strokeColor: Int? = null) {
+    fun setStrokeColor(strokeColor: Int? = null, isRes: Boolean = true) {
         if (strokeColor != null) {
-            this.strokeColor = strokeColor
+            if (isRes)
+                context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
+            else
+                this.strokeColor = strokeColor
         } else {
             this.strokeColor = Color.parseColor("#DEDEDE")
         }
         this.initBackground()
     }
 
-    fun setDisableStrokeColor(disableStrokeColor: Int? = null) {
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null, isRes: Boolean = true) {
         if (disableStrokeColor != null) {
-            this.disableStrokeColor = disableStrokeColor
+            if (isRes)
+                context?.let { this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor) }
+            else
+                this.disableStrokeColor = disableStrokeColor
         } else {
             this.disableStrokeColor = -999
         }
         this.initBackground()
     }
 
-    fun setSelectedColor(selectedColor: Int? = null) {
+    fun setSelectedColor(selectedColor: Int? = null, isRes: Boolean = true) {
         if (selectedColor != null) {
-            this.selectedColor = selectedColor
+            if (isRes)
+                context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
+            else
+                this.selectedColor = selectedColor
         } else {
             this.selectedColor = -999
         }
         this.initBackground()
     }
 
-    fun setSelectedEndColor(selectedEndColor: Int? = null) {
+    fun setSelectedEndColor(selectedEndColor: Int? = null, isRes: Boolean = true) {
         if (selectedEndColor != null) {
-            this.selectedEndColor = selectedEndColor
+            if (isRes)
+                context?.let { this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor) }
+            else
+                this.selectedEndColor = selectedEndColor
         } else {
             this.selectedEndColor = -999
         }
         this.initBackground()
     }
 
-    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null) {
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null, isRes: Boolean = true) {
         if (selectedStrokeColor != null) {
-            this.selectedStrokeColor = selectedStrokeColor
+            if (isRes)
+                context?.let { this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor) }
+            else
+                this.selectedStrokeColor = selectedStrokeColor
         } else {
             this.selectedStrokeColor = -999
         }
         this.initBackground()
     }
 
-    fun setFocusedColor(focusedColor: Int? = null) {
+    fun setFocusedColor(focusedColor: Int? = null, isRes: Boolean = true) {
         if (focusedColor != null) {
-            this.focusedColor = focusedColor
+            if (isRes)
+                context?.let { this.focusedColor = ContextCompat.getColor(it, focusedColor) }
+            else
+                this.focusedColor = focusedColor
         } else {
             this.focusedColor = -999
         }
         this.initBackground()
     }
 
-    fun setFocusedEndColor(focusedEndColor: Int? = null) {
+    fun setFocusedEndColor(focusedEndColor: Int? = null, isRes: Boolean = true) {
         if (focusedEndColor != null) {
-            this.focusedEndColor = focusedEndColor
+            if (isRes)
+                context?.let { this.focusedEndColor = ContextCompat.getColor(it, focusedEndColor) }
+            else
+                this.focusedEndColor = focusedEndColor
         } else {
             this.focusedEndColor = -999
         }
         this.initBackground()
     }
 
-    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null) {
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null, isRes: Boolean = true) {
         if (focusedStrokeColor != null) {
-            this.focusedStrokeColor = focusedStrokeColor
+            if (isRes)
+                context?.let { this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor) }
+            else
+                this.focusedStrokeColor = focusedStrokeColor
         } else {
             this.focusedStrokeColor = -999
         }
         this.initBackground()
     }
 
-    fun setRippleColor(rippleColor: Int? = null) {
+    fun setRippleColor(rippleColor: Int? = null, isRes: Boolean = true) {
         if (rippleColor != null) {
-            this.rippleColor = rippleColor
+            if (isRes)
+                context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
+            else
+                this.rippleColor = rippleColor
         } else {
             this.rippleColor = Color.BLACK
         }
