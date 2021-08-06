@@ -575,7 +575,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         selectedEndColor: Int? = null, selectedStrokeColor: Int? = null, focusedColor: Int? = null,
         focusedEndColor: Int? = null, focusedStrokeColor: Int? = null, rippleColor: Int? = null,
         maskDrawable: Drawable? = null, stroke: Int? = null, shape: Int? = null,
-        orientation: GradientDrawable.Orientation? = null, isRes: Boolean = true
+        orientation: GradientDrawable.Orientation? = null, isRes: Boolean = false
     ) {
         if (color != null) {
             if (isRes)
@@ -689,7 +689,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setColor(color: Int? = null, isRes: Boolean = true) {
+    fun setColor(color: Int? = null, isRes: Boolean = false) {
         if (color != null) {
             if (isRes)
                 context?.let { this.color = ContextCompat.getColor(it, color) }
@@ -702,7 +702,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setEndColor(endColor: Int? = null, isRes: Boolean = true) {
+    fun setEndColor(endColor: Int? = null, isRes: Boolean = false) {
         if (endColor != null) {
             if (isRes)
                 context?.let { this.endColor = ContextCompat.getColor(it, endColor) }
@@ -714,7 +714,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setDisableColor(disableColor: Int? = null, isRes: Boolean = true) {
+    fun setDisableColor(disableColor: Int? = null, isRes: Boolean = false) {
         if (disableColor != null) {
             if (isRes)
                 context?.let { this.disableColor = ContextCompat.getColor(it, disableColor) }
@@ -726,7 +726,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setStrokeColor(strokeColor: Int? = null, isRes: Boolean = true) {
+    fun setStrokeColor(strokeColor: Int? = null, isRes: Boolean = false) {
         if (strokeColor != null) {
             if (isRes)
                 context?.let { this.strokeColor = ContextCompat.getColor(it, strokeColor) }
@@ -738,7 +738,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setDisableStrokeColor(disableStrokeColor: Int? = null, isRes: Boolean = true) {
+    fun setDisableStrokeColor(disableStrokeColor: Int? = null, isRes: Boolean = false) {
         if (disableStrokeColor != null) {
             if (isRes)
                 context?.let { this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor) }
@@ -750,7 +750,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setSelectedColor(selectedColor: Int? = null, isRes: Boolean = true) {
+    fun setSelectedColor(selectedColor: Int? = null, isRes: Boolean = false) {
         if (selectedColor != null) {
             if (isRes)
                 context?.let { this.selectedColor = ContextCompat.getColor(it, selectedColor) }
@@ -762,7 +762,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setSelectedEndColor(selectedEndColor: Int? = null, isRes: Boolean = true) {
+    fun setSelectedEndColor(selectedEndColor: Int? = null, isRes: Boolean = false) {
         if (selectedEndColor != null) {
             if (isRes)
                 context?.let { this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor) }
@@ -774,7 +774,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null, isRes: Boolean = true) {
+    fun setSelectedStrokeColor(selectedStrokeColor: Int? = null, isRes: Boolean = false) {
         if (selectedStrokeColor != null) {
             if (isRes)
                 context?.let { this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor) }
@@ -786,7 +786,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setFocusedColor(focusedColor: Int? = null, isRes: Boolean = true) {
+    fun setFocusedColor(focusedColor: Int? = null, isRes: Boolean = false) {
         if (focusedColor != null) {
             if (isRes)
                 context?.let { this.focusedColor = ContextCompat.getColor(it, focusedColor) }
@@ -798,7 +798,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setFocusedEndColor(focusedEndColor: Int? = null, isRes: Boolean = true) {
+    fun setFocusedEndColor(focusedEndColor: Int? = null, isRes: Boolean = false) {
         if (focusedEndColor != null) {
             if (isRes)
                 context?.let { this.focusedEndColor = ContextCompat.getColor(it, focusedEndColor) }
@@ -810,7 +810,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null, isRes: Boolean = true) {
+    fun setFocusedStrokeColor(focusedStrokeColor: Int? = null, isRes: Boolean = false) {
         if (focusedStrokeColor != null) {
             if (isRes)
                 context?.let { this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor) }
@@ -822,7 +822,7 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         this.initBackground()
     }
 
-    fun setRippleColor(rippleColor: Int? = null, isRes: Boolean = true) {
+    fun setRippleColor(rippleColor: Int? = null, isRes: Boolean = false) {
         if (rippleColor != null) {
             if (isRes)
                 context?.let { this.rippleColor = ContextCompat.getColor(it, rippleColor) }
