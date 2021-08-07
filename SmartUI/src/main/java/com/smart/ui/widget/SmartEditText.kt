@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.smart.ui.R
@@ -187,6 +188,11 @@ class SmartEditText @JvmOverloads constructor(
             isSelected = hasFocus
             if (hasFocus)
                 editText?.setSelection(editText?.length() ?: 0)
+            else{
+                val mInputMethodManager =
+                    context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+                mInputMethodManager.hideSoftInputFromWindow(editText?.windowToken, 0)
+            }
         }
         editText?.post { editText?.setSelection(editText?.length() ?: 0) }
         addView(editText)
@@ -354,6 +360,9 @@ class SmartEditText @JvmOverloads constructor(
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if ((keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) && editText?.isFocusable == true && editText?.isFocusableInTouchMode == true) {
             editText?.requestFocus()
+            val inputMethodManager =
+                context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
         }
         return super.onKeyDown(keyCode, event)
     }

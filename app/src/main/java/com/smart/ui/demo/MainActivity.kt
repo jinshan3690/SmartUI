@@ -2,7 +2,9 @@ package com.smart.ui.demo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
 import android.widget.Toast
@@ -55,6 +57,16 @@ class MainActivity : AppCompatActivity() {
         viewDataBinding?.st26?.setOnClickListener {
             viewDataBinding?.st26?.setText(viewDataBinding?.st26?.text.toString() + "1")
         }
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (MotionEvent.ACTION_DOWN == event.action && null != currentFocus) {
+            val mInputMethodManager =
+                getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+            return mInputMethodManager.hideSoftInputFromWindow(window.decorView.findFocus()?.windowToken?:window.currentFocus?.windowToken, 0)
+        }
+        return false
+        return super.dispatchTouchEvent(event)
     }
 
     fun onClick(view: View) {
