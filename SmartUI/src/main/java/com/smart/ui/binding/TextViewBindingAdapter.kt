@@ -115,9 +115,9 @@ object TextViewBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["sl_editEnabled"], requireAll = false)
+    @BindingAdapter(value = ["sl_editable"], requireAll = false)
     fun setEditEnabled(view: SmartEditText, editEnabled: Boolean?) {
-        view.setEditEnabled(editEnabled ?: true)
+        view.setEditable(editEnabled ?: true)
     }
 
     @JvmStatic

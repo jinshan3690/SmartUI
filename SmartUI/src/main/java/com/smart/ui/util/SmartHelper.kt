@@ -492,17 +492,30 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
                 typedArray.getString(R.styleable.SmartTextView_sl_textSelectedEndStep)
 
             val style = typedArray.getInteger(R.styleable.SmartTextView_sl_textStyle, 0)
-            if (style == 0) {
-                textView.typeface = Typeface.DEFAULT
-                textView.paint.isFakeBoldText = false
-            } else if (style == 1) {
-                textView.typeface = Typeface.DEFAULT
-                textView.paint.isFakeBoldText = true
-            }
+            setTextWeight(textView, style)
 
             typedArray.recycle()
 
             initTextColor(textView)
+        }
+    }
+
+    /**
+     * weight 0 normal 1 middle 2 bold
+     */
+    fun setTextWeight(textView: TextView, weight: Int = 0) {
+        when (weight) {
+            0 -> {
+                textView.typeface = Typeface.DEFAULT
+                textView.paint?.isFakeBoldText = false
+            }
+            1 -> {
+                textView.typeface = Typeface.DEFAULT
+                textView.paint?.isFakeBoldText = true
+            }
+            2 -> {
+                textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            }
         }
     }
 
@@ -611,7 +624,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
         if (disableStrokeColor != null) {
             if (isRes)
-                context?.let { this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor) }
+                context?.let {
+                    this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
+                }
             else
                 this.disableStrokeColor = disableStrokeColor
         } else {
@@ -627,7 +642,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
         if (selectedEndColor != null) {
             if (isRes)
-                context?.let { this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor) }
+                context?.let {
+                    this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
+                }
             else
                 this.selectedEndColor = selectedEndColor
         } else {
@@ -635,7 +652,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
         if (selectedStrokeColor != null) {
             if (isRes)
-                context?.let { this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor) }
+                context?.let {
+                    this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
+                }
             else
                 this.selectedStrokeColor = selectedStrokeColor
         } else {
@@ -659,7 +678,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
         }
         if (focusedStrokeColor != null) {
             if (isRes)
-                context?.let { this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor) }
+                context?.let {
+                    this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor)
+                }
             else
                 this.focusedStrokeColor = focusedStrokeColor
         } else {
@@ -741,7 +762,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setDisableStrokeColor(disableStrokeColor: Int? = null, isRes: Boolean = false) {
         if (disableStrokeColor != null) {
             if (isRes)
-                context?.let { this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor) }
+                context?.let {
+                    this.disableStrokeColor = ContextCompat.getColor(it, disableStrokeColor)
+                }
             else
                 this.disableStrokeColor = disableStrokeColor
         } else {
@@ -765,7 +788,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setSelectedEndColor(selectedEndColor: Int? = null, isRes: Boolean = false) {
         if (selectedEndColor != null) {
             if (isRes)
-                context?.let { this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor) }
+                context?.let {
+                    this.selectedEndColor = ContextCompat.getColor(it, selectedEndColor)
+                }
             else
                 this.selectedEndColor = selectedEndColor
         } else {
@@ -777,7 +802,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setSelectedStrokeColor(selectedStrokeColor: Int? = null, isRes: Boolean = false) {
         if (selectedStrokeColor != null) {
             if (isRes)
-                context?.let { this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor) }
+                context?.let {
+                    this.selectedStrokeColor = ContextCompat.getColor(it, selectedStrokeColor)
+                }
             else
                 this.selectedStrokeColor = selectedStrokeColor
         } else {
@@ -813,7 +840,9 @@ class SmartHelper(var context: Context?, var attrs: AttributeSet?, var view: Vie
     fun setFocusedStrokeColor(focusedStrokeColor: Int? = null, isRes: Boolean = false) {
         if (focusedStrokeColor != null) {
             if (isRes)
-                context?.let { this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor) }
+                context?.let {
+                    this.focusedStrokeColor = ContextCompat.getColor(it, focusedStrokeColor)
+                }
             else
                 this.focusedStrokeColor = focusedStrokeColor
         } else {

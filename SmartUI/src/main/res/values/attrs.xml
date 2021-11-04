@@ -58,7 +58,8 @@
     </attr>
     <attr name="sl_textStyle" format="enum">
         <enum name="none" value="0" />
-        <enum name="bold" value="1" />
+        <enum name="middle" value="1" />
+        <enum name="bold" value="2" />
     </attr>
 
     <attr name="sl_textEndColors" format="reference|string" />
@@ -105,7 +106,7 @@
     <attr name="sl_textSize" format="reference|dimension" />
     <attr name="sl_hint" format="reference|string" />
     <attr name="sl_hintColor" format="reference|color" />
-    <attr name="sl_editEnabled" format="reference|boolean" />
+    <attr name="sl_editable" format="reference|boolean" />
     <attr name="sl_textPaddingLeft" format="reference|dimension" />
     <attr name="sl_textPaddingTop" format="reference|dimension" />
     <attr name="sl_textPaddingRight" format="reference|dimension" />
@@ -369,7 +370,7 @@
         <attr name="sl_textColor" />
         <attr name="sl_textSize" />
         <attr name="sl_length" />
-        <attr name="sl_editEnabled" />
+        <attr name="sl_editable" />
         <attr name="sl_hint" />
         <attr name="sl_hintColor" />
         <attr name="sl_inputType" />

@@ -3,9 +3,9 @@ package com.smart.ui.widget
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.text.*
@@ -23,12 +23,14 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import com.smart.ui.R
 import com.smart.ui.util.SmartHelper
 
 class SmartEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), OnFocusChangeListener, TextWatcher,
+) : LinearLayout(context, attrs, defStyleAttr), OnFocusChangeListener,
     OnEditorActionListener {
 
     val helper = SmartHelper(context, attrs, this)
@@ -37,9 +39,8 @@ class SmartEditText @JvmOverloads constructor(
     var prefixIcon: LinearLayout? = null
     var suffixIcon: LinearLayout? = null
     var cancelIcon: LinearLayout? = null
-    var textChangedListener: TextChangedListener? = null
     var focusChangeListener: FocusChangeListener? = null
-    var specharsListener: SpecharsListener? = null
+    var specialCharListener: SpecialCharListener? = null
     var searchListener: SearchListener? = null
     var doneListener: DoneListener? = null
     var length = -1
@@ -131,44 +132,13 @@ class SmartEditText @JvmOverloads constructor(
         textBottomPadding =
             typedArray.getDimensionPixelSize(R.styleable.SmartEditText_sl_textPaddingBottom, 0)
 
-        initView()
-
+        initView(typedArray)
         length = typedArray.getInt(R.styleable.SmartEditText_sl_length, -1)
 
-        editText?.gravity = typedArray.getInt(R.styleable.SmartEditText_sl_textGravity, 0)
-        editText?.setText(typedArray.getText(R.styleable.SmartEditText_sl_text))
-        editText?.setTextColor(
-            typedArray.getColor(
-                R.styleable.SmartEditText_sl_textColor, Color.parseColor("#333333")
-            )
-        )
-        editText?.hint = typedArray.getString(R.styleable.SmartEditText_sl_hint)
-        editText?.setHintTextColor(
-            typedArray.getColor(
-                R.styleable.SmartEditText_sl_hintColor, Color.parseColor("#666666")
-            )
-        )
-        editText?.setTextSize(
-            TypedValue.COMPLEX_UNIT_PX, typedArray.getDimension(
-                R.styleable.SmartEditText_sl_textSize, SmartHelper.sp2px(context, 14f).toFloat()
-            )
-        )
-        editText?.inputType = typedArray.getInt(R.styleable.SmartEditText_sl_inputType, 1)
-
-        val digits = typedArray.getString(R.styleable.SmartEditText_sl_digits)
-        if (!digits.isNullOrBlank()) {
-            editText?.keyListener = DigitsKeyListener.getInstance(digits)
-        }
-        setEditEnabled(typedArray.getBoolean(R.styleable.SmartEditText_sl_editEnabled, true))
-
-        editText?.imeOptions = typedArray.getInt(R.styleable.SmartEditText_sl_imeOptions, 0)
-
         typedArray.recycle()
-
-        editText?.let { helper.initTextView(it) }
     }
 
-    private fun initView() {
+    private fun initView(typedArray: TypedArray) {
         orientation = HORIZONTAL
 
         addPrefixIcon()
@@ -182,47 +152,82 @@ class SmartEditText @JvmOverloads constructor(
                 textBottomPadding
             )
         editText?.onFocusChangeListener = this
-        editText?.addTextChangedListener(this)
         editText?.setOnEditorActionListener(this)
         editText?.setOnFocusChangeListener { v, hasFocus ->
             isSelected = hasFocus
             if (hasFocus)
                 editText?.setSelection(editText?.length() ?: 0)
-            else{
+            else {
                 val mInputMethodManager =
                     context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
                 mInputMethodManager.hideSoftInputFromWindow(editText?.windowToken, 0)
             }
         }
         editText?.post { editText?.setSelection(editText?.length() ?: 0) }
+
+        editText?.gravity = typedArray.getInt(R.styleable.SmartEditText_sl_textGravity, 0)
+        editText?.setText(typedArray.getText(R.styleable.SmartEditText_sl_text))
+        editText?.setTextColor(
+            typedArray.getColor(
+                R.styleable.SmartEditText_sl_textColor, Color.parseColor("#333333")
+            )
+        )
+        editText?.hint = typedArray.getString(R.styleable.SmartEditText_sl_hint)
+        editText?.setHintTextColor(
+            typedArray.getColor(
+                R.styleable.SmartEditText_sl_hintColor, Color.parseColor("#333333")
+            )
+        )
+        editText?.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX, typedArray.getDimension(
+                R.styleable.SmartEditText_sl_textSize, SmartHelper.sp2px(context, 14f).toFloat()
+            )
+        )
+        editText?.inputType = typedArray.getInt(R.styleable.SmartEditText_sl_inputType, 1)
+
+        val digits = typedArray.getString(R.styleable.SmartEditText_sl_digits)
+        if (!digits.isNullOrBlank()) {
+            editText?.keyListener = DigitsKeyListener.getInstance(digits)
+        }
+        setEditable(typedArray.getBoolean(R.styleable.SmartEditText_sl_editable, true))
+
+        editText?.imeOptions = typedArray.getInt(R.styleable.SmartEditText_sl_imeOptions, 0)
+        editText?.let { helper.initTextView(it) }
         addView(editText)
 
         addCancelIcon()
         addSuffixIcon()
     }
 
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        if (children.count { it is PrefixLayout } > 1) {
+            throw RuntimeException("PrefixLayout Most only support ont sub view")
+        } else
+            if (children.count { it is SuffixLayout } > 1) {
+                throw RuntimeException("SuffixLayout Most only support ont sub view")
+            }
+        var prefixLayout: PrefixLayout? = null
+        var suffixLayout: SuffixLayout? = null
+        children.forEach {
+            if (it is PrefixLayout) {
+                prefixLayout = it
+                removeView(it)
+            } else if (it is SuffixLayout) {
+                suffixLayout = it
+                removeView(it)
+            }
+        }
+        if (prefixLayout != null)
+            addView(prefixLayout, 0)
+        if (suffixLayout != null)
+            addView(suffixLayout)
+    }
+
     override fun onFocusChange(v: View, hasFocus: Boolean) { // 焦点变化时
         focusChangeListener?.onFocusChange(v, hasFocus)
 
         hideCancelIcon()
-    }
-
-    override fun afterTextChanged(s: Editable?) {
-        textChangedListener?.afterTextChanged(s)
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        textChangedListener?.beforeTextChanged(s, start, count, after)
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if (length != -1 && length < s?.length ?: 0) {
-            editText?.setText(s?.subSequence(0, length))
-            editText?.setSelection(length)
-        }
-        hideCancelIcon()
-
-        textChangedListener?.onTextChanged(s, start, before, count)
     }
 
     override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
@@ -235,86 +240,6 @@ class SmartEditText @JvmOverloads constructor(
             doneListener?.done(v.text.toString())
         }
         return false
-    }
-
-    /**
-     * 过滤字符
-     */
-    fun setProhibitEmoji() {
-        val filters =
-            arrayOf(getInputFilterProhibitEmoji(), getInputFilterProhibitSP())
-        editText?.filters = filters
-    }
-
-    private fun getInputFilterProhibitEmoji(): InputFilter {
-        return InputFilter { source, start, end, dest, dstart, dend ->
-            val buffer = StringBuffer()
-            var i = start
-            while (i < end) {
-                val codePoint = source[i]
-                if (!getIsEmoji(codePoint)) {
-                    buffer.append(codePoint)
-                } else {
-                    specharsListener?.warn("Emoji")
-//                    ToastUtil.showShortToast("不支持输入表情")
-                    i++
-                    i++
-                    continue
-                }
-                i++
-            }
-            if (source is Spanned) {
-                val sp = SpannableString(buffer)
-                TextUtils.copySpansFrom(
-                    source, start, end, null,
-                    sp, 0
-                )
-                sp
-            } else {
-                buffer
-            }
-        }
-    }
-
-    private fun getIsEmoji(codePoint: Char): Boolean {
-        return !(codePoint.toInt() == 0x0 || codePoint.toInt() == 0x9 || codePoint.toInt() == 0xA
-                || codePoint.toInt() == 0xD
-                || codePoint.toInt() in 0x20..0xD7FF
-                || codePoint.toInt() in 0xE000..0xFFFD
-                || codePoint.toInt() in 0x10000..0x10FFFF)
-    }
-
-    private fun getInputFilterProhibitSP(): InputFilter {
-        return InputFilter { source, start, end, dest, dstart, dend ->
-            val buffer = StringBuffer()
-            var i = start
-            while (i < end) {
-                val codePoint = source[i]
-                if (!getIsSp(codePoint)) {
-                    buffer.append(codePoint)
-                } else {
-                    specharsListener?.warn("char")
-//                    ToastUtil.showShortToast("不能输入特殊字符")
-                    i++
-                    i++
-                    continue
-                }
-                i++
-            }
-            if (source is Spanned) {
-                val sp = SpannableString(buffer)
-                TextUtils.copySpansFrom(
-                    source, start, end, null, sp, 0
-                )
-                sp
-            } else {
-                buffer
-            }
-        }
-    }
-
-    private fun getIsSp(codePoint: Char): Boolean {
-        return Character.getType(codePoint) > Character.LETTER_NUMBER
     }
 
     /**
@@ -339,22 +264,6 @@ class SmartEditText @JvmOverloads constructor(
         } else {
             super.dispatchDraw(canvas)
         }
-    }
-
-    fun setTypeface(tf: Typeface?) {
-        if (tf == Typeface.DEFAULT_BOLD) {
-            editText?.paint?.isFakeBoldText = true
-        } else {
-            editText?.setTypeface(tf)
-        }
-    }
-
-    fun <T> setAdapter(adapter: T) where T : ListAdapter, T : Filterable {
-        editText?.setAdapter<T>(adapter)
-    }
-
-    fun showDropDown() {
-        editText?.showDropDown()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -397,20 +306,50 @@ class SmartEditText @JvmOverloads constructor(
         }
     }
 
+    fun hideCancelIcon() {
+        if (getText()?.length ?: 0 > 0 && editText?.isEnabled == true && editText?.isFocused == true) {
+            cancelIcon?.visibility = View.VISIBLE
+        } else {
+            cancelIcon?.visibility = View.GONE
+        }
+    }
+
+    fun setText(text: CharSequence?) {
+//        TextViewBindingAdapter.setText(this, text?.toString(),editText?.hint?.toString())
+        editText?.setText(text)
+        editText?.setSelection(text?.length ?: 0)
+    }
+
+    fun getText(): String? {
+        return editText?.text?.toString()
+    }
+
+    fun setTextWeight(weight: Int = 0) {
+        editText?.let { helper.setTextWeight(it, weight) }
+    }
+
+    fun <T> setAdapter(adapter: T) where T : ListAdapter, T : Filterable {
+        editText?.setAdapter<T>(adapter)
+    }
+
+    fun showDropDown() {
+        editText?.showDropDown()
+    }
+
     override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
         editText?.let { helper.changeTextColor(it, isSelected) }
     }
 
     override fun setEnabled(enabled: Boolean) {
-        setEditEnabled(enabled)
+        setEditable(enabled)
         suffixIcon?.isEnabled = enabled
         prefixIcon?.isEnabled = enabled
         super.setEnabled(enabled)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    fun setEditEnabled(enabled: Boolean) {
+    fun setEditable(enabled: Boolean) {
         editText?.isFocusable = enabled
         editText?.isFocusableInTouchMode = enabled
         if (enabled) {
@@ -439,6 +378,107 @@ class SmartEditText @JvmOverloads constructor(
         }
     }
 
+    inline fun addTextChangedListener(
+        crossinline beforeTextChanged: (
+            text: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) -> Unit = { _, _, _, _ -> },
+        crossinline onTextChanged: (
+            text: CharSequence?,
+            start: Int,
+            before: Int,
+            count: Int
+        ) -> Unit = { _, _, _, _ -> },
+        crossinline afterTextChanged: (text: Editable?) -> Unit = {}
+    ): TextWatcher? {
+        return editText?.addTextChangedListener(beforeTextChanged, onTextChanged, afterTextChanged)
+    }
+
+    /**
+     * 过滤字符
+     */
+    fun setFilters(
+        filters: Array<InputFilter> = arrayOf(
+            getEmojiInputFilter(),
+            getSpecialInputFilter()
+        )
+    ) {
+        editText?.filters = filters
+    }
+
+    fun getEmojiInputFilter(): InputFilter {
+        return InputFilter { source, start, end, dest, dstart, dend ->
+            val buffer = StringBuffer()
+            var i = start
+            while (i < end) {
+                val codePoint = source[i]
+                if (!getIsEmoji(codePoint)) {
+                    buffer.append(codePoint)
+                } else {
+                    specialCharListener?.warn("Emoji")
+//                    ToastUtil.showShortToast("不支持输入表情")
+                    i++
+                    i++
+                    continue
+                }
+                i++
+            }
+            if (source is Spanned) {
+                val sp = SpannableString(buffer)
+                TextUtils.copySpansFrom(
+                    source, start, end, null,
+                    sp, 0
+                )
+                sp
+            } else {
+                buffer
+            }
+        }
+    }
+
+    private fun getIsEmoji(codePoint: Char): Boolean {
+        return !(codePoint.toInt() == 0x0 || codePoint.toInt() == 0x9 || codePoint.toInt() == 0xA
+                || codePoint.toInt() == 0xD
+                || codePoint.toInt() in 0x20..0xD7FF
+                || codePoint.toInt() in 0xE000..0xFFFD
+                || codePoint.toInt() in 0x10000..0x10FFFF)
+    }
+
+    private fun getSpecialInputFilter(): InputFilter {
+        return InputFilter { source, start, end, dest, dstart, dend ->
+            val buffer = StringBuffer()
+            var i = start
+            while (i < end) {
+                val codePoint = source[i]
+                if (!getIsSpecial(codePoint)) {
+                    buffer.append(codePoint)
+                } else {
+                    specialCharListener?.warn("char")
+//                    ToastUtil.showShortToast("不能输入特殊字符")
+                    i++
+                    i++
+                    continue
+                }
+                i++
+            }
+            if (source is Spanned) {
+                val sp = SpannableString(buffer)
+                TextUtils.copySpansFrom(
+                    source, start, end, null, sp, 0
+                )
+                sp
+            } else {
+                buffer
+            }
+        }
+    }
+
+    private fun getIsSpecial(codePoint: Char): Boolean {
+        return Character.getType(codePoint) > Character.LETTER_NUMBER
+    }
+
     fun createIcon(
         @IdRes id: Int?, drawable: Drawable?, width: Int, height: Int,
         paddingLeft: Int, paddingRight: Int, rotation: Float = 0f
@@ -458,24 +498,6 @@ class SmartEditText @JvmOverloads constructor(
         linearLayout.addView(icon)
 
         return linearLayout
-    }
-
-    fun hideCancelIcon() {
-        if (getText()?.length ?: 0 > 0 && editText?.isEnabled == true && editText?.isFocused == true) {
-            cancelIcon?.visibility = View.VISIBLE
-        } else {
-            cancelIcon?.visibility = View.GONE
-        }
-    }
-
-    fun setText(text: CharSequence?) {
-//        TextViewBindingAdapter.setText(this, text?.toString(),editText?.hint?.toString())
-        editText?.setText(text)
-        editText?.setSelection(text?.length ?: 0)
-    }
-
-    fun getText(): String? {
-        return editText?.text?.toString()
     }
 
     private fun addPrefixIcon() {
@@ -616,7 +638,7 @@ class SmartEditText @JvmOverloads constructor(
         fun done(text: String?)
     }
 
-    interface SpecharsListener {
+    interface SpecialCharListener {
         fun warn(type: String)
     }
 
@@ -624,24 +646,15 @@ class SmartEditText @JvmOverloads constructor(
         fun onFocusChange(v: View, hasFocus: Boolean)
     }
 
-    abstract class TextChangedListener {
-
-        open fun beforeTextChanged(
-            s: CharSequence?, start: Int, count: Int, after: Int
-        ) {
-        }
-
-        open fun onTextChanged(
-            s: CharSequence?, start: Int, before: Int, count: Int
-        ) {
-        }
-
-        open fun afterTextChanged(s: Editable?) {}
-
-    }
+    /**
+     * dataBinding方法
+     */
 
     fun setTextColor(
-        textColor: Int? = null, textSelectedColor: Int? = null, textDisableColor: Int? = null, isRes: Boolean = true
+        textColor: Int? = null,
+        textSelectedColor: Int? = null,
+        textDisableColor: Int? = null,
+        isRes: Boolean = true
     ) {
         if (textColor != null) {
             if (isRes)
@@ -662,6 +675,13 @@ class SmartEditText @JvmOverloads constructor(
                 helper.textDisableColor = textDisableColor
         }
         editText?.let { helper.initTextView(it) }
+        editText?.doOnTextChanged { text, start, before, count ->
+            if (length != -1 && length < text?.length ?: 0) {
+                editText?.setText(text?.subSequence(0, length))
+                editText?.setSelection(length)
+            }
+            hideCancelIcon()
+        }
     }
 
     fun setTextGradient(

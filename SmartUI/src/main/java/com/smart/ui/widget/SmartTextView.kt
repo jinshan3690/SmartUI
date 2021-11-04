@@ -280,12 +280,8 @@ class SmartTextView @JvmOverloads constructor(
         super.setPadding(left, top, right, bottom)
     }
 
-    override fun setTypeface(tf: Typeface?) {
-        if (tf == Typeface.DEFAULT_BOLD) {
-            paint.isFakeBoldText = true
-        } else {
-            super.setTypeface(tf)
-        }
+    fun setTextWeight(weight: Int = 0) {
+        helper.setTextWeight(this, weight)
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

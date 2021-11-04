@@ -59,15 +59,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
-        if (MotionEvent.ACTION_DOWN == event.action && null != currentFocus) {
-            val mInputMethodManager =
-                getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-            return mInputMethodManager.hideSoftInputFromWindow(window.decorView.findFocus()?.windowToken?:window.currentFocus?.windowToken, 0)
-        }
-        return false
-        return super.dispatchTouchEvent(event)
-    }
+//    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+//        if (MotionEvent.ACTION_DOWN == event.action && null != currentFocus) {
+//            val mInputMethodManager =
+//                getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+//            return mInputMethodManager.hideSoftInputFromWindow(window.decorView.findFocus()?.windowToken?:window.currentFocus?.windowToken, 0)
+//        }
+//        return false
+//        return super.dispatchTouchEvent(event)
+//    }
 
     fun onClick(view: View) {
         when (view.id) {
